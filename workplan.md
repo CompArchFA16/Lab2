@@ -1,0 +1,10 @@
+- Get `posedge` and `negativeedge` signals correctly generated (as per 1st deliverable)
+- Create a shift register and complete that deliverable
+- Successfully load the shift register to the ZYBO board
+- [10/20] Complete FPGA deliverables
+  - Design a test plan
+  - Video recording of tests
+- Construct an SPI memory unit
+- Construct an FSM from our built components
+- Build a test strategy to test our SPI memory
+- Combine and finalize our final report
