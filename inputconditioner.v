@@ -35,7 +35,7 @@ output reg  negativeedge    // 1 clk pulse at falling edge of conditioned
             end
             else
                 counter <= counter+1; //wait for debouncing
-                positiveedge <= 0; //not sure if this should be nonblocking
+                positiveedge <= 0; //not sure if this should be nonblockingit
                 negativeedge <= 0;
         end
         synchronizer0 <= noisysignal;
