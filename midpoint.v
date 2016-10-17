@@ -1,49 +1,48 @@
 `include "shiftregister.v"
 `include "inputconditioner.v"
 
+`timescale 1ns / 1ps
+
 module midpoint
+(
+    input        clk,
+    input  [1:0] sw,
+    input  [1:0] btn,
+    output [3:0] led
+);
 	
-	(
-	input b0,
-	input s0,
-	input s1,
-	input clk,
+	wire [7:0] parallelDataIn; //xA5
 
-	//input [7:0] parallelDataIn,
-
-	output [7:0] parallelDataOut, //LED
-	output SerialDataOut
-	);
+	wire [7:0] parallelDataOut; //LED
+	wire SerialDataOut;
 
     wire conditioned;
     wire rising;
     wire falling;
     wire dummy = 0;
-    reg [7:0] parallelDataIn = 8'd3;
-    
-    //reg[7:0]        parallelDataIn; //xA5?
+
 
     inputconditioner dut0(.clk(clk),
-    			 		 .noisysignal(b0),
+    			 		 .noisysignal(btn[0]),
 						 .conditioned(dummy),
 						 .positiveedge(dummy),
 						 .negativeedge(falling));
 
     inputconditioner dut1(.clk(clk),
-    			 		 .noisysignal(s0),
+    			 		 .noisysignal(sw[0]),
 						 .conditioned(conditioned),
 						 .positiveedge(dummy),
 						 .negativeedge(dummy));
 
 	inputconditioner dut2(.clk(clk),
-    			 		 .noisysignal(s1),
+    			 		 .noisysignal(sw[1]),
 						 .conditioned(dummy),
 						 .positiveedge(rising),
 						 .negativeedge(dummy));
 
     
     // Instantiate with parameter width = 8
-    shiftregister #(8) dut(.clk(clk), 
+    shiftregister #(8) sr(.clk(clk), 
     		           .peripheralClkEdge(rising),
     		           .parallelLoad(falling), 
     		           .parallelDataIn(parallelDataIn), 
@@ -51,4 +50,6 @@ module midpoint
     		           .parallelDataOut(parallelDataOut), 
     		           .serialDataOut(serialDataOut));
 
+
+   	assign led = parallelDataOut[3:0];
 endmodule
