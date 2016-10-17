@@ -32,10 +32,10 @@ module testConditioner();
 
     $display("----------------------------------------------------------------------------------");
     $display("Testing Synchronization");
-    pin =0; #100 pin = 1; #100
+    pin =0; #1000 pin = 1; #1000
     $display("Pin  CLK   | Ris Fall  Condit  |  Expected outcome");
     $display("%b  %b  | %b  %b  %b  | %b  %b  %b ", pin, clk,  rising, falling, conditioned, 0,0,0);
-    pin =0; #200
+    pin =0; #2000
     $display("%b  %b  | %b  %b  %b  | %b  %b  %b ", pin, clk,  rising, falling, conditioned, 0,0,0);
 
     $display("Testing Debouncing");

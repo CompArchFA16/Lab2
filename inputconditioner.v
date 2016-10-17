@@ -23,20 +23,21 @@ output reg  negativeedge    // 1 clk pulse at falling edge of conditioned
     reg synchronizer1 = 0;
 
     always @(posedge clk ) begin
-        if(conditioned == synchronizer1) //if conditioned is same as we thought
+        if(conditioned == synchronizer1) begin //if conditioned is same as we thought
             counter <= 0;
-
+            positiveedge <= 0; //not sure if this should be nonblockingit
+            negativeedge <= 0;
+	end
         else begin //if conditioned has changed
             if( counter == waittime) begin //when debouncing is done
                 counter <= 0; //reset counter
                 conditioned <= synchronizer1; //save conditioned in synchronizer1
-                positiveedge <= conditioned; //set negativeedge opposite
-                negativeedge <= !conditioned; //set positiveedge opposite
+                positiveedge <= synchronizer1; //set negativeedge opposite
+                negativeedge <= !synchronizer1; //set positiveedge opposite
             end
-            else
+            else begin
                 counter <= counter+1; //wait for debouncing
-                positiveedge <= 0; //not sure if this should be nonblockingit
-                negativeedge <= 0;
+	    end
         end
         synchronizer0 <= noisysignal;
         synchronizer1 <= synchronizer0;
