@@ -16,20 +16,25 @@ output reg  negativeedge    // 1 clk pulse at falling edge of conditioned
 
     parameter counterwidth = 3; // Counter size, in bits, >= log2(waittime)
     parameter waittime = 3;     // Debounce delay, in clock cycles
-    
+
     reg[counterwidth-1:0] counter = 0;
     reg synchronizer0 = 0;
     reg synchronizer1 = 0;
 
     always @(posedge clk ) begin
-        if(conditioned == synchronizer1)
+        if(conditioned == synchronizer1) begin
             counter <= 0;
+            positiveedge <= 0;
+            negativeedge <= 0;
+        end
         else begin
             if( counter == waittime) begin
                 counter <= 0;
                 conditioned <= synchronizer1;
+                positiveedge <= !conditioned & synchronizer1;
+                negativeedge <= conditioned & !synchronizer1;
             end
-            else 
+            else
                 counter <= counter+1;
         end
         synchronizer0 <= noisysignal; // current signal read at the pos edge of clock
