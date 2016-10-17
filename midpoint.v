@@ -12,33 +12,33 @@ module midpoint
 );
 	
 	wire [7:0] parallelDataIn; //xA5
-
+	assign parallelDataIn = 8'd3;
 	wire [7:0] parallelDataOut; //LED
 	wire SerialDataOut;
 
     wire conditioned;
     wire rising;
     wire falling;
-    wire dummy = 0;
+    wire dummy0, dummy1, dummy2, dummy3, dummy4, dummy5;
 
 
     inputconditioner dut0(.clk(clk),
     			 		 .noisysignal(btn[0]),
-						 .conditioned(dummy),
-						 .positiveedge(dummy),
+						 .conditioned(dummy0),
+						 .positiveedge(dummy1),
 						 .negativeedge(falling));
 
     inputconditioner dut1(.clk(clk),
     			 		 .noisysignal(sw[0]),
 						 .conditioned(conditioned),
-						 .positiveedge(dummy),
-						 .negativeedge(dummy));
+						 .positiveedge(dummy2),
+						 .negativeedge(dummy3));
 
 	inputconditioner dut2(.clk(clk),
-    			 		 .noisysignal(sw[1]),
-						 .conditioned(dummy),
+    			 		 .noisysignal(sw[1]), 
+						 .conditioned(dummy4),
 						 .positiveedge(rising),
-						 .negativeedge(dummy));
+						 .negativeedge(dummy5));
 
     
     // Instantiate with parameter width = 8
