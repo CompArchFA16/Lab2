@@ -41,7 +41,7 @@ module testConditioner();
         synchFailed = 0;
         // clock = 70'b0101010101010101010101010101010101010101010101010101010101010101010101;
         noisy    = 70'b0000000000111111111111111111110000000000000000001011111111111111111111;
-        expected = 70'bxxxxxxxx00000000001111111111111111111100000000000000000000111111111111;
+        expected = 70'bxxxxxxxx00000000000000111111111111111111110000000000000000001111111111;
 
         for (i = 0; i < 70; i=i+1) begin
             expectedWire <= expected[i];
@@ -49,8 +49,6 @@ module testConditioner();
             if (conditioned !== expected[i]) begin
                 synchFailed = 1;
             end
-            $display("Expected: %b", expected[i]);
-            $display("Conditioned: %b", conditioned);
             #10;
         end
 
