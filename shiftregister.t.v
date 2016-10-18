@@ -22,7 +22,7 @@ module testshiftregister();
     		           .serialDataOut(serialDataOut));
     
     initial begin
-    	// Your Test Code
+    	
     end
 
 endmodule

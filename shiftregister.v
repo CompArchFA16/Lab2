@@ -20,16 +20,27 @@ output              serialDataOut       // Positive edge synchronized
 
     reg [width-1:0]      shiftregistermem;
     always @(posedge clk) begin
-        
-        // Check for parallelLoad assertion
-    	if(parallelLoad == 1) begin
+        // Four behaviors: 
+
+        // 1) 
+    	// When peripheralClkEdge has an edge, the shift register advances one position
+    	if(peripheralClkEdge == 1) begin
+    		// Using concatenation syntax
+    		shiftregistermem = {{shiftregistermem[width-2:0]}, {serialDataIn}};
+    	end
+
+    	// 2)
+        // Check for parallelLoad assertion if not shifting
+    	else if(parallelLoad == 1) begin
     		shiftregistermem = parallelDataIn;
     	end
 
+    	// 3)
     	// Get most significant bit
     	serialDataOut = shiftregistermem[width - 1];
 
-    	// Entire shift register
+    	// 4)
+    	// Get entire shift register
     	parallelDataOut = shiftregistermem;
 
     end
