@@ -20,6 +20,17 @@ output              serialDataOut       // Positive edge synchronized
 
     reg [width-1:0]      shiftregistermem;
     always @(posedge clk) begin
-        // Your Code Here
+        
+        // Check for parallelLoad assertion
+    	if(parallelLoad == 1) begin
+    		shiftregistermem = parallelDataIn;
+    	end
+
+    	// Get most significant bit
+    	serialDataOut = shiftregistermem[width - 1];
+
+    	// Entire shift register
+    	parallelDataOut = shiftregistermem;
+
     end
 endmodule
