@@ -43,4 +43,7 @@ output reg  negativeedge    // 1 clk pulse at falling edge of conditioned
         synchronizer1 <= synchronizer0;
     end
 
+    //max glitch is 6 clock cycles
+    
+
 endmodule
