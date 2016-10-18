@@ -32,13 +32,8 @@ output reg  negativeedge    // 1 clk pulse at falling edge of conditioned
             if( counter == waittime) begin //when debouncing is done
                 counter <= 0; //reset counter
                 conditioned <= synchronizer1; //save conditioned in synchronizer1
-<<<<<<< HEAD
-                positiveedge <= 1;//synchronizer1; //set negativeedge opposite
-                negativeedge <= 1;//!synchronizer1; //set positiveedge opposite
-=======
                 positiveedge <= synchronizer1; //set negativeedge opposite
                 negativeedge <= !synchronizer1; //set positiveedge opposite
->>>>>>> adcbec8c1575009fa7b1070aa3c92a3ae28a451e
             end
             else begin
                 counter <= counter+1; //wait for debouncing
