@@ -20,15 +20,15 @@ output reg             serialDataOut       // Positive edge synchronized
 );
 
     reg [width-1:0] shiftregistermem;
-    wire conditioned;
-    wire positiveedge;
-    wire negativeedge;
-    inputconditioner inputc(clk, peripheralClkEdge, conditioned, positiveedge, negativeedge);
+    //wire conditioned;
+    //wire positiveedge;
+    //wire negativeedge;
+    //inputconditioner inputc(clk, peripheralClkEdge, conditioned, positiveedge, negativeedge);
 
     always @(posedge clk) begin
        
         //the shift register advances one position: serialDataIn is loaded into the LSB (Least Significant Bit), and the rest of the bits shift up by one
-        if (positiveedge) begin
+        if (peripheralClkEdge) begin
         	shiftregistermem = {{shiftregistermem[width-2:0]}, {serialDataIn}};
         end
         //When parallelLoad is asserted, the shift register will take the value of parallelDataIn.
