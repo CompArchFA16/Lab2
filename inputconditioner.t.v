@@ -1,3 +1,4 @@
+`include "inputconditioner.v"
 //------------------------------------------------------------------------
 // Input Conditioner test bench
 //------------------------------------------------------------------------
@@ -14,7 +15,7 @@ module testConditioner();
     			 .noisysignal(pin),
 			 .conditioned(conditioned),
 			 .positiveedge(rising),
-			 .negativeedge(falling))
+			 .negativeedge(falling));
 
 
     // Generate clock (50MHz)
@@ -22,8 +23,18 @@ module testConditioner();
     always #10 clk=!clk;    // 50MHz Clock
     
     initial begin
-    // Your Test Code
-    // Be sure to test each of the three conditioner functions:
-    // Synchronization, Debouncing, Edge Detection
+        $dumpfile("inputconditioner.vcd");
+        $dumpvars();
+
+
+        pin=0; #1000
+        pin=1; #1000
+        $display("%b");
+        pin=0; #1000
+        $display("%b");
+
+        $dumpflush;
+        $finish;
+    end 
     
 endmodule

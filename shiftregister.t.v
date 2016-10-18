@@ -22,7 +22,7 @@ module testshiftregister();
     		           .serialDataOut(serialDataOut));
     
     initial begin
-    	// Your Test Code
+        clk=1;peripheralClkEdge=1;
     end
 
 endmodule
