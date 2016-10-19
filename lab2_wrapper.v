@@ -37,7 +37,7 @@ endmodule
 module lab2_wrapper
 (
 	input clk,
-	input btn,
+	input  [3:0] btn,
 	input [2:0] sw,
 	output [3:0] led
 )
