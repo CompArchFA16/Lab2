@@ -12,6 +12,11 @@ module testshiftregister();
     reg[7:0]        parallelDataIn;
     reg             serialDataIn;
 
+    reg pin;
+    wire conditioned;
+    wire rising;
+    wire falling;
+
     // Instantiate with parameter width = 8
     
 
@@ -22,7 +27,7 @@ module testshiftregister();
              .negativeedge(falling));
 
     shiftregister #(8) dut1(.clk(clk), 
-           .peripheralClkEdge(rising),
+           .peripheralClkEdge(peripheralClkEdge),
            .parallelLoad(parallelLoad), 
            .parallelDataIn(parallelDataIn), 
            .serialDataIn(serialDataIn), 
@@ -36,11 +41,11 @@ module testshiftregister();
     initial begin
     	// Your Test Code
 
-        $display("CLK PCLK ParallelLoad ParalleDataIn SerialDataIn | ParallelDataOut SerialDataOut");
+        $display("CLK PCLK ParallelLoad ParallelDataIn SerialDataIn | ParallelDataOut SerialDataOut");
 
         //pin =0; #1000 pin = 1; #1000
-        //$display("Pin  CLK   | Ris Fall  Condit  |  Expected outcome");
-        //$display("%b  %b  | %b  %b  %b  | %b  %b  %b ", pin, clk,  rising, falling, conditioned, 0,0,0);
+        peripheralClkEdge = 1; parallelLoad = 1; parallelDataIn = 8'b10101010; serialDataIn=1; #1000
+        $display("%b   %b    %b             %b      %b            | %b        %b  ", clk, peripheralClkEdge, parallelLoad, parallelDataIn, serialDataIn, parallelDataOut, serialDataOut);
 
 
         #50 $finish;

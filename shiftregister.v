@@ -29,16 +29,19 @@ output reg             serialDataOut       // Positive edge synchronized
        
         //the shift register advances one position: serialDataIn is loaded into the LSB (Least Significant Bit), and the rest of the bits shift up by one
         if (peripheralClkEdge) begin
-        	shiftregistermem = {{shiftregistermem[width-2:0]}, {serialDataIn}};
+            if (parallelLoad) begin // Parallel
+                shiftregistermem <= parallelDataIn;
+            end
+            else begin // Serial
+        	   shiftregistermem <= {{shiftregistermem[width-2:0]}, {serialDataIn}};
+            end
         end
-        //When parallelLoad is asserted, the shift register will take the value of parallelDataIn.
-        else if (parallelLoad) begin
-        	shiftregistermem = parallelDataIn;
-        end
+
+
         //serialDataOut always presents the Most Significant Bit of the shift register.
-        serialDataOut = shiftregistermem[width-1];
+        serialDataOut <= shiftregistermem[width-1];
         //parallelDataOut always presents the entirety of the contents of the shift register.
-        parallelDataOut = shiftregistermem;
+        parallelDataOut <= shiftregistermem;
 
     end
 endmodule
