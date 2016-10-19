@@ -40,7 +40,7 @@ module testConditioner();
 			$display("%b %b %b %b", pin, conditioned, rising, falling);
 		end
 
-		$finish();
+		$finish(); // necessary to end simulation
 	end
 
     
