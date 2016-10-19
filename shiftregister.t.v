@@ -35,7 +35,7 @@ module testshiftregister();
 
         dutPassed = 1; 
 
-        //First Test Case
+        //First Test Case - Serial Data In, Parallel Data Out
         data = 8'b10101010; //arbitrary 
         parallelLoad = 0; //false
 
@@ -45,12 +45,32 @@ module testshiftregister();
 
         if (parallelDataOut !== data) begin
             dutPassed = 0;
-            $display("Serial in, parellel out test pass? %b", dutPassed);
+            $display("Serial in, parallel out test failed.");
         end
-       
+
+
+
+        //Second Test Case - Parallel Data In, Serial Data Out
+        data = 8'b11111111;
+        parallelLoad = 1;
+        parallelDataIn <= data;
+
+        for (i=0; i < 8; i=i+1) begin
+            if (serialDataOut !== data[i]) begin
+                dutPassed = 0;
+                $display("Parallel in, serial out failed.");
+            end
+        end 
+
+        
+
+
+        
+
         $display("Did all tests pass? %b", dutPassed);
         $finish;
     end
+
 
 endmodule
 
