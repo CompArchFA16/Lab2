@@ -1,5 +1,4 @@
 `timescale 1ns / 1ps
-`include 'inputconditioner.v'
 
 // JK flip-flop
 module jkff1
@@ -40,7 +39,7 @@ module lab2_wrapper
 	input  [3:0] btn,
 	input [2:0] sw,
 	output [3:0] led
-)
+);
 
 	wire[3:0] res0, res1; // Output display options
 	wire [7:0] pOut;
@@ -54,7 +53,7 @@ module lab2_wrapper
 
 	inputconditioner btnedge(.clk(clk), .noisysignal(btn),.negativeedge(btnNegEdge));
 	inputconditioner sw0conditioned(.clk(clk), .noisysignal(sw[0]), .conditioned(sw0Conditioned));
-	inputconditioner sw0conditioned(.clk(clk), .noisysignal(sw[1]), .positiveedge(sw1PosEdge));
+	inputconditioner swEdge(.clk(clk), .noisysignal(sw[1]), .positiveedge(sw1PosEdge));
 
 	shiftregister shiftregister(.clk(clk), .peripheralClkEdge(sw1PosEdge), 
 		.parallelLoad(btnNegEdge), .parallelDataOut(pOut), .serialDataIn(sw0conditioned));
