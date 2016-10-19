@@ -31,17 +31,11 @@ module testshiftregister();
         $dumpvars();
 
         parallelDataIn = 5'd5;
-        parallelLoad = 1;
-        peripheralClkEdge=0;#500
-        peripheralClkEdge=1;#10
+        parallelLoad = 1; #500
         parallelDataIn = 5'd5;
         parallelLoad = 0;
-        peripheralClkEdge=0;#500
-        peripheralClkEdge=1;#10
 
 
-        peripheralClkEdge=0;#500
-        peripheralClkEdge=1;#10
         serialDataIn = 1; #500
         peripheralClkEdge=0;#500
         peripheralClkEdge=1;#10
@@ -55,6 +49,8 @@ module testshiftregister();
         peripheralClkEdge=0;#500
         peripheralClkEdge=1;#10
         serialDataIn = 1; #500
+        peripheralClkEdge=0;#500
+        peripheralClkEdge=1;#10
 
         $dumpflush;
         $finish;
