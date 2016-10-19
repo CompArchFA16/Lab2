@@ -39,13 +39,23 @@ module testshiftregister();
         data = 8'b10101010; //arbitrary 
         parallelLoad = 0; //false
 
+        peripheralClkEdge = 0;
+
         for (i=0; i < 8; i=i+1) begin
-            serialDataIn <= data[i];
+            serialDataIn <= data[7-i];
+
+            #60;
+            peripheralClkEdge <= !peripheralClkEdge;
+            #20;
+            peripheralClkEdge <= !peripheralClkEdge;
+            #20;
+            // $display("serial data: %b", serialDataIn);
         end 
 
         if (parallelDataOut !== data) begin
             dutPassed = 0;
             $display("Serial in, parallel out test failed.");
+            $display("Parallel data out: %b", parallelDataOut);
         end
 
 
@@ -55,14 +65,27 @@ module testshiftregister();
         parallelLoad = 1;
         parallelDataIn <= data;
 
+        #50;
+        $display("parallelDataIn: %b", parallelDataIn);
+        $display("parallelDataOut: %b", parallelDataOut);
+
         for (i=0; i < 8; i=i+1) begin
+
             if (serialDataOut !== data[i]) begin
                 dutPassed = 0;
                 $display("Parallel in, serial out failed.");
+                $display("serial data out: %b", serialDataOut);
             end
+            
+            #60;
+            peripheralClkEdge <= !peripheralClkEdge;
+            #20;
+            peripheralClkEdge <= !peripheralClkEdge;
+            #20;
+
         end 
 
-        
+
 
 
         
