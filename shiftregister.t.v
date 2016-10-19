@@ -2,6 +2,8 @@
 // Shift Register test bench
 //------------------------------------------------------------------------
 
+`include "shiftregister.v"
+
 module testshiftregister();
 
     reg             clk;
@@ -22,7 +24,9 @@ module testshiftregister();
     		           .serialDataOut(serialDataOut));
     
     initial begin
-    	
+        $display("-------------------------");
+    	$display("SHIFT REGISTER TEST CASES");
+        $display("-------------------------");
     end
 
 endmodule
