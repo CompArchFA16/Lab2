@@ -39,13 +39,20 @@ module testshiftregister();
     always #10 clk=!clk;    // 50MHz Clock
 
     initial begin
+
+        $dumpfile("shiftregister.vcd");
+        $dumpvars();
+
     	// Your Test Code
 
         $display("CLK PCLK ParallelLoad ParallelDataIn SerialDataIn | ParallelDataOut SerialDataOut");
 
         //pin =0; #1000 pin = 1; #1000
-        peripheralClkEdge = 1; parallelLoad = 1; parallelDataIn = 8'b10101010; serialDataIn=1; #1000
-        $display("%b   %b    %b             %b      %b            | %b        %b  ", clk, peripheralClkEdge, parallelLoad, parallelDataIn, serialDataIn, parallelDataOut, serialDataOut);
+        peripheralClkEdge = 1; parallelLoad = 1; parallelDataIn = 8'b10101010; serialDataIn=1; #110
+        $display("%b   %b    %b            %b      %b            | %b        %b  ", clk, peripheralClkEdge, parallelLoad, parallelDataIn, serialDataIn, parallelDataOut, serialDataOut);
+
+        peripheralClkEdge = 1; parallelLoad = 0; parallelDataIn = 8'b10101010; serialDataIn=1; #21
+        $display("%b   %b    %b            %b      %b            | %b        %b  ", clk, peripheralClkEdge, parallelLoad, parallelDataIn, serialDataIn, parallelDataOut, serialDataOut);
 
 
         #50 $finish;
