@@ -19,6 +19,7 @@ output              serialDataOut       // Positive edge synchronized
 );
 
     reg [width-1:0]      shiftregistermem;
+    // Have to add reg because using procedural assignment below
     reg [width-1:0]      parallelDataOut;
     reg                  serialDataOut;
 
