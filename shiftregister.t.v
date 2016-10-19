@@ -1,3 +1,4 @@
+`include "shiftregister.v"
 //------------------------------------------------------------------------
 // Shift Register test bench
 //------------------------------------------------------------------------
@@ -21,8 +22,42 @@ module testshiftregister();
     		           .parallelDataOut(parallelDataOut), 
     		           .serialDataOut(serialDataOut));
     
+    // Generate clock (50MHz)
+    initial clk=0;
+    always #10 clk=!clk;    // 50MHz Clock
+      
     initial begin
-        clk=1;peripheralClkEdge=1;
+        $dumpfile("shiftregister.vcd");
+        $dumpvars();
+
+        parallelDataIn = 5'd5;
+        parallelLoad = 1;
+        peripheralClkEdge=0;#500
+        peripheralClkEdge=1;#10
+        parallelDataIn = 5'd5;
+        parallelLoad = 0;
+        peripheralClkEdge=0;#500
+        peripheralClkEdge=1;#10
+
+
+        peripheralClkEdge=0;#500
+        peripheralClkEdge=1;#10
+        serialDataIn = 1; #500
+        peripheralClkEdge=0;#500
+        peripheralClkEdge=1;#10
+        serialDataIn = 0; #500
+        peripheralClkEdge=0;#500
+        peripheralClkEdge=1;#10
+        serialDataIn = 1; #500
+        peripheralClkEdge=0;#500
+        peripheralClkEdge=1;#10
+        serialDataIn = 0; #500
+        peripheralClkEdge=0;#500
+        peripheralClkEdge=1;#10
+        serialDataIn = 1; #500
+
+        $dumpflush;
+        $finish;
     end
 
 endmodule

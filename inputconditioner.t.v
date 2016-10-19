@@ -28,9 +28,39 @@ module testConditioner();
 
 
         pin=0; #1000
-        pin=1; #1000
-        $display("%b");
+        pin=1; #50
+        pin=0; #50
+        pin=1; #50
+        pin=0; #50
+        pin=0; #50
+        pin=1; #50
+        pin=1; #50
+        pin=1; #50
+        pin=1; #50
+        pin=0; #50
+        pin=0; #50
+        pin=0; #50
+        pin=1; #50
+        pin=1; #50
+        pin=1; #50
+        pin=0; #50
+        pin=1; #50
+        pin=0; #50
+        pin=1; #50
+        pin=0; #50
+        pin=0; #50
+        pin=1; #50
+        pin=1; #50
+        pin=1; #50
+        pin=1; #50
+        pin=0; #50
+        pin=0; #50
+        pin=0; #50
+        pin=1; #50
+        pin=1; #50
+        pin=1; #50
         pin=0; #1000
+        $display("%b");
         $display("%b");
 
         $dumpflush;
