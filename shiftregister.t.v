@@ -30,7 +30,7 @@ module testshiftregister();
         $dumpfile("shiftregister.vcd");
         $dumpvars();
 
-        parallelDataIn = 5'd5;
+        parallelDataIn =8'b1000100;
         parallelLoad = 1; #500
         parallelDataIn = 5'd5;
         parallelLoad = 0;
