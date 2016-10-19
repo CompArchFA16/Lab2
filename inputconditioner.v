@@ -39,11 +39,13 @@ output reg  negativeedge    // 1 clk pulse at falling edge of conditioned
                 counter <= counter+1; //wait for debouncing
 	    end
         end
-        synchronizer0 <= noisysignal;
-        synchronizer1 <= synchronizer0;
+        if (counter == 0) begin
+            synchronizer0 <= noisysignal;
+            synchronizer1 <= synchronizer0;
+        end
     end
 
     //max glitch is 6 clock cycles
-    
+
 
 endmodule
