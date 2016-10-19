@@ -1,0 +1,4 @@
+Marker A : SYNCHRONIZATION
+Marker B : FALLING
+Marker C : RISING
+Marker D : DEBOUNCING
