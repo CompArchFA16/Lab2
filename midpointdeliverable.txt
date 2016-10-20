@@ -1,0 +1,17 @@
+Design a test sequence that demonstrates successful operation of this portion of the lab. Provide a short written description of what the test engineer is to do, and what the state of the LEDs should be at each step.
+
+Note: Switch0 is the first switch. Do not get switch 1 and switch 0 mixed up because of this. 
+
+To test serial in: 
+
+Whatever bit you want to shift in is the position of switch 0 (if switch 0 is low, will bit shift in 0's, and if switch 0 is high, will bit shift in 1's)
+
+1. Put Switch 0 high to test the bit shifting with  0's. 
+2.With Switch2 low, toggle Switch 1 up to 4 times to see bitshifting of 4 bits. You should see the 4 most least significant bits. The led's will update on the rising edge (when the switch is pushed "up" (away from the label) on the board). 
+3. To see more than 4 bitshifts, now press Switch2 (it is programmed to show the 4 most significant bits)
+4. Repeat this entire process exactly but with Switch 0 high to shift with 1's. 
+
+To test parallel in: 
+ 
+You want button0 to fall (released) to be at the exact same clock time as the rising of switch 1 (toggling up) in order to copy all the bits from parallelDataIn into Leds. 
+Because this is a very short-time event, we can see this most easily on the waveform and not the video. Please see attached PDF for a GTKWAVE export of the waveform in the parallel in case. 
