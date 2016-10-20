@@ -14,3 +14,7 @@ Test Sequence
 
 We have now tested all functionality of the FPGA.
 
+
+Video
+===
+Video is in *midpoint_test.MOV* and goes through the test sequence labeled above, but only showing the lowest 4 bits.
