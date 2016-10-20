@@ -14,8 +14,9 @@ module midpoint(
     input switch0,
     input switch1,
     input clk,
+    input [7:0] parallelDataIn,
     output serialOut,
-    output [3:0] leds //4 LED's
+    output [7:0] leds //4 LED's
     );
 
     //instantiate wires and reg's
@@ -23,7 +24,6 @@ module midpoint(
     wire conditioned2, positiveedge2, negativeedge2;
     wire conditioned3, positiveedge3, negativeedge3;
     wire parallelLoad;
-    wire [7:0] parallelDataIn;
 
     //three input conditioners
     inputconditioner inputC1(clk, button0, conditioned1, positiveedge1, negativeedge1 );
