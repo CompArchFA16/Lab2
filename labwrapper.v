@@ -80,7 +80,7 @@ endmodule
 //   Challenge: write your own interface module instead of using this one.
 //--------------------------------------------------------------------------------
 
-module lab0_wrapper
+module labwrapper
 (
     input        clk,
     input  [3:0] sw,
@@ -100,24 +100,24 @@ module lab0_wrapper
     wire[7:0] res;
     
     // Memory for stored operands (parametric width set to 4 bits)
-    dff #(4) opA_mem(.trigger(clk), .enable(btn[0]), .d(sw), .q(opA));
-    dff #(4) opB_mem(.trigger(clk), .enable(btn[1]), .d(sw), .q(opB));
+    //dff #(4) opA_mem(.trigger(clk), .enable(btn[0]), .d(sw), .q(opA));
+    //dff #(4) opB_mem(.trigger(clk), .enable(btn[1]), .d(sw), .q(opB));
     
     // Capture button input to switch which MUX input to LEDs
-    jkff1 src_sel(.trigger(clk), .j(btn[3]), .k(btn[2]), .q(res_sel));
+    //jkff1 src_sel(.trigger(clk), .j(btn[3]), .k(btn[2]), .q(res_sel));
     mux2 #(4) output_select(.in0(res0), .in1(res1), .sel(sw[2]), .out(led));
     
     // TODO: You write this in your adder.v
     //FullAdder4bit adder(.sum(res0), .carryout(cout), .overflow(ovf), .a(opA), .b(opB));
-    midpoint midpt(btn[0], sw[0], sw[1], clk, parallelDataIn, serialOut, res);
+    midpoint midpt(.parallelLoadButton(btn[0]), .serialInSwitch(sw[0]), .clkEdgeSwitch(sw[1]), .clk(clk), .parallelDataIn(parallelDataIn), .serialOut(serialOut), .res(res));
 
     assign res0 = res[3:0];
     assign res1 = res[7:4];
 
     // Assign bits of second display output to show carry out and overflow
-    assign res1[0] = cout;
-    assign res1[1] = ovf;
-    assign res1[2] = 1'b0;
-    assign res1[3] = 1'b0;
+    //assign res1[0] = cout;
+    //assign res1[1] = ovf;
+    //assign res1[2] = 1'b0;
+    //assign res1[3] = 1'b0;
     
 endmodule

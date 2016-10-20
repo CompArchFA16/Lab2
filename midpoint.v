@@ -10,13 +10,13 @@
 `include "shiftregister.v"
 
 module midpoint(
-    input button0,
-    input switch0,
-    input switch1,
+    input parallelLoadButton,
+    input serialInSwitch,
+    input clkEdgeSwitch,
     input clk,
     input [7:0] parallelDataIn,
     output serialOut,
-    output [7:0] leds //4 LED's
+    output [7:0] res //4 LED's
     );
 
     //instantiate wires and reg's
@@ -26,12 +26,12 @@ module midpoint(
     wire parallelLoad;
 
     //three input conditioners
-    inputconditioner inputC1(clk, button0, conditioned1, positiveedge1, negativeedge1 );
-    inputconditioner inputC2(clk, switch0, conditioned2, positiveedge2, negativeedge2 );
-    inputconditioner inputC3(clk, switch1, conditioned3, positiveedge3, negativeedge3 );
+    inputconditioner inputC1(clk, parallelLoadButton, conditioned1, positiveedge1, negativeedge1 );
+    inputconditioner inputC2(clk, serialInSwitch, conditioned2, positiveedge2, negativeedge2 );
+    inputconditioner inputC3(clk, clkEdgeSwitch, conditioned3, positiveedge3, negativeedge3 );
 
     //shiftregister
-    shiftregister shiftie(clk, positiveedge3,negativeedge1,parallelDataIn, conditioned2,  leds, serialOut);
+    shiftregister shiftie(clk, positiveedge3,negativeedge1,parallelDataIn, conditioned2,  res, serialOut);
 
 /*overall structure:
 three input conditioners in parallel, each taking in the same clock
