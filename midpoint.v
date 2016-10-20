@@ -8,8 +8,30 @@
 //
 // LEDs show the state of the shift register (note: you only have 4 to work with, so you will have to show a subset of bits, use the Lab 0 trick, or borrow an external LED board)
 `include "shiftregister.v"
-`include "inputconditioner.v"
 
+module midpoint(
+    input button0,
+    input switch0,
+    input switch1,
+    input clk,
+    output serialOut,
+    output [3:0] leds //4 LED's
+    );
+
+    //instantiate wires and reg's
+    wire conditioned1, positiveedge1, negativeedge1;
+    wire conditioned2, positiveedge2, negativeedge2;
+    wire conditioned3, positiveedge3, negativeedge3;
+    wire parallelLoad;
+    wire [7:0] parallelDataIn;
+
+    //three input conditioners
+    inputconditioner inputC1(clk, button0, conditioned1, positiveedge1, negativeedge1 );
+    inputconditioner inputC2(clk, switch0, conditioned2, positiveedge2, negativeedge2 );
+    inputconditioner inputC3(clk, switch1, conditioned3, positiveedge3, negativeedge3 );
+
+    //shiftregister
+    shiftregister shiftie(clk, positiveedge3,negativeedge1,parallelDataIn, conditioned2,  leds, serialOut);
 
 /*overall structure:
 three input conditioners in parallel, each taking in the same clock
@@ -18,3 +40,4 @@ negativeedge of 1 goes into parallelLoad, conditioned of 2 goes into serial in, 
 Parallel out goes to LEDs, serial out isn't connected?
 Parallel in "xA5"
 */
+endmodule
