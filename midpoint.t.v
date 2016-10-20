@@ -38,13 +38,43 @@ module testshiftregister();
     	// Your Test Code
 
         $display("CLK BT0 SW0 SW1 Parallel | SerialOut LEDs");
-
-        #1000
-        button0 = 1; switch0 = 1; switch1 = 1; parallelDataIn = 8'b10101010; #110
+        #10
+        button0 = 1; switch0 = 1; switch1 = 0; parallelDataIn = 8'b10101010;
+        #100
+        button0 = 1; switch0 = 1; switch1 = 1;
+        #100
+        button0 = 1; switch0 = 1; switch1 = 0;
+        #100
+        button0 = 1; switch0 = 1; switch1 = 1;
+        #100
+        button0 = 1; switch0 = 1; switch1 = 0;
+        #100
+        button0 = 1; switch0 = 1; switch1 = 1;
+         #100
+        button0 = 1; switch0 = 1; switch1 = 0;
+        #100
+        button0 = 1; switch0 = 1; switch1 = 1;
+        #100
+        button0 = 1; switch0 = 1; switch1 = 0;
+        #100
+        button0 = 1; switch0 = 1; switch1 = 1;
+        #100
+        button0 = 1; switch0 = 1; switch1 = 0;
+         #100
+        button0 = 1; switch0 = 1; switch1 = 1;
+        #100
+        button0 = 1; switch0 = 1; switch1 = 0;
+        #100
+        button0 = 1; switch0 = 1; switch1 = 1;
+        #100
+        button0 = 1; switch0 = 1; switch1 = 0;
+        #100
+        button0 = 1; switch0 = 1; switch1 = 1;
+        #100
         $display("%b   %b   %b    %b  %h       | %b         %h  ", clk, button0, switch0, switch1, parallelDataIn, serialOut, leds);
 
 
-        button0 = 1; switch0 = 1; switch1 = 1; parallelDataIn = 8'b10101010; #110
+        button0 = 1; switch0 = 1; switch1 = 0; parallelDataIn = 8'b10101010; #110
         $display("%b   %b   %b    %b  %h       | %b         %h  ", clk, button0, switch0, switch1, parallelDataIn, serialOut, leds);
 
 
