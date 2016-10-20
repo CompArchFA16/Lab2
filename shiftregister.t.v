@@ -69,6 +69,7 @@ module testshiftregister();
         $display("parallelDataIn: %b", parallelDataIn);
         $display("parallelDataOut: %b", parallelDataOut);
 
+
         for (i=0; i < 8; i=i+1) begin
 
             if (serialDataOut !== data[i]) begin
@@ -77,19 +78,14 @@ module testshiftregister();
                 $display("serial data out: %b", serialDataOut);
             end
             
+            $display("serial data out: %b", serialDataOut);
             #60;
             peripheralClkEdge <= !peripheralClkEdge;
             #20;
             peripheralClkEdge <= !peripheralClkEdge;
             #20;
-
         end 
-
-
-
-
-        
-
+    
         $display("Did all tests pass? %b", dutPassed);
         $finish;
     end
