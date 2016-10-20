@@ -63,5 +63,5 @@ module midpoint
     		           .parallelDataOut(parallelDataOut), 
     		           .serialDataOut(serialDataOut));
 
-    mux_p #(4) ledout(.in0(parallelDataOut[3:0]), .in1(rparallelDataOut[7:4]), .sel(sw[3]), .out(led));
+    mux_p #(4) ledout(.in0(parallelDataOut[3:0]), .in1(parallelDataOut[7:4]), .sel(sw[3]), .out(led));
 endmodule
