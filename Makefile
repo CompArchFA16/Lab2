@@ -10,5 +10,8 @@ run-shiftregister: build-shiftregister
 build-shiftregister:
 	iverilog -Wall -o shiftregister.o shiftregister.t.v
 
+build-midpoint:
+	iverilog -Wall -o midpoint.o midpoint.v
+
 clean:
 	rm *.o *.out *.vcd
