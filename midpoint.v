@@ -4,28 +4,27 @@
 module midpoint
 (
 input 	    clk, 
-input 		peripheralClk,           
-input	    noisysignal,    
-output reg  parallelOut,    
-output reg  serialOut       
+input       button0,
+input       switch0,
+input       switch1,
+output[7:0] leds      
 );
 
-	wire positiveedge, negativeedge, conditioned;
-	reg parallelIn;
+    wire negativeedge;
+    wire positiveedge;
+    wire conditioned;
 
-	initial clk=0;
-    always #10 clk=!clk;  
-
-    inputconditioner conditioner1(conditioned, pe1, 
-    	ne1, clk, noisysignal);
-
-    inputconditioner conditioner2(c2, positiveedge, 
-    	ne2, clk, noisysignal);
-
-    inputconditioner conditioner3(c3, pe2, 
-    	negativeedge, clk, noisysignal);
+    inputconditioner conditioner1(.negativeedge(negativeedge), .clk(clk), .noisysignal(button0));
+    inputconditioner conditioner2(.conditioned(conditioned), .clk(clk), .noisysignal(switch0));
+    inputconditioner conditioner3(.positiveedge(positiveedge), .clk(clk), .noisysignal(switch1));
     
+    shiftregister register(
+        .parallelDataOut(leds), 
+        .clk(clk), 
+        .peripheralClkEdge(positiveedge), 
+        .parallelDataIn(8'hA5), 
+        .parallelLoad(negativeedge), 
+        .serialDataIn(conditioned)
+    );
 
-    shiftregister register(parallelOut, serialOut, clk, peripheralClk, 
-    	negativeedge, parallelIn, conditioned);
 endmodule
