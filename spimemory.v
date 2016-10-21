@@ -1,3 +1,7 @@
+`include "fsm.v"
+`include "addresslatch.v"
+`include "shiftregister.v"
+
 //------------------------------------------------------------------------
 // SPI Memory
 //------------------------------------------------------------------------
@@ -14,4 +18,3 @@ module spiMemory
 
 
 endmodule
-   
