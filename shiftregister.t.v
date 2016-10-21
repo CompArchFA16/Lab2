@@ -56,6 +56,8 @@ module testshiftregister();
             dutPassed = 0;
             $display("Serial in, parallel out test failed.");
             $display("Parallel data out: %b", parallelDataOut);
+            $display("paralleldataout %b", parallelDataOut);
+            $display("data %b", data);
         end
 
 
