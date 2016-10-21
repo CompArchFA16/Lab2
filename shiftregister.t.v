@@ -86,6 +86,21 @@ module testshiftregister();
             #20;
         end 
     
+        // Test Case 3: Parallel In, Parallel Out
+        
+        parallelDataIn = 8'b10100101;
+        parallelLoad = 1;
+
+        #50;
+
+        $display("parallelDataIn: %b", parallelDataIn);
+        $display("parallelDataOut: %b", parallelDataOut);
+
+        if (parallelDataOut !== parallelDataIn) begin
+            dutPassed = 0;
+            $display("Parallel in, parallel out test failed.");
+        end
+
         $display("Did all tests pass? %b", dutPassed);
         $finish;
     end

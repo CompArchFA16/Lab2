@@ -60,7 +60,7 @@ module midpoint
         .parallelDataOut(leds), 
         .clk(clk), 
         .peripheralClkEdge(positiveedge), 
-        .parallelDataIn(8'hA5), 
+        .parallelDataIn(8'b10100101), 
         .parallelLoad(negativeedge), 
         .serialDataIn(conditioned)
     );
