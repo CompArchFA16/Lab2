@@ -161,22 +161,54 @@ module testConditioner();
 
     $dumpfile("inputconditioner.vcd");
     $dumpvars();
+
     $display("----------------------------------------");
-    $display("Test: Synchronization and Edge Detection");
+    $display("Test 1: Invalid Regions at Start");
     $display("----------------------------------------");
 
-       signal           <= 50'b00000000001111111111000000000011111111110000000000;
-       expected_output  <= 50'bxxxxxxxx000000000000001111111111000000000011111111;
-       expected_posedge <= 50'bxxxxxxxx000000000000001100000000000000000011000000;
-       expected_negedge <= 50'bxxxxxxxxxx0000000000000000000000110000000000000000;
+    signal           <= 50'b00000000000000000000000000000000000000000000000000;
+    expected_output  <= 50'bxxxxxxxx000000000000000000000000000000000000000000;
+    expected_posedge <= 50'bxxxxxxxx000000000000000000000000000000000000000000;
+    expected_negedge <= 50'bxxxxxxxxxx0000000000000000000000000000000000000000;
+    integer noise = `{
+         9, 12, 11,  9, 10, 10, 12, 10, 10, 11,
+         8, 11, 12,  8, 13, 11, 10, 10, 10, 11,
+         8, 12, 13, 12,  7, 10,  9, 11, 10,  9,
+        10,  8, 13,  9,  9,  9,  8, 10,  7, 10,
+         9, 10,  8, 10, 10,  9, 11,  8, 11, 12
+    };
 
-       for (i = 0; i < 50; i = i + 1) begin
-	  pin <= signal[i];
-	  conditioned_output[49-i] <= conditioned;
-	  conditioned_posedge[49-i] <= rising;
-	  conditioned_negedge[49-i] <= falling;
-	  #10;
-       end
+    for (i = 0; i < 50; i = i + 1) begin
+        pin <= signal[49-i];
+        conditioned_output[49-i] <= conditioned;
+        conditioned_posedge[49-i] <= rising;
+        conditioned_negedge[49-i] <= falling;
+        #(noise[i]);
+    end
+
+    $display("Original Signal:     %b", signal);
+    $display("Conditioned Output:  %b", conditioned_output);
+    $display("Expected Output:     %b", expected_output);
+    $display("Conditioned Posedge: %b", conditioned_posedge);
+    $display("Expected Posedge:    %b", expected_posedge);
+    $display("Conditioned Negedge: %b", conditioned_negedge);
+    $display("Expected Negedge:    %b", expected_negedge);
+
+    $display("----------------------------------------");
+    $display("Test 2: Synchronization and Edge Detection");
+    $display("----------------------------------------");
+
+    signal           <= 50'b00111111111100000000001111111111000000000000000000;
+    expected_output  <= 50'b00000000000000111111111100000000001111111111000000;
+    expected_posedge <= 50'b00000000000000110000000000000000001100000000000000;
+    expected_negedge <= 50'b00000000000000000000000011000000000000000000110000;
+    for (i = 0; i < 50; i = i + 1) begin
+        pin <= signal[49-i];
+        conditioned_output[49-i] <= conditioned;
+        conditioned_posedge[49-i] <= rising;
+        conditioned_negedge[49-i] <= falling;
+        #10;
+    end
 
     $display("Original Signal:     %b", signal);
     $display("Conditioned Output:  %b", conditioned_output);
@@ -190,18 +222,18 @@ module testConditioner();
     $display("Test: Debouncing");
     $display("----------------------------------------");
 
-       signal           <= 50'b00000001001111111111000000000011111111110010000000;
-       expected_output  <= 50'bxxxxxxxx000000000000001111111111000000000011111111;
-       expected_posedge <= 50'bxxxxxxxx000000000000001100000000000000000011000000;
-       expected_negedge <= 50'bxxxxxxxxxx0000000000000000000000110000000000000000;
+    signal           <= 50'b01000110000001111000000011111111110000000000000000;
+    expected_output  <= 50'b00000000000000000000000000000000000011111111110000;
+    expected_posedge <= 50'b00000000000000000000000000000000000000000000001100;
+    expected_negedge <= 50'b00000000000000000000000000000000000011000000000000;
 
-       for (i = 0; i < 50; i = i + 1) begin
-	  pin <= signal[i];
-	  conditioned_output[49-i] <= conditioned;
-	  conditioned_posedge[49-i] <= rising;
-	  conditioned_negedge[49-i] <= falling;
-	  #10;
-       end
+    for (i = 0; i < 50; i = i + 1) begin
+        pin <= signal[49-i];
+        conditioned_output[49-i] <= conditioned;
+        conditioned_posedge[49-i] <= rising;
+        conditioned_negedge[49-i] <= falling;
+        #10;
+    end
 
     $display("Original Signal:     %b", signal);
     $display("Conditioned Output:  %b", conditioned_output);
