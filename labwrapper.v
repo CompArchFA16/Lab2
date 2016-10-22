@@ -95,7 +95,7 @@ module labwrapper
     wire ovf;                 // Overflow from adder
 
     wire [7:0] parallelDataIn;
-    assign parallelDataIn = 8'b10101010;
+    assign parallelDataIn = 8'b10100101;
     wire serialOut;
     wire[7:0] res;
     
