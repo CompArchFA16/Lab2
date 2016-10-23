@@ -4,7 +4,7 @@
 `include "dflipflop.v"
 `include "inputconditioner.v"
 `include "datamemory.v"
-`include "misobuffer.v"
+//`include "misobuffer.v"
 
 //------------------------------------------------------------------------
 // SPI Memory
@@ -18,7 +18,7 @@ module spiMemory
     output          miso_pin,   // SPI master in slave out
     input           mosi_pin,   // SPI master out slave in
     output [3:0]    leds        // LEDs for debugging
-)
+);
 
   wire miso_buff, dm_we, addr_we, sr_we;
   wire mosi_conditioned, sclk_conditioned, cs_conditioned;
