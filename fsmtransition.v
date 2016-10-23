@@ -7,11 +7,11 @@
 
 module fsmtransition
 (	
-	input[2:0] currentState;
-	input sclk;
-	input cs; // chip select -- 
-	input rw;
-	output[2:0] nextState;
+	input [2:0] currentState,
+	input sclk,
+	input cs, // chip select -- 
+	input rw,
+	output[2:0] nextState
 );
 
 parameter state_GETTING_ADDRESS     = 0;
