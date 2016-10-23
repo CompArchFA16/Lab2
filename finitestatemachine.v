@@ -10,6 +10,7 @@ module finitestatemachine
 (
 	input peripheralClkEdge,
 	input cs, // chip select, nullify everything
+	input rw,
 	output miso_buff,
 	output dm_we,
 	output addr_we, //address 
@@ -31,7 +32,7 @@ reg [2:0] next;
 reg [7:0] p_out; // either address or data for data memory
 reg [7:0] d_addr; // address for data memory
 
-fsmtransition t(state, sclk, cs, next);
+fsmtransition t(state, sclk, cs, rw, next);
 
 always @(posedge peripheralClkEdge) begin
 	miso_buff <= 0;
