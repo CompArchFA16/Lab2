@@ -28,11 +28,10 @@ parameter s_DONE = 7;
 
 reg [2:0] state = s_GET; // current state, default to s_GET
 wire [2:0] next;
-
 reg [7:0] p_out; // either address or data for data memory
 reg [7:0] d_addr; // address for data memory
 
-fsmtransition t(state, sclk, cs, rw, next);
+fsmtransition t(state, peripheralClkEdge, cs, rw, next);
 
 always @(posedge peripheralClkEdge) begin
 	miso_buff <= 0;

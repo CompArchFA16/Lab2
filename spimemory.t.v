@@ -9,7 +9,10 @@ integer it; // iterator
 reg [6:0] addr; // address 
 reg [7:0] dummy; // 8-bit dummy register
 
-reg clk, sclk_pin, cs_pin;
+reg clk = 0;
+reg sclk_pin = 0;
+reg cs_pin;
+
 reg mosi_pin;
 wire miso_pin;
 wire [3:0] leds;
@@ -23,67 +26,67 @@ end
 
 // serial clock
 always begin
-	#15 sclk_pin = !sclk_pin;
+	#150 sclk_pin = !sclk_pin;
 end
 
 initial begin
 	$dumpfile("spimemory.vcd");
 	$dumpvars(0, test_spimemory);
 
-	cs_pin = 1; // cs_pin de-asserted, nothing should happen
-	for(it = 0; it < 100; it = it+1) begin // check that the state of the fsm stays at GET for 100 clock cycles
-		#30;
-		$display("STATE : %b", sm.fsm.state);
-	end
+	//cs_pin = 1; // cs_pin de-asserted, nothing should happen
+	//for(it = 0; it < 100; it = it+1) begin // check that the state of the fsm stays at GET for 100 clock cycles
+	//	#300;
+	//	$display("STATE : %b", sm.fsm.state);
+	//end
 
-
+	// WRITE OPERATION BEGIN ...
+	//
 	cs_pin = 0; // now, start interacting with the SPI memory
 	addr = $urandom % (1 << 7); // dummy is the address
 
 	for(it = 0; it < 7; it = it+1) begin
 		mosi_pin <= addr[it]; // feed in address
 		$display("STATE : %b", sm.fsm.state);
-		#30;
+		#300;
 	end
-
-
-	// WRITE OPERATION BEGIN ...
+	
+	cs_pin = 0;
 	dummy = $urandom % (1 << 8);
 
 	$display("WRITE DATA : %b", dummy);
 	mosi_pin <= 0; // "WRITE"
-	#30;
+	#300;
 
 	for(it = 0; it < 8; it = it+1) begin
 		mosi_pin <= dummy[it]; // feed in data values
 		$display("STATE : %b", sm.fsm.state);
-		#30;
+		#300;
 	end
 
-	#30; // wait one clock cycle for write operation to complete for data memory
+	#300; // wait one clock cycle for write operation to complete for data memory
 
 	cs_pin = 1; // go back to "get"
-	#30;
+	#300;
 
 	// READ OPERATION BEGIN ...
 	cs_pin = 0;
 	for(it = 0; it < 7; it = it + 1) begin
 		mosi_pin <= addr[it];
 		$display("STATE : %b", sm.fsm.state);
-		#30;
+		#300;
 	end
 
 	mosi_pin <= 1; // "READ"
-	#30; // wait one clock cycle to read from data memory
+	#300; // wait one clock cycle to read from data memory
 
-	#30; // wait one clock cycle to write to shift register
+	#300; // wait one clock cycle to write to shift register
 
 	for(it = 0; it < 8; it = it + 1) begin
 		dummy[7 - it] <= miso_pin;
-		#30;
+		#300;
 	end
 
-	#30;
+	#300;
 
 	$display("READ DATA : %b", dummy);
 	$finish();
