@@ -36,6 +36,7 @@ always @(posedge sclk) begin
 				if(counter == 8) begin
 					next <= state_GOT_ADDRESS;
 				end else begin
+					next <= state_GETTING_ADDRESS;
 					counter <= counter + 1;
 				end
 			end
