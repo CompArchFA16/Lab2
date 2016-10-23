@@ -34,6 +34,11 @@ reg [7:0] d_addr; // address for data memory
 fsmtransition t(state, sclk, cs, next);
 
 always @(posedge peripheralClkEdge) begin
+	miso_buff <= 0;
+	dm_we <= 0;
+	addr_we <= 0;
+	sr_we <= 0;
+
 	//if cs == 1 then reset counter and go back to s_GET
 	case (state)
 		s_GET: begin // GETTING THE ADDRESS
@@ -51,7 +56,7 @@ always @(posedge peripheralClkEdge) begin
 			sr_we <= 1;
 		end
 		s_READ2: begin
-
+			miso_buff <= 1;
 		end
 		s_WRITE0: begin
 

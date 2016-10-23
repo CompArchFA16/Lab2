@@ -21,11 +21,8 @@ wire miso_buff, dm_we, addr_we, sr_we;
 reg [7:0] addr;
 
 finitestatemachine fsm(peripheralClkEdge, conditioned, miso_buff, dm_we, addr_we, sr_we);
-
 shiftregister #(8) sr(clk, peripheralClkEdge, sr_we, parallelDataIn, serialDataIn, parallelDataOut, serialDataOut);
-
 addresslatch al(clk, addr_we, parallelDataOut, addr);
-
 datamemory #(7) dm(clk, parallelDataIn, addr, dm_we, parallelDataOut); //may be wrong declaration
 
 endmodule
