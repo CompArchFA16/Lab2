@@ -83,6 +83,9 @@ always @(posedge sclk) begin
 				next <= state_DONE;
 			end
 
+			default: begin
+
+			end
 		endcase
 	end
 
