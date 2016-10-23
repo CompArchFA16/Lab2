@@ -1,3 +1,10 @@
+
+//------------------------------------------------------------------------
+// fsmtransition
+// this module is responsible for changing the states of the fsm based on the
+// current state of the fsm and the inputs.
+//------------------------------------------------------------------------
+
 module fsmtransition
 (	
 	input[2:0] currentState;

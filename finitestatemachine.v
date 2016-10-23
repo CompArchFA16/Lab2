@@ -1,4 +1,10 @@
-`include "addresslatch.v"
+`include "fsmtransition.v"
+
+//------------------------------------------------------------------------
+// Finite State Machine
+// this module is responsible for raising the flags for the spimemory module
+// to respond to and react appropriately to the submodules
+//------------------------------------------------------------------------
 
 module finitestatemachine
 (
@@ -31,11 +37,7 @@ always @(posedge peripheralClkEdge) begin
 	//if cs == 1 then reset counter and go back to s_GET
 	case (state)
 		s_GET: begin // GETTING THE ADDRESS
-			peripheralClkEdge <= 1;
-			parallelLoad <= 0;
-			// parallelDataIn doesn't matter
-			serialDataIn <= cs;
-			parallelDataOut 
+
 		end
 		s_GOT: begin
 			// finished reading address, now addr buffer is valid
