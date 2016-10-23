@@ -8,12 +8,12 @@
 
 module finitestatemachine
 (
-	input peripheralClkEdge;
-	input cs; // chip select, nullify everything
-	output miso_buff;
-	output dm_we;
-	output addr_we; //address 
-	output sr_we; //write enable for shift register
+	input peripheralClkEdge,
+	input cs, // chip select, nullify everything
+	output miso_buff,
+	output dm_we,
+	output addr_we, //address 
+	output sr_we //write enable for shift register
 );
 
 parameter s_GET = 0;
