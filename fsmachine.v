@@ -13,6 +13,15 @@ module fsmachine
 reg state;
 reg count;
 
+parameter Get = 0;
+parameter Got = 1;
+parameter Read = 2;
+parameter Read1 = 3;
+parameter Read2 = 4;
+parameter Write = 5;
+parameter Write2 = 6;
+parameter Done = 7;
+
 initial begin
 	state <= 0;
 	count <= 0;
@@ -34,58 +43,58 @@ always @(posedge clk) begin
 	else begin
 		case(state)
 
-			0: begin //Get
+			Get: begin
 				if (count < 8 && sclk) begin
 					count <= count + 1;
 				end
 				else if (sclk) begin
-					state <= 1; //proceed to Got
+					state <= Got;
 				end
 			end
 
-			1: begin //Got
+			Got: begin
 				if (rw) begin
-					state <= 2; //proceed to Read
+					state <= Read;
 				end
 				else begin
-					state <= 5; //proceed to Write
+					state <= Write;
 				end
 			end
 
-			2: begin //Read
-				state <= 3; //proceed to Read2
+			Read: begin 
+				state <= Read1;
 			end
 
-			3: begin //Read2
+			Read1: begin
 				sr <= 1;
-				state <= 4; //proceed to Read3
+				state <= Read2;
 			end
 
-			4: begin //Read3
+			Read2: begin
 				misobuff <= 1;
 				if (cs == 8) begin
-					state <= 7; //proceed to Done
+					state <= Done;
 				end
 				else if (sclk) begin
 					count <= count + 1;
 				end
 			end
 
-			5: begin //Write
+			Write: begin
 				if (cs == 8) begin
-					state <= 6; //proceed to Write2
+					state <= Write2;
 				end
 				else if (sclk) begin
 					count <= count + 1;
 				end
 			end
 
-			6: begin //Write2
-				state <= 7; //proceed to Done
+			Write2: begin
+				state <= Done;
 				dm <= 1;
 			end
 
-			7: begin //Done
+			Done: begin //Done
 				count <= 0;
 			end
 
