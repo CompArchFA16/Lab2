@@ -1,9 +1,9 @@
 `include "addresslatch.v"
 
-module fsm
+module finitestatemachine
 (
 	input peripheralClkEdge;
-	input conditioned;
+	input cs; // chip select, nullify everything
 	output miso_buff;
 	output dm_we;
 	output addr_we; //address 
@@ -19,13 +19,13 @@ parameter s_WRITE0 = 5;
 parameter s_WRITE1 = 6;
 parameter s_DONE = 7;
 
-reg [2:0] state; // current state
+reg [2:0] state = s_GET; // current state, default to s_GET
 reg [2:0] next;
 
 reg [7:0] p_out; // either address or data for data memory
 reg [7:0] d_addr; // address for data memory
 
-fsmtransition t(state, sclk, conditioned, next);
+fsmtransition t(state, sclk, cs, next);
 
 always @(posedge peripheralClkEdge) begin
 	//if cs == 1 then reset counter and go back to s_GET
@@ -34,12 +34,13 @@ always @(posedge peripheralClkEdge) begin
 			peripheralClkEdge <= 1;
 			parallelLoad <= 0;
 			// parallelDataIn doesn't matter
-			serialDataIn <= conditioned;
+			serialDataIn <= cs;
 			parallelDataOut 
 		end
 		s_GOT: begin
+			// finished reading address, now addr buffer is valid
+			// thus write-enable address to data memory
 			addr_we <= 1;
-			// no input, no output
 		end
 		s_READ0: begin
 
