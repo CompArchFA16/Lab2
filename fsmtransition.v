@@ -19,8 +19,9 @@ parameter state_DONE                = 7;
 reg[3:0] counter = 0; // starts with 0
 
 always @(posedge sclk) begin
-	if(cs) begin
-
+	if(cs) begin // cs high, unconditional reset
+		next <= state_GETTING_ADDRESS;
+		counter <= 0;
 	end else begin
 		case(currentState)
 
@@ -33,6 +34,7 @@ always @(posedge sclk) begin
 			end
 
 			state_GOT_ADDRESS: begin
+				counter <= 0; // reset counter
 				if(rw == 1) begin
 					nextState <= state_READ_1;
 				end else begin
@@ -69,6 +71,7 @@ always @(posedge sclk) begin
 			end
 
 			state_DONE: begin
+				counter <= 0;
 				nextState <= state_DONE;
 			end
 
