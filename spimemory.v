@@ -4,7 +4,7 @@
 `include "dflipflop.v"
 `include "inputconditioner.v"
 `include "datamemory.v"
-//`include "misobuffer.v"
+`include "misobuffer.v"
 
 //------------------------------------------------------------------------
 // SPI Memory
@@ -42,7 +42,7 @@ module spiMemory
   shiftregister #(8) sr(clk, sclk_posedge, sr_we, parallelDataIn, mosi_conditioned, parallelDataOut, serialDataOut);
   
   // Finite State Machine
-  finitestatemachine fsm(sclk_posedge, cs_conditioned, miso_buff, dm_we, addr_we, sr_we);
+  finitestatemachine fsm(sclk_posedge, cs_conditioned, parallelDataOut[0], miso_buff, dm_we, addr_we, sr_we);
 
   // Address Latch
   addresslatch al(clk, addr_we, parallelDataOut, addrOut);

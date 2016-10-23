@@ -11,7 +11,7 @@ module fsmtransition
 	input sclk,
 	input cs, // chip select -- 
 	input rw,
-	output[2:0] nextState
+	output reg [2:0] next
 );
 
 parameter state_GETTING_ADDRESS     = 0;
@@ -26,7 +26,7 @@ parameter state_DONE                = 7;
 reg[3:0] counter = 0; // starts with 0
 
 always @(posedge sclk) begin
-	if(cs) begin // cs high, unconditional reset
+	if(cs == 1) begin // cs high, unconditional reset
 		next <= state_GETTING_ADDRESS;
 		counter <= 0;
 	end else begin
@@ -34,7 +34,7 @@ always @(posedge sclk) begin
 
 			state_GETTING_ADDRESS: begin
 				if(counter == 8) begin
-					nextState <= state_GOT_ADDRESS;
+					next <= state_GOT_ADDRESS;
 				end else begin
 					counter <= counter + 1;
 				end
@@ -43,23 +43,23 @@ always @(posedge sclk) begin
 			state_GOT_ADDRESS: begin
 				counter <= 0; // reset counter
 				if(rw == 1) begin
-					nextState <= state_READ_1;
+					next <= state_READ_1;
 				end else begin
-					nextState <= state_WRITE_1;
+					next <= state_WRITE_1;
 				end
 			end
 
 			state_READ_1: begin
-				nextState <= state_READ_2;
+				next <= state_READ_2;
 			end
 
 			state_READ_2: begin
-				nextState <= state_READ_3;
+				next <= state_READ_3;
 			end
 
 			state_READ_3: begin
 				if(counter == 8) begin
-					nextState <= state_DONE;
+					next <= state_DONE;
 				end else begin
 					counter <= counter + 1;
 				end
@@ -67,19 +67,19 @@ always @(posedge sclk) begin
 
 			state_WRITE_1: begin
 				if(counter == 8) begin
-					nextState <= state_WRITE_2;
+					next <= state_WRITE_2;
 				end else begin
 					counter <= counter + 1;
 				end
 			end
 
 			state_WRITE_2: begin
-				nextState <= state_DONE;
+				next <= state_DONE;
 			end
 
 			state_DONE: begin
 				counter <= 0;
-				nextState <= state_DONE;
+				next <= state_DONE;
 			end
 
 		endcase

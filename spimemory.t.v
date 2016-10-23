@@ -10,8 +10,9 @@ reg [6:0] addr; // address
 reg [7:0] dummy; // 8-bit dummy register
 
 reg clk, sclk_pin, cs_pin;
-reg miso_pin, mosi_pin;
-reg [3:0] leds;
+reg mosi_pin;
+wire miso_pin;
+wire [3:0] leds;
 
 spiMemory sm(clk,sclk_pin,cs_pin,miso_pin,mosi_pin,leds);
 
@@ -85,6 +86,7 @@ initial begin
 	#30;
 
 	$display("READ DATA : %b", dummy);
+	$finish();
 end
 
 endmodule

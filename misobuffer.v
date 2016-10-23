@@ -5,8 +5,7 @@ module misobuffer
   output q
 );
 
-  if (en == 1) begin
-    q <= d;
-  end
+assign q = d&en;
+
 
 endmodule

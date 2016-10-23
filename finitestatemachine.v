@@ -11,10 +11,10 @@ module finitestatemachine
 	input peripheralClkEdge,
 	input cs, // chip select, nullify everything
 	input rw,
-	output miso_buff,
-	output dm_we,
-	output addr_we, //address 
-	output sr_we //write enable for shift register
+	output reg miso_buff,
+	output reg dm_we,
+	output reg addr_we, //address 
+	output reg sr_we //write enable for shift register
 );
 
 parameter s_GET = 0;
@@ -27,7 +27,7 @@ parameter s_WRITE1 = 6;
 parameter s_DONE = 7;
 
 reg [2:0] state = s_GET; // current state, default to s_GET
-reg [2:0] next;
+wire [2:0] next;
 
 reg [7:0] p_out; // either address or data for data memory
 reg [7:0] d_addr; // address for data memory
