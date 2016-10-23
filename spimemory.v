@@ -10,7 +10,7 @@
 
 // D flip-flop with parameterized bit width (default: 1-bit)
 // Parameters in Verilog: http://www.asic-world.com/verilog/para_modules1.html
-module dff_p #( parameter W = 1 )
+module dff_p #(parameter W=1)
 (
     input trigger,
     input enable,
@@ -20,7 +20,7 @@ module dff_p #( parameter W = 1 )
     always @(posedge trigger) begin
         if(enable) begin
             q <= d;
-        end 
+        end
     end
 endmodule
 
@@ -36,6 +36,15 @@ module mux_p #(parameter W = 4)
     assign out = (sel) ? in1 : in0;
 endmodule
 
+//fullchipdesign.com/tristate.htm
+module tristate_buffer(in, enable, out);
+  input in;
+  input enable;
+  output out;
+
+  assign out = (enable)? in : 1'bz;
+endmodule
+
 module spiMemory
 (
     input           clk,        // FPGA clock
@@ -44,7 +53,7 @@ module spiMemory
     output          miso_pin,   // SPI master in slave out
     input           mosi_pin,   // SPI master out slave in
     output [3:0]    leds        // LEDs for debugging
-)
+);
 
 	wire [7:0] parallelDataIn; //xA5
 	wire [7:0] parallelDataOut;
@@ -55,39 +64,40 @@ module spiMemory
 
     wire misoBufe, dmWe, addrWe,  srWe;
 
-    reg [6:0] address; 
+    wire [7:0] address;
+    wire bufferin;
 
     inputconditioner ic0(.clk(clk),
-    			 		 .noisysignal(mosi_pin),
+    			 		 .noisysignal(sclk_pin),
 						 .conditioned(dummy0),
 						 .positiveedge(dummy1),
 						 .negativeedge(falling));
 
     inputconditioner ic1(.clk(clk),
-    			 		 .noisysignal(sclk_pin),
+    			 		 .noisysignal(mosi_pin),
 						 .conditioned(conditioned),
 						 .positiveedge(dummy2),
 						 .negativeedge(dummy3));
 
 	inputconditioner ic2(.clk(clk),
-    			 		 .noisysignal(cs_pin), 
+    			 		 .noisysignal(cs_pin),
 						 .conditioned(dummy4),
 						 .positiveedge(rising),
 						 .negativeedge(dummy5));
-    
+
     // Instantiate with parameter width = 8
-    shiftregister #(8) sr(.clk(clk), 
+    shiftregister #(8) sr(.clk(clk),
     		           .peripheralClkEdge(rising),
-    		           .parallelLoad(falling), 
-    		           .parallelDataIn(parallelDataIn), 
-    		           .serialDataIn(conditioned), 
-    		           .parallelDataOut(parallelDataOut), 
+    		           .parallelLoad(falling),
+    		           .parallelDataIn(parallelDataIn),
+    		           .serialDataIn(conditioned),
+    		           .parallelDataOut(parallelDataOut),
     		           .serialDataOut(serialDataOut));
 
-    datamemory dm(.clk(clk)
-    			  .dataOut(parallelDataIn[7:0])
-    			  .address(address[6:0])
-    			  .writeEnable(dmWe)
+    datamemory dm(.clk(clk),
+    			  .dataOut(parallelDataIn[7:0]),
+    			  .address(address[6:0]),
+    			  .writeEnable(dmWe),
     			  .dataIn(parallelDataOut[7:0]));
 
 	fsmachine fsm(.clk(clk),
@@ -98,10 +108,19 @@ module spiMemory
 				  .dm(dmWe),
 				  .addr(addrWe),
 				  .sr(srWe));
-				  
-	dff_p #(1) dff(.trigger()
-				   .enable()
-				   .d()
-				   .q());
+
+	dff_p #(1) dff(.trigger(clk),
+				   .enable(falling),
+				   .d(serialDataOut),
+				   .q(bufferin));
+
+  dff_p #(8) addressLatch(.trigger(clk),
+				   .enable(addrWe),
+				   .d(parallelDataOut),
+				   .q(address));
+
+  tristate_buffer buff(.in(bufferin),
+                       .enable(misoBufe),
+                       .out(miso_pin));
+
 endmodule
-   
