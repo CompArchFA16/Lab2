@@ -11,7 +11,6 @@ module spiMemory
     input           mosi_pin,   // SPI master out slave in
     output [3:0]    leds        // LEDs for debugging
 )
-
+//drop the least sig bit of parallel out from shiftregister
 
 endmodule
-   
