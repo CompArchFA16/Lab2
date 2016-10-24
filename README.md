@@ -174,7 +174,7 @@ If at any time `CS` is de-asserted (raised high), this state machine resets the 
 
 ### Load on FPGA ###
 
-We will provide a quickstart guide to help you load your SPI designs as a module onto the Zybo board to test.
+The ninjas have written a quickstart guide to help you load your SPI designs as a module onto the Zybo board to test. Find it [here] (https://docs.google.com/presentation/d/1scQKd7CSk9_bO_xThRixRVcJl47oTpByuBmMZ4xUAjA/edit?usp=sharing).
 
 ## SPI Memory Testing ##
 
