@@ -38,11 +38,11 @@ module spiMemory
   // cs inputconditioner
   inputconditioner cs(clk, cs_pin, cs_conditioned, cs_posedge, cs_negedge);
 
-  // Shift Register
-  shiftregister #(8) sr(clk, sclk_posedge, sr_we, parallelDataIn, mosi_conditioned, parallelDataOut, serialDataOut);
-  
   // Finite State Machine
   finitestatemachine fsm(sclk_posedge, cs_conditioned, parallelDataOut[0], miso_buff, dm_we, addr_we, sr_we);
+
+  // Shift Register
+  shiftregister #(8) sr(clk, sclk_posedge, sr_we, parallelDataIn, mosi_conditioned, parallelDataOut, serialDataOut);
 
   // Address Latch
   addresslatch al(clk, addr_we, parallelDataOut, addrOut);

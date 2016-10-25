@@ -14,73 +14,75 @@ module fsmtransition
 	output reg [2:0] next
 );
 
-parameter state_GETTING_ADDRESS     = 0;
-parameter state_GOT_ADDRESS         = 1;
-parameter state_READ_1              = 2;
-parameter state_READ_2              = 3;
-parameter state_READ_3              = 4;
-parameter state_WRITE_1             = 5;
-parameter state_WRITE_2             = 6;
-parameter state_DONE                = 7;
+parameter s_GET     = 0;
+parameter s_GOT     = 1;
+parameter s_READ1   = 2;
+parameter s_READ2   = 3;
+parameter s_READ3   = 4;
+parameter s_WRITE1  = 5;
+parameter s_WRITE2  = 6;
+parameter s_DONE    = 7;
 
 reg[3:0] counter = 0; // starts with 0
 
 always @(posedge sclk) begin
 	if(cs == 1) begin // cs high, unconditional reset
-		next <= state_GETTING_ADDRESS;
+		next <= s_GET;
 		counter <= 0;
 	end else begin
 		case(currentState)
 
-			state_GETTING_ADDRESS: begin
+			s_GET: begin
 				if(counter == 8) begin
-					next <= state_GOT_ADDRESS;
+					next <= s_GOT;
 				end else begin
-					next <= state_GETTING_ADDRESS;
+					next <= s_GET;
+					$display("!!: %b", next);
 					counter <= counter + 1;
 				end
+				$display("!: %b", next);
 			end
 
-			state_GOT_ADDRESS: begin
+			s_GOT: begin
 				counter <= 0; // reset counter
 				if(rw == 1) begin
-					next <= state_READ_1;
+					next <= s_READ1;
 				end else begin
-					next <= state_WRITE_1;
+					next <= s_WRITE1;
 				end
 			end
 
-			state_READ_1: begin
-				next <= state_READ_2;
+			s_READ1: begin
+				next <= s_READ2;
 			end
 
-			state_READ_2: begin
-				next <= state_READ_3;
+			s_READ2: begin
+				next <= s_READ3;
 			end
 
-			state_READ_3: begin
+			s_READ3: begin
 				if(counter == 8) begin
-					next <= state_DONE;
+					next <= s_DONE;
 				end else begin
 					counter <= counter + 1;
 				end
 			end
 
-			state_WRITE_1: begin
+			s_WRITE1: begin
 				if(counter == 8) begin
-					next <= state_WRITE_2;
+					next <= s_WRITE2;
 				end else begin
 					counter <= counter + 1;
 				end
 			end
 
-			state_WRITE_2: begin
-				next <= state_DONE;
+			s_WRITE2: begin
+				next <= s_DONE;
 			end
 
-			state_DONE: begin
+			s_DONE: begin
 				counter <= 0;
-				next <= state_DONE;
+				next <= s_DONE;
 			end
 
 			default: begin
@@ -88,7 +90,7 @@ always @(posedge sclk) begin
 			end
 		endcase
 	end
-
+	$display("NEXT : %b", next);
 end
 
 endmodule

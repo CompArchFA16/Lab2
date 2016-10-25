@@ -19,14 +19,16 @@ wire [3:0] leds;
 
 spiMemory sm(clk,sclk_pin,cs_pin,miso_pin,mosi_pin,leds);
 
-// global clock
+// fast interal clock
 always begin
 	#10 clk = !clk;
 end
 
-// serial clock
+// slow serial clock
 always begin
 	#150 sclk_pin = !sclk_pin;
+	// posedge at 150, 450, ...
+	// negedge at 0, 300, ...
 end
 
 initial begin
