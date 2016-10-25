@@ -87,6 +87,8 @@ int main()
 	u8 res = spi_read(&SpiInstance, addr); //spi_read has been provided
 	xil_printf("Wrote to %X. %X transmitted. %X readback.\n\r", addr, value, res);
 
+	//Add test cases here, testing reading and writing.
+
     //Everything below is cleanup code, you don't need to modify this
     LED_data |= 0x1<<2;
     xil_printf("Tests complete. Please review results.\n\r");
@@ -100,6 +102,16 @@ int main()
 
 void spi_write(XSpi *SpiInstancePtr, u8 addr, u8 value){
 	// TODO: Your code here! Read the xspi.h file for more information on XSpi_Transfer()
+
+	/* spi_write in xspi.h is defined as:
+	#define XSpi_IntrGlobalEnable(InstancePtr)				\
+		XSpi_WriteReg(((InstancePtr)->BaseAddr),  XSP_DGIER_OFFSET, 	\
+				XSP_GINTR_ENABLE_MASK) */
+
+	/*XSpi_Transfer in xspi.h is defined as:
+	int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
+			  unsigned int ByteCount); */
+			  
 }
 
 u8 spi_read(XSpi *SpiInstancePtr, u8 addr){
