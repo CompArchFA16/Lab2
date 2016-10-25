@@ -29,6 +29,7 @@ module fsm
         else begin
           // Here we set circuit into write mode.
           DMWriteEnable <= 1;
+          // chipSelectConditioned <= 1; // This is an input.
         end
       end
 
