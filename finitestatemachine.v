@@ -29,12 +29,11 @@ parameter s_DONE = 7;
 reg [3:0] counter = 0;
 
 reg [2:0] state = s_GET; // current state, default to s_GET
-reg [2:0] next = s_GET; // next state
 
 reg [7:0] p_out; // either address or data for data memory
 reg [7:0] d_addr; // address for data memory
 
-// fsmtransition t(state, peripheralClkEdge, cs, rw, next);
+// fsmtransition t(state, peripheralClkEdge, cs, rw, state);
 
 always @(posedge peripheralClkEdge) begin
 	miso_buff <= 0;
@@ -42,10 +41,8 @@ always @(posedge peripheralClkEdge) begin
 	addr_we <= 0;
 	sr_we <= 0;
 
-	state <= next;
-
 	if (cs == 1) begin
-		next <= s_GET;
+		state <= s_GET;
 		counter <= 0;
 	end else begin
 		//if cs == 1 then reset counter and go back to s_GET
@@ -53,9 +50,10 @@ always @(posedge peripheralClkEdge) begin
 			s_GET: begin
 				// transition
 				if(counter >= 7) begin
-					next <= s_GOT;
+					addr_we <= 1;
+					state <= s_GOT;
 				end else begin
-					next <= s_GET;
+					state <= s_GET;
 					counter <= counter + 1;
 				end
 				// no output
@@ -63,53 +61,54 @@ always @(posedge peripheralClkEdge) begin
 			s_GOT: begin
 				// transition
 				counter <= 0; // reset counter
+				addr_we <= 0;
 				if(rw == 1) begin
-					next <= s_READ0;
+					state <= s_READ0;
 				end else begin
-					next <= s_WRITE0;
+					state <= s_WRITE0;
 				end
 				// output
 				
 				// finished reading address, now addr buffer is valid
 				// thus write-enable address to data memory
-				addr_we <= 1;
 			end
 			s_READ0: begin
 				// transition
-				next <= s_READ1;
+				state <= s_READ1;
+				sr_we <= 1;
 			end
 			s_READ1: begin
 				// transition
-				next <= s_READ2;
-				sr_we <= 1;
+				state <= s_READ2;
+				miso_buff <= 1;
 			end
 			s_READ2: begin
 				// transition
 				if(counter == 8) begin
-					next <= s_DONE;
+					state <= s_DONE;
 				end else begin
-					next <= s_READ2;
+					miso_buff <= 1;
 					counter <= counter + 1;
+					state <= s_READ2;
 				end
-
 				// output
-				miso_buff <= 1;
 			end
 			s_WRITE0: begin
-				if(counter == 8) begin
-					next <= s_WRITE1;
+				if(counter >= 6) begin // WRITE1 at counter == 7
+					state <= s_WRITE1;
+					dm_we <= 1; // write to data memory
 				end else begin
-					next <= s_WRITE0;
+					state <= s_WRITE0;
 					counter <= counter + 1;
 				end
 			end
 			s_WRITE1: begin
-				next <= s_DONE;
-				dm_we <= 1; // write to data memory
+				state <= s_DONE;
+				counter <= 0;
 			end
 			s_DONE: begin
 				counter <= 0;
-				next <= s_DONE;
+				state <= s_DONE;
 			end
 			default: begin
 

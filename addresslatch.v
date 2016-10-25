@@ -2,8 +2,8 @@ module addresslatch
 (
 	input clk,
 	input enable, // enable
-	input [7:0] d,
-	output reg [7:0] q
+	input [6:0] d,
+	output reg [6:0] q
 );
 
 always @(posedge clk) begin

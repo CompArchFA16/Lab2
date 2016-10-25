@@ -49,7 +49,7 @@ initial begin
 	addr = $urandom % (1 << 7); // dummy is the address
 
 	for(it = 0; it < 7; it = it+1) begin
-		mosi_pin <= addr[it]; // feed in address
+		mosi_pin <= addr[6-it]; // feed in address in reverse order
 		$display("STATE : %b", sm.fsm.state);
 		#300;
 	end
@@ -75,7 +75,7 @@ initial begin
 	// READ OPERATION BEGIN ...
 	cs_pin = 0;
 	for(it = 0; it < 7; it = it + 1) begin
-		mosi_pin <= addr[it];
+		mosi_pin <= addr[6-it];
 		$display("STATE : %b", sm.fsm.state);
 		#300;
 	end
@@ -83,12 +83,15 @@ initial begin
 	mosi_pin <= 1; // "READ"
 	#300; // wait one clock cycle to read from data memory
 
+	mosi_pin <= 0;
 	#300; // wait one clock cycle to write to shift register
 
 	for(it = 0; it < 8; it = it + 1) begin
 		dummy[7 - it] <= miso_pin;
 		#300;
 	end
+
+	#300;
 
 	#300;
 

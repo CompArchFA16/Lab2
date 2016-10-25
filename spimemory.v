@@ -24,10 +24,11 @@ module spiMemory
   wire mosi_conditioned, sclk_conditioned, cs_conditioned;
   wire mosi_posedge, sclk_posedge, cs_posedge;
   wire mosi_negedge, sclk_negedge, cs_negedge;
-  wire [7:0] parallelDataIn, parallelDataOut, addrOut;
+  wire [7:0] parallelDataIn, parallelDataOut;
   wire serialDataOut, dffOut;
 
-  reg [7:0] addr;
+  reg [6:0] addr;
+  wire [6:0] addrOut;
 
   // mosi inputconditioner
   inputconditioner mosi(clk, mosi_pin, mosi_conditioned, mosi_posedge, mosi_negedge);
@@ -45,7 +46,7 @@ module spiMemory
   shiftregister #(8) sr(clk, sclk_posedge, sr_we, parallelDataIn, mosi_conditioned, parallelDataOut, serialDataOut);
 
   // Address Latch
-  addresslatch al(clk, addr_we, parallelDataOut, addrOut);
+  addresslatch al(clk, addr_we, parallelDataOut[7:1], addrOut);
 
   // Data memory
   datamemory dm(clk, parallelDataIn, addrOut[6:0], dm_we, parallelDataOut); //may be wrong declaration
