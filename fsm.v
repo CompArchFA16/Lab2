@@ -34,7 +34,7 @@ always @(posedge perEdge) begin
         case (state)
             Get_State: begin
                 if (counter != 8) begin
-                    counter += 1;
+                    counter <= counter + 1;
                 end
                 else begin
                     counter <= 0;
@@ -62,7 +62,7 @@ always @(posedge perEdge) begin
             end
             Read3_State: begin
                 if (counter != 8) begin
-                    counter += 1;
+                    counter <= counter + 1;
                 end
                 else begin
                     counter <= 0;
@@ -71,7 +71,7 @@ always @(posedge perEdge) begin
             end
             Write1_State: begin
                 if (counter != 8) begin
-                    counter += 1;
+                    counter <= counter + 1;
                 end
                 else begin
                     counter <= 0;
