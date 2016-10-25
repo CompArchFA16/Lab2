@@ -82,15 +82,15 @@ initial begin
 
 	mosi_pin <= 1; // "READ"
 	#300; // wait one clock cycle to read from data memory
-
 	mosi_pin <= 0;
 	#300; // got
 	#300; // rd0
 	dummy <= 8'b11111111;
 	#300; // rd1
-	#300; // rd2
+	#300; // 150 delay + read at posedge
 
 	for(it = 0; it < 8; it = it + 1) begin
+		$display ("%d", $time);
 		$display("-> %b", miso_pin);
 		dummy[7 - it] <= miso_pin;
 		#300;
