@@ -111,14 +111,22 @@ void spi_write(XSpi *SpiInstancePtr, u8 addr, u8 value){
 	/*XSpi_Transfer in xspi.h is defined as:
 	int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 			  unsigned int ByteCount); */
-			  
+	u8 addr_byte = (addr << 1); //last bit will be 0, with R/W flag low for "write"
+	u8 SendBuf[2];
+	u8 RcvBuf[2];
+	SendBuf[0] = addr_byte;
+	SendBuf[1] = value;
+	RcvBuf[0] = 0;
+	RcvBuf[1] = 0;
+	XSpi_Transfer(SpiInstancePtr, SendBuf, RcvBuf, 0);
+	return; 
 }
 
 u8 spi_read(XSpi *SpiInstancePtr, u8 addr){
 	/*SpiInstancePtr is the pointer to the SPI protocol object we created
 	 * during the beginning lines of main()*/
 	u8 addr_byte = (addr << 1); //Shifted, because we have 7 bits of addr, 1 bit of R/W
-	addr_byte |= 0x1;
+	addr_byte |= 0x1; //|= is bitwise inclusive OR
 	u8 RcvBuf[2];
 	u8 SendBuf[2];
 	SendBuf[0] = addr_byte;
