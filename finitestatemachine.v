@@ -42,6 +42,8 @@ always @(posedge peripheralClkEdge) begin
 	addr_we <= 0;
 	sr_we <= 0;
 
+	state <= next;
+
 	if (cs == 1) begin
 		next <= s_GET;
 		counter <= 0;
@@ -50,7 +52,7 @@ always @(posedge peripheralClkEdge) begin
 		case (state)
 			s_GET: begin
 				// transition
-				if(counter >= 8) begin
+				if(counter >= 7) begin
 					next <= s_GOT;
 				end else begin
 					next <= s_GET;
@@ -62,9 +64,9 @@ always @(posedge peripheralClkEdge) begin
 				// transition
 				counter <= 0; // reset counter
 				if(rw == 1) begin
-					next <= s_READ1;
+					next <= s_READ0;
 				end else begin
-					next <= s_WRITE1;
+					next <= s_WRITE0;
 				end
 				// output
 				
@@ -114,7 +116,6 @@ always @(posedge peripheralClkEdge) begin
 			end
 		endcase
 	end
-	state <= next;
 end
 
 endmodule
