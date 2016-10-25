@@ -10,38 +10,77 @@ module fsm
 	input  chipSelectConditioned
 );
 
+  parameter state_GET       = 0;
+  parameter state_GOT       = 1;
+  parameter state_READ_1    = 2;
+  parameter state_READ_2    = 3;
+  parameter state_READ_3    = 4;
+  parameter state_WRITE_1   = 5;
+  parameter state_WRITE_2   = 6;
+  parameter state_DONE      = 7;
+
   parameter waitTime = 8;
   reg [2:0] counter = 0;
+  reg [2:0] currentState = state_GET;
 
   always @ (negedge sClkPosEdge) begin
 
-    if (chipSelectConditioned === 1'b0) begin
+    if (chipSelectConditioned === 0) begin
 
-      if (counter === waitTime) begin
-        counter <= 0;
-        addressWriteEnable <= 1;
-
-        if (readWriteEnable === 1) begin
-          // Here, we set read signals to high.
-          SRWriteEnable <= 1;
-          misoBufferEnable <= 1;
+      if (currentState === state_GET) begin
+        if (counter !== waitTime) begin
+          currentState <= state_GET;
         end
         else begin
-          // Here we set circuit into write mode.
-          DMWriteEnable <= 1;
-          // chipSelectConditioned <= 1; // This is an input.
+          currentState <= state_GOT;
+          counter <= 0;
         end
       end
 
-      counter <= counter + 1;
+      if (currentState === state_GOT) begin
+        if (readWriteEnable === 1) begin
+          currentState <= state_READ_1;
+        end
+        else begin
+          currentState <= state_WRITE_1;
+        end
+      end
+
+      if (currentState === state_READ_1) begin
+        currentState <= state_READ_2;
+      end
+
+      if (currentState === state_READ_2) begin
+        currentState <= state_READ_3;
+      end
+
+      if (currentState === state_READ_3) begin
+        if (counter != waitTime) begin
+          currentState <= state_READ_3;
+        end
+        else begin
+          currentState <= state_DONE;
+          counter <= 0;
+        end
+      end
+
+      if (currentState === state_READ_1) begin
+        currentState <= state_READ_2;
+      end
+
+      if (currentState === state_WRITE_1) begin
+        if (counter !== waitTime) begin
+          currentState <= state_WRITE_1;
+        end
+        else begin
+          currentState <= state_WRITE_2;
+          counter <= 0;
+        end
+      end
     end
     else begin
-      // It will reset everything.
       counter <= 0;
-      misoBufferEnable <= 0;
-      DMWriteEnable <= 0;
-      addressWriteEnable <= 0;
-      SRWriteEnable <= 0;
+      currentState <= state_GET;
     end
   end
 endmodule
