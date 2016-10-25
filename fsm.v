@@ -51,6 +51,7 @@ module fsm
       end
 
       if (currentState === state_READ_2) begin
+        SRWriteEnable <= 1;
         currentState <= state_READ_3;
       end
 
@@ -77,9 +78,19 @@ module fsm
           counter <= 0;
         end
       end
+
+      if (currentState === state_WRITE_2) begin
+        DMWriteEnable <= 1;
+        currentState <= state_DONE;
+      end
     end
     else begin
       counter <= 0;
+      // Fine, Bonnie...
+      // misoBufferEnable <= 0;
+      // DMWriteEnable <= 0;
+      // addressWriteEnable <= 0;
+      // SRWriteEnable <= 0;
       currentState <= state_GET;
     end
   end
