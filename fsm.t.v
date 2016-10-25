@@ -23,7 +23,21 @@ module testFSM();
     .chipSelectConditioned(chipSelectConditioned)
   );
 
+  initial sClkPosEdge=0;
+  always #10 sClkPosEdge=!sClkPosEdge;
+
   initial begin
 
+    $dumpfile("fsm.vcd");
+    $dumpvars;
+
+    dutPassed = 1;
+
+    //Write test
+    readWriteEnable = 0;
+    chipSelectConditioned = ; //When it's high the clk shouldn't run?    
+    
+
+    
   end
 endmodule

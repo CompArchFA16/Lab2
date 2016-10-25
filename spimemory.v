@@ -4,6 +4,8 @@
 `include "inputconditioner.v"
 `include "shiftregister.v"
 `include "datamemory.v"
+`include "addresslatch.v"
+`include "fsm.v"
 
 module spiMemory
 (
@@ -30,15 +32,51 @@ module spiMemory
 	wire DMWriteEnable;
 	wire[6:0] DMAddress;
 
-	inputconditioner conditioner1(.conditioned(conditioned), .clk(clk), .noisysignal(mosi_pin));
-    inputconditioner conditioner2(.positiveedge(positiveedge), .negativeedge(negativeedge), .clk(clk), .noisysignal(sclk_pin));
-    inputconditioner conditioner3(.conditioned(conditionedCS), .clk(clk), .noisysignal(cs_pin));
-    
-    datamemory mem(.dataOut(DMDataOut), .clk(clk), .address(DMAddress), .writeEnable(DMWriteEnable), .dataIn(DMDataIn));
+	// fsm wires
+	wire SRWriteEnable;
+	wire addressWriteEnable;
+	wire misoBufferEnable;
 
-    shiftregister register(.parallelDataOut(parallelOut), .serialDataOut(serialOut), 
-    	.serialDataIn(conditionedMosi), .peripheralClkEdge(positiveedge), 
-    	.parallelDataIn(DMDataOut), .clk(clk));
+	inputconditioner conditioner1(.conditioned(conditioned), 
+								  .clk(clk), 
+								  .noisysignal(mosi_pin)
+	);
+
+    inputconditioner conditioner2(.positiveedge(positiveedge), 
+    							  .negativeedge(negativeedge), 
+    							  .clk(clk), 
+    							  .noisysignal(sclk_pin)
+
+    );
+    inputconditioner conditioner3(.conditioned(conditionedCS),
+    							  .clk(clk), 
+    							  .noisysignal(cs_pin)
+    );
+    
+    datamemory mem(.dataOut(DMDataOut), 
+    			   .clk(clk), 
+    			   .address(DMAddress), 
+    			   .writeEnable(DMWriteEnable), 
+    			   .dataIn(DMDataIn)
+    );
+
+    shiftregister register(.parallelDataOut(parallelOut), 
+    					   .serialDataOut(serialOut), 
+    					   .serialDataIn(conditionedMosi), 
+    					   .peripheralClkEdge(positiveedge), 
+    					   .parallelDataIn(DMDataOut), 
+    					   .clk(clk),
+    					   .parallelLoad(SRWriteEnable)
+    );
+
+    fsm fsm(.misoBufferEnable(misoBufferEnable),
+    		.DMWriteEnable(DMWriteEnable),
+    		.addressWriteEnable(addressWriteEnable),
+    		.SRWriteEnable(SRWriteEnable),
+    		.sClkPosEdge(positiveedge),
+    		.readWriteEnable(parallelOut[0]),
+    		.chipSelectConditioned(conditionedCS)
+    );
 
 endmodule
    
