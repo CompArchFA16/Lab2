@@ -42,6 +42,7 @@ module fsm
           currentState <= state_READ_1;
         end
         else begin
+          addressWriteEnable <= 1;
           currentState <= state_WRITE_1;
         end
       end
@@ -60,14 +61,12 @@ module fsm
           currentState <= state_READ_3;
         end
         else begin
+          misoBufferEnable <= 1;
           currentState <= state_DONE;
           counter <= 0;
         end
       end
 
-      if (currentState === state_READ_1) begin
-        currentState <= state_READ_2;
-      end
 
       if (currentState === state_WRITE_1) begin
         if (counter !== waitTime) begin
@@ -83,6 +82,11 @@ module fsm
         DMWriteEnable <= 1;
         currentState <= state_DONE;
       end
+
+      // if (currentState === state_DONE) begin
+      //   // chipSelectConditioned <= 1; 
+      // end
+
     end
     else begin
       counter <= 0;

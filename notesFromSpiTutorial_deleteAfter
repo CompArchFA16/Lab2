@@ -1,0 +1,18 @@
+download lab2 wrapper files
+put exported spi module into it, the spi code has to be
+hardware module (ve blue file icon)
+
+spiModule = top module in vivado
+file - export hardware, include bitstream, ok, make local to proj, 
+
+tools create and pa
+
+cs pin in
+miso pin out
+mosi in
+
+do slide stuff
+
+write c tester code, file launch sdk
+
+fill in spi_read
