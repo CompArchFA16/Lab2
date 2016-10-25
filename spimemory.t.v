@@ -84,17 +84,19 @@ initial begin
 	#300; // wait one clock cycle to read from data memory
 
 	mosi_pin <= 0;
-	#300; // wait one clock cycle to write to shift register
+	#300; // got
+	#300; // rd0
+	dummy <= 8'b11111111;
+	#300; // rd1
+	#300; // rd2
 
 	for(it = 0; it < 8; it = it + 1) begin
+		$display("-> %b", miso_pin);
 		dummy[7 - it] <= miso_pin;
 		#300;
 	end
 
 	#300;
-
-	#300;
-
 	$display("READ DATA : %b", dummy);
 	$finish();
 end
