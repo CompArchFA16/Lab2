@@ -82,11 +82,6 @@ module fsm
         DMWriteEnable <= 1;
         currentState <= state_DONE;
       end
-
-      // if (currentState === state_DONE) begin
-      //   // chipSelectConditioned <= 1; 
-      // end
-
     end
     else begin
       counter <= 0;
