@@ -6,9 +6,9 @@
 `include "shiftregister.v"
 `include "fsm.v"
 `include "addressLatch.v"
-`include "inputconditioner.v"
+//`include "inputconditioner.v"
 
-`timescale 1 ns / ps
+`timescale 1 ns / 1 ps
 
 module spiMemory
 (
@@ -18,10 +18,10 @@ module spiMemory
     output          miso_pin,   // SPI master in slave out
     input           mosi_pin,   // SPI master out slave in
     output [3:0]    leds        // LEDs for debugging
-)
-	//drop the least sig bit of parallel out from shiftregister
-
-	//instantiate wires and reg's
+);
+	// drop the least sig bit of parallel out from shiftregister
+    //
+	// instantiate wires and reg's
     wire conditioned1, positiveedge1, negativeedge1;
     wire conditioned2, positiveedge2, negativeedge2;
     wire conditioned3, positiveedge3, negativeedge3;
@@ -52,13 +52,13 @@ module spiMemory
     addressLatch addresslatch(clk, parallelOut[7:1], addr_we, addr); // cutting off the read/write flag, which is LSB
 
     // Data Memory
-    datamemory datamem(clk, parallelIn, addr, dm_we, parallelOut);
+    datamemory datamem(clk, parallelDataIn, addr, dm_we, parallelOut);
 
     // DFF
     dFlipFlop dff(clk, serialOut, negativeedge2, dffout);
 
     // miso buffer
-    bufif1 misobuff(miso_pin, dffout, miso_buff;
+    bufif1 misobuff(miso_pin, dffout, miso_buff);
 
 
 endmodule
