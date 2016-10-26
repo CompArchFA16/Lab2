@@ -35,11 +35,13 @@ module fsm
                         count++;
                         if (count == 4'd8) begin
                             state <= `GOT;
+                            addre_we <= 1;
+                            count <= 0;
                         end
                     end
           `GOT :     begin
-                        addre_we <= 1;
-                        count <= 0;
+                        // addre_we <= 1;
+                        // count <= 0;
                         if (lsbsrop == 1) begin
                             state <= `READ1;
                         end
@@ -51,34 +53,47 @@ module fsm
                     end
           `READ1:   begin
                         state <= `READ2;
+                        sr_we <= 1;
                     end
           `READ2:   begin
-                        sr_we <= 1;
+                        // sr_we <= 1;
                         state <= `READ3;
+                        miso_bufe <= 1;
                     end
           `READ3:   begin
                         count++;
-                        miso_bufe <= 1;
+                        // miso_bufe <= 1;
                         if (count == 4'd8) begin
                             state <= `DONE;
+                            count <= 0;
+                            sr_we <= 0;
+                            dm_we <= 0;
+                            addre_we <= 0;
+                            miso_bufe <= 0;
                         end
                     end
           `WRITE1:  begin
                         count++;
                         if (count == 4'd8) begin
                             state <= `WRITE2;
+                            dm_we <= 1;
                         end
                     end
           `WRITE2:  begin
-                        dm_we <= 1;
+                        // dm_we <= 1;
                         state <= `DONE;
-                    end
-          `DONE:    begin
                         count <= 0;
                         sr_we <= 0;
                         dm_we <= 0;
                         addre_we <= 0;
                         miso_bufe <= 0;
+                    end
+          `DONE:    begin
+                        // count <= 0;
+                        // sr_we <= 0;
+                        // dm_we <= 0;
+                        // addre_we <= 0;
+                        // miso_bufe <= 0;
                         if (cs == 0) begin
                             state <= `GET;
                         end

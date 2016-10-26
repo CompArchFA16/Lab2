@@ -13,11 +13,14 @@ module testFsm();
     always #50 clkedge=!clkedge;    // 5MHz Clock
 
     initial begin
-        cs=1; lsbsrop=1; #1000
+        $dumpfile("fsm.vcd");
+        $dumpvars();
+
+        cs=1; lsbsrop=1; #200
         $display("cs  lsbsrop | miso_bufe  dm_we  addre_we  sr_we | state");
         $display("%b   %b       | %b          %b      %b         %b     | DONE", cs, lsbsrop, miso_bufe, dm_we, addre_we, sr_we);
 
-        cs=0; #200
+        cs=0; #100
         $display("%b   %b       | %b          %b      %b         %b     | GET", cs, lsbsrop, miso_bufe, dm_we, addre_we, sr_we);
 
         #800
@@ -32,11 +35,11 @@ module testFsm();
         #100
         $display("%b   %b       | %b          %b      %b         %b     | READ3", cs, lsbsrop, miso_bufe, dm_we, addre_we, sr_we);
 
-        #700
-        cs=1; lsbsrop=0;#100
+        #800
+        cs=1; lsbsrop=0;#200
         $display("%b   %b       | %b          %b      %b         %b     | DONE", cs, lsbsrop, miso_bufe, dm_we, addre_we, sr_we);
 
-        cs=0; #200
+        cs=0;#100
         $display("%b   %b       | %b          %b      %b         %b     | GET", cs, lsbsrop, miso_bufe, dm_we, addre_we, sr_we);
 
         #800
@@ -51,6 +54,7 @@ module testFsm();
         #100
         $display("%b   %b       | %b          %b      %b         %b     | DONE", cs, lsbsrop, miso_bufe, dm_we, addre_we, sr_we);
 
+        $dumpflush;
         $finish;
     end
 
