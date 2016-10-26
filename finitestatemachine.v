@@ -61,8 +61,9 @@ always @(posedge clk) begin
 				end
 			end
 			s_GOT: begin
+				counter <= 0; // reset counter
+
 				if (peripheralClkEdge) begin
-					counter <= 0; // reset counter
 					if(rw == 1) begin
 						state <= s_READ0;
 					end else begin
