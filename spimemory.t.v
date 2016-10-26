@@ -21,7 +21,7 @@ spiMemory sm(clk,sclk_pin,cs_pin,miso_pin,mosi_pin,leds);
 
 // fast interal clock
 always begin
-	#10 clk = !clk;
+	#5 clk = !clk;
 end
 
 // slow serial clock
@@ -81,12 +81,10 @@ initial begin
 	end
 
 	mosi_pin <= 1; // "READ"
-	#300; // wait one clock cycle to read from data memory
+	#300; // trigger GOT
 	mosi_pin <= 0;
-	#300; // got
-	#300; // rd0
 	dummy <= 8'b11111111;
-	#300; // rd1
+	#150; // rd1
 	#300; // 150 delay + read at posedge
 
 	for(it = 0; it < 8; it = it + 1) begin
