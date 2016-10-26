@@ -57,12 +57,13 @@ module testFSM();
     dutPassed = 1;
 
     // Test if read request flags can be set properly.
+    resetTest();
     chipSelectConditioned = 0;
     readWriteEnable = 1;
     waitFor8SClkCycles();
 
     if (misoBufferEnable !== 1
-      || DMWriteEnable !== 1
+      || DMWriteEnable !== 0
       || addressWriteEnable !== 1
       || SRWriteEnable !== 1) begin
       dutPassed = 0;
@@ -70,18 +71,17 @@ module testFSM();
       displayFailedResults();
     end
 
-    resetTest();
-
-    // Test if write request flags can be set properly.
-    chipSelectConditioned = 0;
-    readWriteEnable = 0;
-    waitFor8SClkCycles();
-
-    resetTest();
-
-    // Test if any resets in `chipSelectConditioned = 1` nulls the whole operation.
-
-    resetTest();
+    // // Test if write request flags can be set properly.
+    // resetTest();
+    // chipSelectConditioned = 0;
+    // readWriteEnable = 0;
+    // waitFor8SClkCycles();
+    //
+    // resetTest();
+    //
+    // // Test if any resets in `chipSelectConditioned = 1` nulls the whole operation.
+    //
+    // resetTest();
 
     $display("Have all tests passed? %b", dutPassed);
 
