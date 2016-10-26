@@ -44,14 +44,21 @@ module testshiftregister();
     	// Your Test Code
 		
 		// Test advancing
-		for(it=0; it<100; it=it+1) begin
+		for(it=0; it<16; it=it+1) begin
 			parallelLoad = 0;
 			serialDataIn = $urandom % 2; // get last bit only
-			#25; // wait half of clock cycle ... i.e. this should only work half of the time
+			#30; // wait half of clock cycle ... i.e. this should only work half of the time
 			$display("%b %b %b", serialDataIn, parallelDataOut, serialDataOut);
 		end	
+
 		// Test parallelLoad
-		
+		parallelLoad = 1;
+		parallelDataIn = $urandom % (1 << 8);
+		$display("%b", parallelDataIn);
+		#20;
+		parallelLoad = 0;
+		#100; // wait one clock cycle
+
 		$finish();
     end
 

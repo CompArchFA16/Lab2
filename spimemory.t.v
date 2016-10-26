@@ -45,6 +45,9 @@ initial begin
 	
 	$display("STATE : %b", sm.fsm.state);
 
+	cs_pin = 1; // waiting arbitrary amount of time
+	#750;
+
 	cs_pin = 0; // now, start interacting with the SPI memory
 	addr = $urandom % (1 << 7); // dummy is the address
 
