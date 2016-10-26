@@ -76,19 +76,16 @@ always @(posedge clk) begin
 			end
 			s_READ0: begin
 				// read data memory
-				//if (peripheralClkEdge) begin
+				// transition immediately
 				state <= s_READ1;
-					// transition
-				//end
 			end
 			s_READ1: begin
 				// parallelLoad to shift register
-				//if (peripheralClkEdge) begin
-					// transition
-					state <= s_READ2;
-				//end
+				// transition immediately
+				state <= s_READ2;
 			end
 			s_READ2: begin
+				// this should now be aligned with serial clock
 				if (peripheralClkEdge) begin
 					// transition
 					if(counter == 8) begin
@@ -110,6 +107,8 @@ always @(posedge clk) begin
 				end
 			end
 			s_WRITE1: begin
+				// write to data memory
+				// transition immediately
 				state <= s_DONE;
 				counter <= 0;
 			end
