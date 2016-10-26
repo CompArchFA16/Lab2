@@ -4,7 +4,7 @@
 
 **Midpoint Check In due:** Thursday, October 20
 
-**Lab due:** Thursday, October 27
+**Lab due:** ~~Thursday, October 27~~ Saturday, October 29
 
 In this lab you will create an [SPI](https://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus) Memory and instantiate it on FPGA.  You will also create an automated test harness and use it to verify your memory (and possibly the memories of the other groups in the class).
 
@@ -175,6 +175,8 @@ If at any time `CS` is de-asserted (raised high), this state machine resets the 
 ### Load on FPGA ###
 
 The ninjas have written a quickstart guide to help you load your SPI designs as a module onto the Zybo board to test. Find it [here] (https://docs.google.com/presentation/d/1scQKd7CSk9_bO_xThRixRVcJl47oTpByuBmMZ4xUAjA/edit?usp=sharing).
+
+If you are using the provided virtual machine, there is a bug that won't allow you to access the UART. Please follow the instructions on Piazza to do breakpoint-based debugging instead.
 
 ## SPI Memory Testing ##
 
