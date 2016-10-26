@@ -11,34 +11,40 @@
 
 module fsm 
 (
-    input clkedge,
-    input cs,
-    input lsbsrop,
     output reg miso_bufe,
     output reg dm_we,
     output reg addre_we,
-    output reg sr_we
+    output reg sr_we,
+    input clkedge,
+    input cs,
+    input lsbsrop
 );
-    reg [2:0] count, state;
-    //count <= 0;
-    //state <= `GET;
+    reg [3:0] count;
+    reg [2:0] state;
+    initial count = 4'd0;
+    initial state = `DONE;
+    initial miso_bufe = 0;
+    initial dm_we = 0;
+    initial addre_we = 0;
+    initial sr_we = 0;
 
     always @(posedge clkedge) begin
+        // $display("state:%d  count:%d", state, count);
         case (state)
           `GET :    begin
-                        count <= count + 1;
-                        if (count == 3'd8) begin
-                            count <= 0;
+                        count++;
+                        if (count == 4'd8) begin
                             state <= `GOT;
                         end
                     end
           `GOT :     begin
+                        addre_we <= 1;
+                        count <= 0;
                         if (lsbsrop == 1) begin
                             state <= `READ1;
                         end
                         else begin
                             if (lsbsrop == 0) begin
-                                addre_we <= 1;
                                 state <= `WRITE1;
                             end
                         end
@@ -51,18 +57,16 @@ module fsm
                         state <= `READ3;
                     end
           `READ3:   begin
-                        count <= count + 1;
+                        count++;
                         miso_bufe <= 1;
-                        if (count == 3'd8) begin
+                        if (count == 4'd8) begin
                             state <= `DONE;
-                            count <= 0;
                         end
                     end
           `WRITE1:  begin
-                        count <= count + 1;
-                        if (count == 3'd8) begin
+                        count++;
+                        if (count == 4'd8) begin
                             state <= `WRITE2;
-                            count <= 0;
                         end
                     end
           `WRITE2:  begin
@@ -75,7 +79,7 @@ module fsm
                         dm_we <= 0;
                         addre_we <= 0;
                         miso_bufe <= 0;
-                        if (cs == 1) begin
+                        if (cs == 0) begin
                             state <= `GET;
                         end
                     end

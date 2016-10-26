@@ -11,3 +11,6 @@ inputconditioner: inputconditioner.t.v inputconditioner.v
 
 shiftregister: shiftregister.t.v shiftregister.v
 	$(CC) $< && ./a.out
+
+fsm: fsm.t.v fsm.v
+	$(CC) $< && ./a.out
