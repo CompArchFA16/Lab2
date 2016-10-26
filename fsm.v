@@ -49,14 +49,14 @@ module fsm
     end
 
     if (currentState === state_READ_3) begin
+      misoBufferEnable <= 1;
       if (counter != waitTime) begin
         counter <= counter + 1;
         currentState <= state_READ_3;
       end
       else begin
-        misoBufferEnable <= 1;
-        currentState <= state_DONE;
         counter <= 0;
+        currentState <= state_DONE;
       end
     end
 
@@ -75,11 +75,11 @@ module fsm
   // Clock independent.
   always @ (currentState) begin
     if (currentState === state_GOT) begin
+      addressWriteEnable <= 1;
       if (readWriteEnable === 1) begin
         currentState <= state_READ_1;
       end
       else begin
-        addressWriteEnable <= 1;
         currentState <= state_WRITE_1;
       end
     end

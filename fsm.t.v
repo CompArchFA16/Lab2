@@ -31,6 +31,7 @@ module testFSM();
   task resetTest;
   begin
     chipSelectConditioned = 1;
+    #100;
   end
   endtask
 
