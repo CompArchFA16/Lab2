@@ -23,52 +23,53 @@ module fsm
   reg [3:0] counter = 0;
   reg [2:0] currentState = state_GET;
 
-  // For resets.
-  always @ (chipSelectConditioned) begin
-    if (chipSelectConditioned === 1) begin
-      counter <= 0;
-      misoBufferEnable <= 0;
-      DMWriteEnable <= 0;
-      addressWriteEnable <= 0;
-      SRWriteEnable <= 0;
-      currentState <= state_GET;
-    end
+  initial begin
+    misoBufferEnable <= 0;
+    DMWriteEnable <= 0;
+    addressWriteEnable <= 0;
+    SRWriteEnable <= 0;
   end
 
   // Peripheral clock dependent.
   always @ (negedge sClkPosEdge) begin
-    if (currentState === state_GET) begin
-      if (counter !== waitTime) begin
-        counter <= counter + 1;
-        currentState <= state_GET;
+    if (chipSelectConditioned === 0) begin
+      if (currentState === state_GET) begin
+        if (counter !== waitTime) begin
+          counter <= counter + 1;
+          currentState <= state_GET;
+        end
+        else begin
+          currentState <= state_GOT;
+          counter <= 0;
+        end
       end
-      else begin
-        currentState <= state_GOT;
-        counter <= 0;
+
+      if (currentState === state_READ_3) begin
+        misoBufferEnable <= 1;
+        if (counter != waitTime) begin
+          counter <= counter + 1;
+          currentState <= state_READ_3;
+        end
+        else begin
+          counter <= 0;
+          currentState <= state_DONE;
+        end
+      end
+
+      if (currentState === state_WRITE_1) begin
+        if (counter !== waitTime) begin
+          counter <= counter + 1;
+          currentState <= state_WRITE_1;
+        end
+        else begin
+          currentState <= state_WRITE_2;
+          counter <= 0;
+        end
       end
     end
-
-    if (currentState === state_READ_3) begin
-      misoBufferEnable <= 1;
-      if (counter != waitTime) begin
-        counter <= counter + 1;
-        currentState <= state_READ_3;
-      end
-      else begin
-        counter <= 0;
-        currentState <= state_DONE;
-      end
-    end
-
-    if (currentState === state_WRITE_1) begin
-      if (counter !== waitTime) begin
-        counter <= counter + 1;
-        currentState <= state_WRITE_1;
-      end
-      else begin
-        currentState <= state_WRITE_2;
-        counter <= 0;
-      end
+    else begin
+      counter <= 0;
+      currentState <= state_GET;
     end
   end
 
