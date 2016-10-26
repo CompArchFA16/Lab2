@@ -14,3 +14,6 @@ shiftregister: shiftregister.t.v shiftregister.v
 
 fsm: fsm.t.v fsm.v
 	$(CC) $< && ./a.out
+
+spimemory: spimemory.t.v spimemory.v
+	$(CC) $< && ./a.out

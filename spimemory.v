@@ -84,7 +84,8 @@ module spiMemory
     dff8bit dff1(parallelOut, addre_we, clk, address);
 
     // FSM
-    fsm fsm0(rising[1], conditioned[2], parallelOut[0], miso_bufe, dm_we, addre_we, sr_we);
+    //fsm fsm0(rising[1], conditioned[2], parallelOut[0], miso_bufe, dm_we, addre_we, sr_we);
+    fsm fsm0( miso_bufe, dm_we, addre_we, sr_we, rising[1], conditioned[2], parallelOut[0]);
 
 endmodule
    
