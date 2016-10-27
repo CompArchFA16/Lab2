@@ -1,0 +1,71 @@
+[*]
+[*] GTKWave Analyzer v3.3.76 (w)1999-2016 BSI
+[*] Thu Oct 27 00:59:12 2016
+[*]
+[dumpfile] "/home/byron/Documents/School/thirdYear/CompArch/CA16_tools/Lab2/spimemory.vcd"
+[dumpfile_mtime] "Thu Oct 27 00:58:58 2016"
+[dumpfile_size] 28740
+[savefile] "/home/byron/Documents/School/thirdYear/CompArch/CA16_tools/Lab2/gtkWavePretty.gtkw"
+[timestart] 0
+[size] 1598 874
+[pos] -1 -1
+*-13.936747 62050 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testSpimemory.
+[treeopen] testSpimemory.spi0.
+[sst_width] 240
+[signals_width] 198
+[sst_expanded] 1
+[sst_vpaned_height] 246
+@28
+testSpimemory.clk
+@200
+-
+@28
+testSpimemory.cs
+@24
+testSpimemory.mosi_pin
+@28
+testSpimemory.sclk_pin
+testSpimemory.spi0.miso_pin
+@200
+-
+@28
+testSpimemory.spi0.cs_conditioned
+testSpimemory.spi0.mosi_conditioned
+testSpimemory.spi0.sclk_conditioned
+@200
+-
+@28
+testSpimemory.spi0.shifreg.parallelDataOut[7:0]
+@200
+-
+@28
+testSpimemory.spi0.memory0.writeEnable
+testSpimemory.spi0.memory0.address[6:0]
+@22
+testSpimemory.spi0.memory0.dataIn[7:0]
+@28
+testSpimemory.spi0.memory0.dataOut[7:0]
+@200
+-
+@24
+testSpimemory.spi0.fsm0.state[2:0]
+@22
+testSpimemory.spi0.fsm0.count[3:0]
+@200
+-
+@28
+testSpimemory.spi0.addre_we
+testSpimemory.spi0.sr_we
+testSpimemory.spi0.dm_we
+testSpimemory.spi0.miso_bufe
+@200
+-
+@22
+testSpimemory.spi0.shifreg.shiftregistermem[7:0]
+@28
+testSpimemory.spi0.shifreg.serialDataOut
+@29
+testSpimemory.spi0.shifreg.parallelLoad
+[pattern_trace] 1
+[pattern_trace] 0
