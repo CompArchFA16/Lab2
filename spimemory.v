@@ -6,7 +6,7 @@
 `include "shiftregister.v"
 `include "fsm.v"
 `include "addressLatch.v"
-//`include "inputconditioner.v"
+`include "inputconditioner.v"
 
 `timescale 1 ns / 1 ps
 
