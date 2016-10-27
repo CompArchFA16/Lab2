@@ -8,6 +8,7 @@ module testFSM();
   wire addressWriteEnable;
   wire SRWriteEnable;
 
+  reg clk;
   reg sClkPosEdge;
   reg readWriteEnable;
   reg chipSelectConditioned;
@@ -18,27 +19,38 @@ module testFSM();
     .DMWriteEnable(DMWriteEnable),
     .addressWriteEnable(addressWriteEnable),
     .SRWriteEnable(SRWriteEnable),
+    .clk(clk),
     .sClkPosEdge(sClkPosEdge),
     .readWriteEnable(readWriteEnable),
     .chipSelectConditioned(chipSelectConditioned)
   );
 
-  initial sClkPosEdge=0;
-  always #10 sClkPosEdge=!sClkPosEdge;
+  initial clk=0;
+  always #1 clk=!clk;
+
+  initial sClkPosEdge = 0;
+  always begin
+    #299;
+    sClkPosEdge <= 1;
+    #1;
+    sClkPosEdge <= 0;
+  end
 
   reg dutPassed;
 
   task resetTest;
   begin
-    #80;
+    $display("RESET STARTED AT %d.", $time);
+    #800;
     chipSelectConditioned = 1;
-    #80;
+    #800;
+    $display("RESET ENDED AT %d.", $time);
   end
   endtask
 
   task waitFor8SClkCycles;
   begin
-    #160;
+    #6400;
   end
   endtask
 
@@ -69,7 +81,7 @@ module testFSM();
       || addressWriteEnable !== 1
       || SRWriteEnable !== 1) begin
       dutPassed = 0;
-      // $display("Reading failed.");
+      $display("Reading failed.");
       displayFailedResults();
     end
 
@@ -84,7 +96,7 @@ module testFSM();
       || addressWriteEnable !== 1
       || SRWriteEnable !== 0) begin
       dutPassed = 0;
-      $display("Writing failed.");
+      $display("Writing failed at %d.", $time);
       displayFailedResults();
     end
 
@@ -92,6 +104,7 @@ module testFSM();
 
     $display("Have all tests passed? %b", dutPassed);
 
+    // #5000;
     $finish();
   end
 endmodule
