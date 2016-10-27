@@ -26,7 +26,6 @@ module testConditioner();
         $dumpfile("inputconditioner.vcd");
         $dumpvars();
 
-
         pin=0; #1000
         pin=1; #50
         pin=0; #50
