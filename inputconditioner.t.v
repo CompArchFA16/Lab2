@@ -41,9 +41,11 @@ module testConditioner();
     $display($time);
     //on then off
     //4 clock cycles
-    pin = 1;  #40; pin = 0; #40;
+    pin = 1;  #4000; pin = 0; #400;
     $display("%b   %b | %b   %b   %b", clk, pin, conditioned, rising, falling);
     $display($time);
+    #1000
+    $finish;
 end
 
 endmodule
