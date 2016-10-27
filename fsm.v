@@ -30,22 +30,21 @@ always @(negedge chipSelect) begin
 end
 
 always @(posedge perEdge) begin
-    
-    if (chipSelect) begin
+
+    if (chipSelect) begin //if this is high, do not pay attention
         state <= Get_State;
         counter <= 0;
     end
     else begin
         case (state)
             Get_State: begin
-                MISO_Buff <= 0;
-                if (counter != 7) begin
-                    counter <= counter + 1;
+                MISO_Buff <= 0; //you're not ouputting info
+                if (counter != 7) begin //wait for full address (8 bits, 1 per sclk cycle) to be sent
+                    counter <= counter + 1; //on sclk, update counter
                 end
-                else begin
-                    counter <= 0;
+                else begin //if we have a full address
+                    counter <= 0; //set it to 0 to reuse counter
                     ADDR_WE <= 1; // Set Write enable for address latch
-                    //state <= Got_State;
                     if (readWrite) begin
                         state <= Read3_State;
                         SR_WE <= 1; // Set Parallel Load for shift register
@@ -67,15 +66,6 @@ always @(posedge perEdge) begin
                     state <= Write1_State;
                 end
             end
-            Read1_State: begin
-                SR_WE <= 1; // Set Parallel Load for shift register
-                DM_WE <= 0; // Set Data Memory to read
-                state <= Read3_State;
-            end
-            //Read2_State: begin
-            //    SR_WE <= 0; // Unset Parallel Load for shift register
-            //    state <= Read3_State;
-            //end
             Read3_State: begin
                 ADDR_WE <= 0;
                 SR_WE <= 0; // Unset Parallel Load for shift register
@@ -100,10 +90,6 @@ always @(posedge perEdge) begin
                     DM_WE <= 0;
                     state <= Done_State;//Write2_State;
                 end
-            end
-            Write2_State: begin
-                DM_WE <= 0;
-                state <= Done_State;
             end
             Done_State: begin
                 if (chipSelect) begin
