@@ -43,7 +43,7 @@ module spiMemory
     inputconditioner inputC3(clk, cs_pin, conditioned3, positiveedge3, negativeedge3 );
 
     // Finite state machine
-    finiteStateMachine fsm(positiveedge2, conditioned3, parallelOut[0], miso_buff, dm_we, addr_we, sr_we);
+    finiteStateMachine fsm(positiveedge2, conditioned3, conditioned1, miso_buff, dm_we, addr_we, sr_we);
 
     //shiftregister
     shiftregister shiftie(clk, positiveedge2, sr_we ,parallelDataIn, conditioned1, parallelOut, serialOut);
@@ -60,7 +60,8 @@ module spiMemory
     // miso buffer
     bufif1 misobuff(miso_pin, dffout, miso_buff);
 
-    assign leds[6:0] = addr;
+    assign leds = 0;
+    assign leds[0] = addr_we;
 
 
 endmodule

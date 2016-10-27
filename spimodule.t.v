@@ -136,6 +136,23 @@ module spimodule();
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
         #1000
+        sclk = 0; cs_pin = 0; mosi_pin = 0;
+        #1000
+        sclk = 1; cs_pin = 0; mosi_pin = 0;
+        #1000
+        sclk = 0; cs_pin = 0; mosi_pin = 0;
+        #1000
+        sclk = 1; cs_pin = 0; mosi_pin = 0;
+        #1000
+        sclk = 0; cs_pin = 0; mosi_pin = 0;
+        #1000
+        sclk = 1; cs_pin = 0; mosi_pin = 0;
+
+        #1000
+        sclk = 0; cs_pin = 0; mosi_pin = 0;
+        #1000
+        sclk = 1; cs_pin = 0; mosi_pin = 0;
+        #1000
         sclk = 0; cs_pin = 1; mosi_pin = 0;
         #1000
         sclk = 1; cs_pin = 1; mosi_pin = 0;
