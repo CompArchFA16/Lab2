@@ -74,7 +74,7 @@ module spiMemory
 	inputconditioner sclkIC(clk, sclk_pin, sclk_conditioned, sclk_rising, sclk_falling);
 	inputconditioner csIC(clk, cs_pin, cs_conditioned, cs_rising, cs_falling);
 
-    shiftregister shifreg(clk, sclk_rising, parallelLoad, parallelIn, mosi_conditioned, parallelOut, serialOut);
+    shiftregister shifreg(clk, sclk_rising, sr_we, parallelIn, mosi_conditioned, parallelOut, serialOut);
 
     // DFF & MISO_BUFE
     wire miso_pin_pre_buffer;
@@ -86,7 +86,6 @@ module spiMemory
     dff8bit dff1(parallelOut, addre_we, clk, address);
 
     // FSM
-    //fsm fsm0(rising[1], conditioned[2], parallelOut[0], miso_bufe, dm_we, addre_we, sr_we);
     fsm fsm0( miso_bufe, dm_we, addre_we, sr_we, sclk_rising, cs_conditioned, parallelOut[0]);
 
 endmodule
