@@ -101,10 +101,22 @@ module testFSM();
     end
 
     // Test if any resets in `chipSelectConditioned = 1` nulls the whole operation.
+    resetTest();
+    chipSelectConditioned = 0;
+    readWriteEnable = 0;
+
+    waitFor8SClkCycles();
+    chipSelectConditioned = 1; #10;
+    if (misoBufferEnable !== 0
+      || DMWriteEnable !== 0
+      || addressWriteEnable !== 0
+      || SRWriteEnable !== 0) begin
+      dutPassed = 0;
+      $display("Resetting failed at %d.", $time);
+      displayFailedResults();
+    end
 
     $display("Have all tests passed? %b", dutPassed);
-
-    // #5000;
     $finish();
   end
 endmodule
