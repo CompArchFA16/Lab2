@@ -53,7 +53,6 @@
 #include "xparameters.h"
 #include "xspi.h"
 #include "xgpio.h"
-#include "xil_printf.h"
 
 static XSpi SpiInstance;
 static XGpio GpioInstance;
@@ -67,14 +66,13 @@ void delay(int n);
 int main()
 {
 	//This is all initialization code, you don't need to modify this
-	xil_printf("Program Started\n\r");
     init_platform();
     init_spi(&SpiInstance);
     init_gpio(&GpioInstance);
 
     u8 LED_data = 0x1;
     XGpio_DiscreteWrite(&GpioInstance, LED_CHANNEL, LED_data);
-    xil_printf("Tests started.\n\r");
+
     LED_data |= 0x1<<1;
     XGpio_DiscreteWrite(&GpioInstance, LED_CHANNEL, LED_data);
 
@@ -85,14 +83,15 @@ int main()
     int value = 10;
 	spi_write(&SpiInstance, addr, value); //spi_write needs to be filled in
 	u8 res = spi_read(&SpiInstance, addr); //spi_read has been provided
-	xil_printf("Wrote to %X. %X transmitted. %X readback.\n\r", addr, value, res);
 
-	//Add test cases here, testing reading and writing.
+	if (res != value) {
+	    LED_data |= 0x1<<2;
+	    XGpio_DiscreteWrite(&GpioInstance, LED_CHANNEL, LED_data);
+	    //You need to insert a breakpoint here to check the variables if your tester breaks.
+	    return 0;
+	}
 
     //Everything below is cleanup code, you don't need to modify this
-    LED_data |= 0x1<<2;
-    xil_printf("Tests complete. Please review results.\n\r");
-
     XGpio_DiscreteWrite(&GpioInstance, LED_CHANNEL, LED_data);
     LED_data |= 0x1<<3;
     XGpio_DiscreteWrite(&GpioInstance, LED_CHANNEL, LED_data);
@@ -102,15 +101,6 @@ int main()
 
 void spi_write(XSpi *SpiInstancePtr, u8 addr, u8 value){
 	// TODO: Your code here! Read the xspi.h file for more information on XSpi_Transfer()
-
-	/* spi_write in xspi.h is defined as:
-	#define XSpi_IntrGlobalEnable(InstancePtr)				\
-		XSpi_WriteReg(((InstancePtr)->BaseAddr),  XSP_DGIER_OFFSET, 	\
-				XSP_GINTR_ENABLE_MASK) */
-
-	/*XSpi_Transfer in xspi.h is defined as:
-	int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
-			  unsigned int ByteCount); */
 	u8 addr_byte = (addr << 1); //last bit will be 0, with R/W flag low for "write"
 	u8 SendBuf[2];
 	u8 RcvBuf[2];
@@ -119,14 +109,14 @@ void spi_write(XSpi *SpiInstancePtr, u8 addr, u8 value){
 	RcvBuf[0] = 0;
 	RcvBuf[1] = 0;
 	XSpi_Transfer(SpiInstancePtr, SendBuf, RcvBuf, 0);
-	return; 
+	return;
 }
 
 u8 spi_read(XSpi *SpiInstancePtr, u8 addr){
 	/*SpiInstancePtr is the pointer to the SPI protocol object we created
 	 * during the beginning lines of main()*/
 	u8 addr_byte = (addr << 1); //Shifted, because we have 7 bits of addr, 1 bit of R/W
-	addr_byte |= 0x1; //|= is bitwise inclusive OR
+	addr_byte |= 0x1;
 	u8 RcvBuf[2];
 	u8 SendBuf[2];
 	SendBuf[0] = addr_byte;
