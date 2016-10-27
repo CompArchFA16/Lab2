@@ -16,7 +16,7 @@ module testSpimemory();
         $dumpfile("spimemory.vcd");
         $dumpvars();
 
-        cs=1;#100
+        cs=1;#1000
 
         cs=0;
 
@@ -100,7 +100,7 @@ module testSpimemory();
         sclk_pin=1;#1000
         sclk_pin=0;#1000
 
-        cs=1;
+        cs=1; #10000
 
         $finish;
         $dumpflush;

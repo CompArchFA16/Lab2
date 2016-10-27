@@ -19,6 +19,7 @@ output reg serialDataOut       // Positive edge synchronized
 );
 
     reg [width-1:0]      shiftregistermem;
+    initial shiftregistermem  = 8'd0;
     always @(posedge clk) begin
 
         parallelDataOut <= shiftregistermem;

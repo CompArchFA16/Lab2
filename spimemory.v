@@ -62,21 +62,23 @@ module spiMemory
     output [3:0]    leds        // LEDs for debugging
 );
     
-    wire [2:0] rising, falling, conditioned;
+    wire mosi_rising, mosi_falling, mosi_conditioned;
+    wire sclk_rising, sclk_falling, sclk_conditioned;
+    wire cs_rising, cs_falling, cs_conditioned;
     wire [7:0] parallelOut, parallelIn;
     wire serialOut, parallelLoad;
     wire [7:0] address;
     wire addre_we, dm_we, miso_bufe, sr_we;
 
-	inputconditioner mosiIC(clk, mosi_pin, conditioned[0], rising[0], falling[0]);
-	inputconditioner sclkIC(clk, sclk_pin, conditioned[1], rising[1], falling[1]);
-	inputconditioner csIC(clk, cs_pin, conditioned[2], rising[2], falling[2]);
+	inputconditioner mosiIC(clk, mosi_pin, mosi_conditioned, mosi_rising, mosi_falling);
+	inputconditioner sclkIC(clk, sclk_pin, sclk_conditioned, sclk_rising, sclk_falling);
+	inputconditioner csIC(clk, cs_pin, cs_conditioned, cs_rising, cs_falling);
 
-    shiftregister shifreg(clk, rising[1], parallelLoad, parallelIn, conditioned[0], parallelOut, serialOut);
+    shiftregister shifreg(clk, sclk_rising, parallelLoad, parallelIn, mosi_conditioned, parallelOut, serialOut);
 
     // DFF & MISO_BUFE
     wire miso_pin_pre_buffer;
-    dff dff0(serialOut, falling[1], clk, miso_pin_pre_buffer);
+    dff dff0(serialOut, sclk_falling, clk, miso_pin_pre_buffer);
     bufferSwitch buffswitch0(miso_pin_pre_buffer, miso_bufe, miso_pin);
 
     // Memory
@@ -85,7 +87,7 @@ module spiMemory
 
     // FSM
     //fsm fsm0(rising[1], conditioned[2], parallelOut[0], miso_bufe, dm_we, addre_we, sr_we);
-    fsm fsm0( miso_bufe, dm_we, addre_we, sr_we, rising[1], conditioned[2], parallelOut[0]);
+    fsm fsm0( miso_bufe, dm_we, addre_we, sr_we, sclk_rising, cs_conditioned, parallelOut[0]);
 
 endmodule
    
