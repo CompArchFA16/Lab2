@@ -30,11 +30,15 @@ module spimodule();
     	// Your Test Code
 
         $display("CLK SCLK CS MOSI | MISO LEDs");
-        ///////// set address
         #1000
         sclk = 0; cs_pin = 1; mosi_pin = 0;
         #1000
-        sclk = 1; cs_pin = 0; mosi_pin = 0;
+        sclk = 1; cs_pin = 1; mosi_pin = 0;
+        #1000
+        sclk = 0; cs_pin = 1; mosi_pin = 0;
+        #1000
+        sclk = 1; cs_pin = 1; mosi_pin = 0;
+        ///////// set address
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
         #1000
@@ -65,69 +69,85 @@ module spimodule();
         sclk = 1; cs_pin = 0; mosi_pin = 0;
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
+        #1000
+        sclk = 1; cs_pin = 0; mosi_pin = 0;
+        //#1000
+        //sclk = 0; cs_pin = 0; mosi_pin = 0;
 
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
 
         //////// write
         $display("write");
         #1000
-        sclk = 0; cs_pin = 1; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        sclk = 0; cs_pin = 0; mosi_pin = 0;
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 1;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 1;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 1;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 1;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
-        #1000
-        sclk = 0; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        //#1000
+        //sclk = 0; cs_pin = 0; mosi_pin = 0;
+        //$display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
 
         ///////// set address
-        $display("address");
+        #1000
+        sclk = 0; cs_pin = 0; mosi_pin = 0;
+        #1000
+        sclk = 1; cs_pin = 0; mosi_pin = 0;
         #1000
         sclk = 0; cs_pin = 1; mosi_pin = 0;
         #1000
-        sclk = 1; cs_pin = 0; mosi_pin = 0;
+        sclk = 1; cs_pin = 1; mosi_pin = 0;
+        #1000
+        sclk = 0; cs_pin = 1; mosi_pin = 0;
+        #1000
+        sclk = 1; cs_pin = 1; mosi_pin = 0;
+        #1000
+        sclk = 0; cs_pin = 1; mosi_pin = 0;
+        #1000
+        sclk = 1; cs_pin = 1; mosi_pin = 0;
+        $display("address");
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
         #1000
@@ -155,66 +175,82 @@ module spimodule();
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
         #1000
-        sclk = 1; cs_pin = 0; mosi_pin = 1;
+        sclk = 1; cs_pin = 0; mosi_pin = 0;
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 1;
+        #1000
+        sclk = 1; cs_pin = 0; mosi_pin = 1;
+        //#1000
+        //sclk = 0; cs_pin = 0; mosi_pin = 1;
 
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
 
 
         //////// read
         $display("read");
         #1000
-        sclk = 0; cs_pin = 1; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        sclk = 0; cs_pin = 0; mosi_pin = 0;
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 1;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 1;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 1;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 1;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
-        $display("%b   %b   %b    %b    | %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        #1000
+        sclk = 1; cs_pin = 0; mosi_pin = 0;
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        #1000
+        sclk = 0; cs_pin = 0; mosi_pin = 0;
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        #1000
+        sclk = 1; cs_pin = 0; mosi_pin = 0;
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
+        #1000
+        sclk = 0; cs_pin = 0; mosi_pin = 0;
+        $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
 
 
         #50 $finish;
