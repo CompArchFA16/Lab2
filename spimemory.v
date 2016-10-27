@@ -21,12 +21,12 @@ module dff
     end
 endmodule
 
-module dff8bit
+module dff7bit
 (
-    input [7:0] d,
+    input [6:0] d,
     input ce,
     input clk,
-    output reg [7:0] q
+    output reg [6:0] q
 );
     always @(posedge clk) begin
         if (ce == 1) begin
@@ -67,7 +67,7 @@ module spiMemory
     wire cs_rising, cs_falling, cs_conditioned;
     wire [7:0] parallelOut, parallelIn;
     wire serialOut, parallelLoad;
-    wire [7:0] address;
+    wire [6:0] address;
     wire addre_we, dm_we, miso_bufe, sr_we;
 
 	inputconditioner mosiIC(clk, mosi_pin, mosi_conditioned, mosi_rising, mosi_falling);
@@ -83,7 +83,7 @@ module spiMemory
 
     // Memory
     datamemory memory0(clk, parallelIn, address, dm_we, parallelOut);
-    dff8bit dff1(parallelOut, addre_we, clk, address);
+    dff7bit dff1(parallelOut[6:0], addre_we, clk, address);
 
     // FSM
     fsm fsm0( miso_bufe, dm_we, addre_we, sr_we, sclk_rising, cs_conditioned, parallelOut[0]);
