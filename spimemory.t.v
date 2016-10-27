@@ -66,12 +66,12 @@ module testSpimemory();
         sclk_pin=0;#1000
 
         // Write 6
-        mosi_pin=1;#100
+        mosi_pin=0;#100
         sclk_pin=1;#1000
         sclk_pin=0;#1000
 
         // Write 5
-        mosi_pin=1;#100
+        mosi_pin=0;#100
         sclk_pin=1;#1000
         sclk_pin=0;#1000
 
@@ -81,12 +81,12 @@ module testSpimemory();
         sclk_pin=0;#1000
 
         // Write 3
-        mosi_pin=1;#100
+        mosi_pin=0;#100
         sclk_pin=1;#1000
         sclk_pin=0;#1000
 
         // Write 2
-        mosi_pin=1;#100
+        mosi_pin=0;#100
         sclk_pin=1;#1000
         sclk_pin=0;#1000
 
@@ -101,6 +101,8 @@ module testSpimemory();
         sclk_pin=0;#1000
 
         cs=1; #10000
+
+        /* Now doing SPI Read */
 
         cs=0;
         // ADDR 6

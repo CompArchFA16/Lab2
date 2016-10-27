@@ -70,7 +70,7 @@ module fsm
 
             `READ: begin
                 count++;
-                sr_we <= 1;
+                sr_we <= 0;
                 if (count == 4'd7) begin
                     count <= 0;
                     state <= `WAIT;
