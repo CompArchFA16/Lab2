@@ -16,7 +16,7 @@ module testSpimemory();
         $dumpfile("spimemory.vcd");
         $dumpvars();
 
-        cs=1;#100
+        cs=1;#1000
 
         cs=0;
 
@@ -100,7 +100,90 @@ module testSpimemory();
         sclk_pin=1;#1000
         sclk_pin=0;#1000
 
-        cs=1;
+        cs=1; #10000
+
+        cs=0;
+        // ADDR 6
+        mosi_pin=1;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        // ADDR 5
+        mosi_pin=0;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        // ADDR 4
+        mosi_pin=1;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        // ADDR 3
+        mosi_pin=0;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        // ADDR 2
+        mosi_pin=1;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        // ADDR 1
+        mosi_pin=0;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        // ADDR 0
+        mosi_pin=1;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        // R/W? 
+        mosi_pin=1;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        // Read 7
+        mosi_pin=1'bz;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        // Read 6
+        //mosi_pin=1;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        // Read 5
+        //mosi_pin=1;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        // Read 4
+        //mosi_pin=1;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        // Read 3
+        //mosi_pin=1;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        // Read 2
+        //mosi_pin=1;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        // Read 1
+        //mosi_pin=1;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        // Read 0
+        //mosi_pin=1;#100
+        sclk_pin=1;#1000
+        sclk_pin=0;#1000
+
+        cs=1; #10000
 
         $finish;
         $dumpflush;
