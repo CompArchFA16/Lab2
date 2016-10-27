@@ -45,7 +45,15 @@ always @(posedge perEdge) begin
                 else begin
                     counter <= 0;
                     ADDR_WE <= 1; // Set Write enable for address latch
-                    state <= Got_State;
+                    //state <= Got_State;
+                    if (readWrite) begin
+                        state <= Read3_State;
+                        SR_WE <= 1; // Set Parallel Load for shift register
+                        DM_WE <= 0; // Set Data Memory to read
+                    end
+                    else begin
+                        state <= Got_State;
+                    end
                 end
             end
             Got_State: begin
