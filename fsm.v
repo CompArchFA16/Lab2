@@ -37,7 +37,7 @@ module fsm
             end
 
             `ADDR_READ: begin
-                count <= count + 1;
+                count = count + 1;
                 if (count == 4'd7) begin
                     state <= `GET_RW;
                     addre_we <= 0;
@@ -59,7 +59,7 @@ module fsm
             end
 
             `WRITE: begin
-                count <= count + 1;
+                count = count + 1;
                 if (count == 4'd7) begin
                     count <= 0;
                     dm_we <= 1;
@@ -69,7 +69,7 @@ module fsm
             end
 
             `READ: begin
-                count <= count + 1;
+                count = count + 1;
                 sr_we <= 0;
                 if (count == 4'd7) begin
                     count <= 0;
