@@ -43,10 +43,10 @@ module spiMemory
     inputconditioner inputC3(clk, cs_pin, conditioned3, positiveedge3, negativeedge3 );
 
     // Finite state machine
-    finiteStateMachine fsm(positiveedge2, conditioned3, conditioned1, miso_buff, dm_we, addr_we, sr_we);
+    finiteStateMachine fsm(negativeedge2, conditioned3, conditioned1, miso_buff, dm_we, addr_we, sr_we);
 
     //shiftregister
-    shiftregister shiftie(clk, positiveedge2, sr_we ,parallelDataIn, conditioned1, parallelOut, serialOut);
+    shiftregister shiftie(clk, negativeedge2, sr_we ,parallelDataIn, conditioned1, parallelOut, serialOut);
 
     // Address latch
     addressLatch addresslatch(clk, parallelOut[7:1], addr_we, addr); // cutting off the read/write flag, which is LSB

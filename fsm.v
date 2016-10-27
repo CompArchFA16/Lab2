@@ -38,25 +38,29 @@ always @(posedge perEdge) begin
     else begin
         case (state)
             Get_State: begin
+
                 MISO_Buff <= 0; //you're not ouputting info
                 if (counter != 7) begin //wait for full address (8 bits, 1 per sclk cycle) to be sent
+                    ADDR_WE <= 1;
                     counter <= counter + 1; //on sclk, update counter
                 end
                 else begin //if we have a full address
                     counter <= 0; //set it to 0 to reuse counter
-                    ADDR_WE <= 1; // Set Write enable for address latch
+                    ADDR_WE <= 0; // Set Write enable for address latch
+                    //SR_WE <= 1; // Set Parallel Load for shift register
                     if (readWrite) begin
                         state <= Read3_State;
-                        SR_WE <= 1; // Set Parallel Load for shift register
+                        SR_WE <= 1;
                         DM_WE <= 0; // Set Data Memory to read
                     end
                     else begin
-                        state <= Got_State;
+                        state <= Write1_State;
                     end
                 end
             end
             Got_State: begin
                 ADDR_WE <= 0;
+
                 if (readWrite) begin
                     state <= Read3_State;
                     SR_WE <= 1; // Set Parallel Load for shift register
@@ -67,9 +71,12 @@ always @(posedge perEdge) begin
                 end
             end
             Read3_State: begin
-                ADDR_WE <= 0;
+                //ADDR_WE <= 0;
                 SR_WE <= 0; // Unset Parallel Load for shift register
                 MISO_Buff <= 1;
+                if (counter == 1) begin
+                    ADDR_WE <= 0;
+                end
                 if (counter != 7) begin
                     counter <= counter + 1;
                 end
@@ -81,6 +88,7 @@ always @(posedge perEdge) begin
             end
             Write1_State: begin
                 ADDR_WE <= 0;
+                SR_WE <= 0;
                 DM_WE <= 1;
                 if (counter != 7) begin
                     counter <= counter + 1;
