@@ -6,7 +6,7 @@
 `include "shiftregister.v"
 `include "fsm.v"
 `include "addressLatch.v"
-`include "inputconditioner.v"
+//`include "inputconditioner.v"
 
 `timescale 1 ns / 1 ps
 
@@ -17,7 +17,7 @@ module spiMemory
     input           cs_pin,     // SPI chip select
     output          miso_pin,   // SPI master in slave out
     input           mosi_pin,   // SPI master out slave in
-    output [3:0]    leds        // LEDs for debugging
+    output [7:0]    leds        // LEDs for debugging
 );
 	// drop the least sig bit of parallel out from shiftregister
     //
@@ -59,6 +59,8 @@ module spiMemory
 
     // miso buffer
     bufif1 misobuff(miso_pin, dffout, miso_buff);
+
+    assign leds[6:0] = addr;
 
 
 endmodule
