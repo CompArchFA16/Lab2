@@ -10,8 +10,8 @@ module fsmachine
 	output reg sr //shift register write enable
 );
 
-reg state;
-reg count;
+reg [3:0] state;
+reg [3:0] count;
 
 parameter Get = 0;
 parameter Got = 1;
@@ -25,19 +25,25 @@ parameter Done = 7;
 initial begin
 	state <= 0;
 	count <= 0;
-end
 
-always @(posedge clk) begin
-	
 	misobuff <= 0;
 	dm <= 0;
 	addr <= 0;
 	sr <= 0;
+end
+
+always @(posedge clk) begin
+
 
 	//reset counter and state when cs is de-asserted
 	if (cs) begin
 		state <= 0;
 		count <= 0;
+
+		misobuff <= 0;
+		dm <= 0;
+		addr <= 0;
+		sr <= 0;
 	end
 
 	else begin
@@ -46,13 +52,15 @@ always @(posedge clk) begin
 			Get: begin
 				if (count < 8 && sclk) begin
 					count <= count + 1;
+					state <= Get;
 				end
-				else if (sclk) begin
+				else if (count >=8 && sclk) begin
 					state <= Got;
 				end
 			end
 
 			Got: begin
+				addr <= 1;
 				if (rw) begin
 					state <= Read;
 				end
@@ -72,16 +80,17 @@ always @(posedge clk) begin
 
 			Read2: begin
 				misobuff <= 1;
-				if (cs == 8) begin
+				if (cs >= 8) begin
 					state <= Done;
 				end
 				else if (sclk) begin
 					count <= count + 1;
+					state <= Read2;
 				end
 			end
 
 			Write: begin
-				if (cs == 8) begin
+				if (cs >= 8) begin
 					state <= Write2;
 				end
 				else if (sclk) begin
@@ -90,12 +99,15 @@ always @(posedge clk) begin
 			end
 
 			Write2: begin
-				state <= Done;
 				dm <= 1;
+				state <= Done;
 			end
 
 			Done: begin //Done
 				count <= 0;
+			end
+
+			default: begin
 			end
 
 		endcase
