@@ -17,6 +17,7 @@ module finiteStateMachine(
 wire address;
 reg [3:0] counter = 0000;
 reg [7:0] state;
+reg restart;
 localparam GetAddr_State = 8'b00000001;
 //localparam RW_State = 8'b00000010;
 localparam Read1_State = 8'b00000100;
@@ -36,6 +37,7 @@ always @(posedge clk) begin
     if (chipSelect) begin //if this is high, do not pay attention
         state <= GetAddr_State;
         counter <= 0;
+        restart <=0;
     end
     else begin
         case (state)
@@ -43,12 +45,12 @@ always @(posedge clk) begin
             GetAddr_State: begin
             //turn off all control signals, we're just listening to address
                 MISO_Buff <=0;
-                ADDR_WE <=0;
+                ADDR_WE <=1;
                 DM_WE <=0;
                 SR_WE <=0;
                 //if we got the address
-                if (counter ==8) begin
-                counter <=0;
+                if ((counter ==0) & (restart==1)) begin
+                restart <=0;
                     if (readWrite) begin
                         state <= Read1_State;
                     end
@@ -57,18 +59,9 @@ always @(posedge clk) begin
                     end
                 end
             end
-            //note if we're reading or writing
-            // RW_State: begin
-            //     if (readWrite) begin //if readWrite = 1, we're reading
-            //         state <= Read1_State;
-            //     end
-            //     else begin
-            //         state <= Write1_State;
-            //     end
-            // end
             //Reading step 1: Wait for 8 bits of data (8 sclk cycles)
             Read1_State: begin
-                ADDR_WE <=1; //save address into latch and therefore data memory address input
+                ADDR_WE <=0; //save address into latch and therefore data memory address input
                 state <= Read2_State;
             end
             Read2_State: begin
@@ -81,13 +74,13 @@ always @(posedge clk) begin
                 end
             end
             Write1_State: begin
-                ADDR_WE <=1;
+                ADDR_WE <=0;
                 state <= Write2_State;
             end
             Write2_State: begin
                 ADDR_WE <= 0;
-                if (counter == 8) begin
-                counter <=0;
+                if ((counter ==0) & (restart==1) ) begin
+                    restart<=0;
                     DM_WE <= 1;
                     MISO_Buff<=0;
                     state <= Done_State;
@@ -107,7 +100,10 @@ end
 
 //change counter on the sclk cycles
 always @(posedge perEdge) begin
-    if (counter >= 8 || chipSelect) begin
+    if (counter ==7)begin
+        restart <=1;
+    end
+    if (counter >= 7 || chipSelect) begin
         counter <= 0;
     end
     else begin
