@@ -4,7 +4,7 @@
 
 `include "datamemory.v"
 `include "shiftregister.v"
-`include "fsm.v"
+`include "fsm2.v"
 `include "addressLatch.v"
 //`include "inputconditioner.v"
 
@@ -43,7 +43,7 @@ module spiMemory
     inputconditioner inputC3(clk, cs_pin, conditioned3, positiveedge3, negativeedge3 );
 
     // Finite state machine
-    finiteStateMachine fsm(negativeedge2, conditioned3, conditioned1, miso_buff, dm_we, addr_we, sr_we);
+    finiteStateMachine fsm(negativeedge2, conditioned3, conditioned1, clk,  miso_buff, dm_we, addr_we, sr_we);
 
     //shiftregister
     shiftregister shiftie(clk, negativeedge2, sr_we ,parallelDataIn, conditioned1, parallelOut, serialOut);
