@@ -1,25 +1,24 @@
 //------------------------------------------------------------------------
 // Shift Register test bench
 //------------------------------------------------------------------------
-
+`timescale 1ns / 1ps
 `include "fsmachine.v"
 
-module testshiftregister();
+module testfsm();
 
-    reg             clk;
-    reg             rising;
-    reg             peripheralClkEdge;
-    reg             parallelLoad;
-    wire[7:0]       parallelDataOut;
-    wire            serialDataOut;
-    reg[7:0]        parallelDataIn;
-    reg             serialDataIn; 
-    
+    reg read;
+    reg con;
+    reg rising;  
+    reg clk;          
+    wire misoBufe;       
+    wire dmWe;        
+    wire addrWe;            
+    wire srWe;   
     
     fsmachine fsm(.clk(clk),
                   .sclk(rising),
-                  .cs(conditioned_cs),
-                  .rw(parallelDataOut[0]),
+                  .cs(con),
+                  .rw(read),
                   .misobuff(misoBufe),
                   .dm(dmWe),
                   .addr(addrWe),
@@ -30,14 +29,45 @@ module testshiftregister();
     end
 
     always begin
-        #10 clk = ~clk;
-        rising = ~rising;
+        #5 clk = ~clk;
     end
 
-    initial begin
-       
+    always begin
+        #5
+        rising = 1;
+        #1
+        rising = 0;
+        #4;
+    end
 
-        $finish;
+
+    initial begin 
+
+    $dumpfile("fsm.vcd");
+    $dumpvars();
+
+      //writing
+      read = 1; 
+      con = 0; 
+      #130
+
+      //resetting
+      con = 1;
+      #10
+
+      //reading
+      con = 0;
+      read = 0;  
+      #150
+
+      //resetting
+      con = 1;
+      #10
+      
+      con = 0;
+      #10
+
+      $finish;
     end
 
 endmodule
