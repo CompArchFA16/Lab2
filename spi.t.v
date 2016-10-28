@@ -49,7 +49,7 @@ module testspi();
         end
             mosi_pin = 1; //8th bit decides read or write, 1 = read, 0 = write
 
-        //#100 cs_pin = 1;
+        #100 cs_pin = 1;
         #100  mosi_pin = 0;
 
     for (i = 7; i > 0; i = i - 1) // Turns mosi_h into serial signal
@@ -59,7 +59,7 @@ module testspi();
         end
 
         mosi_pin = 0;
-        #10;
+        #1000;
 
         $finish;
     end
