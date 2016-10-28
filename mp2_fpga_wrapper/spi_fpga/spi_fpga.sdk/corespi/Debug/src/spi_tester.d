@@ -14,8 +14,7 @@ src/spi_tester.o src/spi_tester.o: ../src/spi_tester.c ../src/platform.h \
  ../../corespi_bsp/ps7_cortexa9_0/include/xil_printf.h \
  ../../corespi_bsp/ps7_cortexa9_0/include/xparameters.h \
  ../../corespi_bsp/ps7_cortexa9_0/include/xgpio.h \
- ../../corespi_bsp/ps7_cortexa9_0/include/xgpio_l.h \
- ../../corespi_bsp/ps7_cortexa9_0/include/xil_printf.h
+ ../../corespi_bsp/ps7_cortexa9_0/include/xgpio_l.h
 
 ../src/platform.h:
 
@@ -50,5 +49,3 @@ src/spi_tester.o src/spi_tester.o: ../src/spi_tester.c ../src/platform.h \
 ../../corespi_bsp/ps7_cortexa9_0/include/xgpio.h:
 
 ../../corespi_bsp/ps7_cortexa9_0/include/xgpio_l.h:
-
-../../corespi_bsp/ps7_cortexa9_0/include/xil_printf.h:

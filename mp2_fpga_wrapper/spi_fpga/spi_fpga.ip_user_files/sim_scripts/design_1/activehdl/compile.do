@@ -43,7 +43,7 @@ vmap axi_data_fifo_v2_1_8 activehdl/axi_data_fifo_v2_1_8
 vmap axi_crossbar_v2_1_10 activehdl/axi_crossbar_v2_1_10
 vmap axi_protocol_converter_v2_1_9 activehdl/axi_protocol_converter_v2_1_9
 
-vlog -work xil_defaultlib -v2k5 -sv "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" \
+vlog -work xil_defaultlib -v2k5 -sv "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" \
 "/opt/Xilinx/Vivado/2016.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv" \
 "/opt/Xilinx/Vivado/2016.2/data/ip/xpm/xpm_memory/hdl/xpm_memory_base.sv" \
 "/opt/Xilinx/Vivado/2016.2/data/ip/xpm/xpm_memory/hdl/xpm_memory_dpdistram.sv" \
@@ -56,7 +56,7 @@ vlog -work xil_defaultlib -v2k5 -sv "+incdir+../../../ipstatic/axi_infrastructur
 vcom -work xpm -93 \
 "/opt/Xilinx/Vivado/2016.2/data/ip/xpm/xpm_VCOMP.vhd" \
 
-vlog -work processing_system7_bfm_v2_0_5 -v2k5 "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" \
+vlog -work processing_system7_bfm_v2_0_5 -v2k5 "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" \
 "../../../ipstatic/processing_system7_bfm_v2_0/hdl/processing_system7_bfm_v2_0_arb_wr.v" \
 "../../../ipstatic/processing_system7_bfm_v2_0/hdl/processing_system7_bfm_v2_0_arb_rd.v" \
 "../../../ipstatic/processing_system7_bfm_v2_0/hdl/processing_system7_bfm_v2_0_arb_wr_4.v" \
@@ -81,10 +81,10 @@ vlog -work processing_system7_bfm_v2_0_5 -v2k5 "+incdir+../../../ipstatic/axi_in
 "../../../ipstatic/processing_system7_bfm_v2_0/hdl/processing_system7_bfm_v2_0_afi_slave.v" \
 "../../../ipstatic/processing_system7_bfm_v2_0/hdl/processing_system7_bfm_v2_0_processing_system7_bfm.v" \
 
-vlog -work xil_defaultlib -v2k5 "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" \
+vlog -work xil_defaultlib -v2k5 "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" \
 "../../../bd/design_1/ip/design_1_processing_system7_0_0_1/sim/design_1_processing_system7_0_0.v" \
 
-vlog -work dist_mem_gen_v8_0_10 -v2k5 "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" \
+vlog -work dist_mem_gen_v8_0_10 -v2k5 "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" \
 "../../../ipstatic/dist_mem_gen_v8_0/simulation/dist_mem_gen_v8_0.v" \
 
 vcom -work lib_pkg_v1_0_2 -93 \
@@ -99,13 +99,13 @@ vcom -work lib_srl_fifo_v1_0_2 -93 \
 "../../../ipstatic/lib_srl_fifo_v1_0/hdl/src/vhdl/srl_fifo_rbu_f.vhd" \
 "../../../ipstatic/lib_srl_fifo_v1_0/hdl/src/vhdl/srl_fifo_f.vhd" \
 
-vlog -work fifo_generator_v13_1_1 -v2k5 "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" \
+vlog -work fifo_generator_v13_1_1 -v2k5 "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" \
 "../../../ipstatic/fifo_generator_v13_1/simulation/fifo_generator_vlog_beh.v" \
 
 vcom -work fifo_generator_v13_1_1 -93 \
 "../../../ipstatic/fifo_generator_v13_1/hdl/fifo_generator_v13_1_rfs.vhd" \
 
-vlog -work fifo_generator_v13_1_1 -v2k5 "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" \
+vlog -work fifo_generator_v13_1_1 -v2k5 "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" \
 "../../../ipstatic/fifo_generator_v13_1/hdl/fifo_generator_v13_1_rfs.v" \
 
 vcom -work lib_fifo_v1_0_5 -93 \
@@ -167,7 +167,7 @@ vcom -work proc_sys_reset_v5_0_9 -93 \
 vcom -work xil_defaultlib -93 \
 "../../../bd/design_1/ip/design_1_rst_processing_system7_0_100M_0_1/sim/design_1_rst_processing_system7_0_100M_0.vhd" \
 
-vlog -work generic_baseblocks_v2_1_0 -v2k5 "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" \
+vlog -work generic_baseblocks_v2_1_0 -v2k5 "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" \
 "../../../ipstatic/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_carry_and.v" \
 "../../../ipstatic/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_carry_latch_and.v" \
 "../../../ipstatic/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_carry_latch_or.v" \
@@ -186,16 +186,16 @@ vlog -work generic_baseblocks_v2_1_0 -v2k5 "+incdir+../../../ipstatic/axi_infras
 "../../../ipstatic/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux.v" \
 "../../../ipstatic/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_nto1_mux.v" \
 
-vlog -work axi_infrastructure_v1_1_0 -v2k5 "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" \
+vlog -work axi_infrastructure_v1_1_0 -v2k5 "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" \
 "../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog/axi_infrastructure_v1_1_axi2vector.v" \
 "../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog/axi_infrastructure_v1_1_axic_srl_fifo.v" \
 "../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog/axi_infrastructure_v1_1_vector2axi.v" \
 
-vlog -work axi_register_slice_v2_1_9 -v2k5 "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" \
+vlog -work axi_register_slice_v2_1_9 -v2k5 "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" \
 "../../../ipstatic/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v" \
 "../../../ipstatic/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axi_register_slice.v" \
 
-vlog -work axi_data_fifo_v2_1_8 -v2k5 "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" \
+vlog -work axi_data_fifo_v2_1_8 -v2k5 "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" \
 "../../../ipstatic/axi_data_fifo_v2_1/hdl/verilog/axi_data_fifo_v2_1_axic_fifo.v" \
 "../../../ipstatic/axi_data_fifo_v2_1/hdl/verilog/axi_data_fifo_v2_1_fifo_gen.v" \
 "../../../ipstatic/axi_data_fifo_v2_1/hdl/verilog/axi_data_fifo_v2_1_axic_srl_fifo.v" \
@@ -203,7 +203,7 @@ vlog -work axi_data_fifo_v2_1_8 -v2k5 "+incdir+../../../ipstatic/axi_infrastruct
 "../../../ipstatic/axi_data_fifo_v2_1/hdl/verilog/axi_data_fifo_v2_1_ndeep_srl.v" \
 "../../../ipstatic/axi_data_fifo_v2_1/hdl/verilog/axi_data_fifo_v2_1_axi_data_fifo.v" \
 
-vlog -work axi_crossbar_v2_1_10 -v2k5 "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" \
+vlog -work axi_crossbar_v2_1_10 -v2k5 "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" \
 "../../../ipstatic/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_addr_arbiter_sasd.v" \
 "../../../ipstatic/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_addr_arbiter.v" \
 "../../../ipstatic/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_addr_decoder.v" \
@@ -217,10 +217,14 @@ vlog -work axi_crossbar_v2_1_10 -v2k5 "+incdir+../../../ipstatic/axi_infrastruct
 "../../../ipstatic/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_wdata_router.v" \
 "../../../ipstatic/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_axi_crossbar.v" \
 
-vlog -work xil_defaultlib -v2k5 "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" \
+vlog -work xil_defaultlib -v2k5 "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" \
 "../../../bd/design_1/ip/design_1_xbar_0_1/sim/design_1_xbar_0.v" \
+"../../../bd/design_1/hdl/design_1.v" \
+"../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src/midpoint.v" \
+"../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src/spimemory.v" \
+"../../../bd/design_1/ip/design_1_spiMemory_0_0/sim/design_1_spiMemory_0_0.v" \
 
-vlog -work axi_protocol_converter_v2_1_9 -v2k5 "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" \
+vlog -work axi_protocol_converter_v2_1_9 -v2k5 "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" \
 "../../../ipstatic/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_a_axi3_conv.v" \
 "../../../ipstatic/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_axi3_conv.v" \
 "../../../ipstatic/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_axilite_conv.v" \
@@ -241,9 +245,8 @@ vlog -work axi_protocol_converter_v2_1_9 -v2k5 "+incdir+../../../ipstatic/axi_in
 "../../../ipstatic/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s.v" \
 "../../../ipstatic/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_axi_protocol_converter.v" \
 
-vlog -work xil_defaultlib -v2k5 "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" \
+vlog -work xil_defaultlib -v2k5 "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src" "+incdir+../../../ipstatic/axi_infrastructure_v1_1/hdl/verilog" "+incdir+../../../ipstatic/processing_system7_bfm_v2_0/hdl" "+incdir+../../../../spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src" \
 "../../../bd/design_1/ip/design_1_auto_pc_0_1/sim/design_1_auto_pc_0.v" \
-"../../../bd/design_1/hdl/design_1.v" \
 
 vlog -work xil_defaultlib "glbl.v"
 

@@ -53,7 +53,6 @@
 #include "xparameters.h"
 #include "xspi.h"
 #include "xgpio.h"
-#include "xil_printf.h"
 
 static XSpi SpiInstance;
 static XGpio GpioInstance;
@@ -67,14 +66,13 @@ void delay(int n);
 int main()
 {
 	//This is all initialization code, you don't need to modify this
-	xil_printf("Program Started\n\r");
     init_platform();
     init_spi(&SpiInstance);
     init_gpio(&GpioInstance);
 
     u8 LED_data = 0x1;
     XGpio_DiscreteWrite(&GpioInstance, LED_CHANNEL, LED_data);
-    xil_printf("Tests started.\n\r");
+
     LED_data |= 0x1<<1;
     XGpio_DiscreteWrite(&GpioInstance, LED_CHANNEL, LED_data);
 
@@ -85,12 +83,15 @@ int main()
     int value = 10;
 	spi_write(&SpiInstance, addr, value); //spi_write needs to be filled in
 	u8 res = spi_read(&SpiInstance, addr); //spi_read has been provided
-	xil_printf("Wrote to %X. %X transmitted. %X readback.\n\r", addr, value, res);
+
+	if (res != value) {
+	    LED_data |= 0x1<<2;
+	    XGpio_DiscreteWrite(&GpioInstance, LED_CHANNEL, LED_data);
+	    //You need to insert a breakpoint here to check the variables if your tester breaks.
+	    return 0;
+	}
 
     //Everything below is cleanup code, you don't need to modify this
-    LED_data |= 0x1<<2;
-    xil_printf("Tests complete. Please review results.\n\r");
-
     XGpio_DiscreteWrite(&GpioInstance, LED_CHANNEL, LED_data);
     LED_data |= 0x1<<3;
     XGpio_DiscreteWrite(&GpioInstance, LED_CHANNEL, LED_data);
@@ -100,6 +101,12 @@ int main()
 
 void spi_write(XSpi *SpiInstancePtr, u8 addr, u8 value){
 	// TODO: Your code here! Read the xspi.h file for more information on XSpi_Transfer()
+	u8 addr_byte = (addr << 1); //Shifted, because we have 7 bits of addr, 1 bit of R/W
+	u8 RcvBuf[2];
+	u8 SendBuf[2];
+	SendBuf[0] = addr_byte;
+	SendBuf[1] = value;	//2nd byte is 0, because we're reading data
+	XSpi_Transfer(SpiInstancePtr, SendBuf, RcvBuf, 2); //The 2 is the # of expected bytes returned
 }
 
 u8 spi_read(XSpi *SpiInstancePtr, u8 addr){

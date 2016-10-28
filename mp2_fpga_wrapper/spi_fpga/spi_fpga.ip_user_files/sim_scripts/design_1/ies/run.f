@@ -174,6 +174,10 @@
 -endlib
 -makelib ies/xil_defaultlib \
   "../../../bd/design_1/ip/design_1_xbar_0_1/sim/design_1_xbar_0.v" \
+  "../../../bd/design_1/hdl/design_1.v" \
+  "../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src/midpoint.v" \
+  "../../../bd/design_1/ipshared/user.org/spimemory_v1_0/src/spimemory.v" \
+  "../../../bd/design_1/ip/design_1_spiMemory_0_0/sim/design_1_spiMemory_0_0.v" \
 -endlib
 -makelib ies/axi_protocol_converter_v2_1_9 \
   "../../../ipstatic/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_a_axi3_conv.v" \
@@ -198,7 +202,6 @@
 -endlib
 -makelib ies/xil_defaultlib \
   "../../../bd/design_1/ip/design_1_auto_pc_0_1/sim/design_1_auto_pc_0.v" \
-  "../../../bd/design_1/hdl/design_1.v" \
 -endlib
 -makelib ies/xil_defaultlib \
   glbl.v

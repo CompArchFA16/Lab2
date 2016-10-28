@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-//Date        : Sun Oct 16 20:01:14 2016
+//Date        : Fri Oct 28 00:49:55 2016
 //Host        : vagrant-ubuntu-trusty-64 running 64-bit Ubuntu 14.04.5 LTS
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -9,7 +9,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=10,numReposBlks=6,numNonXlnxBlks=0,numHierBlks=4,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=4,da_board_cnt=5,da_ps7_cnt=1,synth_mode=Global}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
+(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=11,numReposBlks=7,numNonXlnxBlks=1,numHierBlks=4,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=4,da_board_cnt=5,da_ps7_cnt=1,synth_mode=Global}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
 module design_1
    (DDR_addr,
     DDR_ba,
@@ -63,6 +63,9 @@ module design_1
   wire [3:0]axi_gpio_0_GPIO_TRI_I;
   wire [3:0]axi_gpio_0_GPIO_TRI_O;
   wire [3:0]axi_gpio_0_GPIO_TRI_T;
+  wire axi_quad_spi_0_io0_o;
+  wire axi_quad_spi_0_sck_o;
+  wire [0:0]axi_quad_spi_0_ss_o;
   wire [14:0]processing_system7_0_DDR_ADDR;
   wire [2:0]processing_system7_0_DDR_BA;
   wire processing_system7_0_DDR_CAS_N;
@@ -160,6 +163,7 @@ module design_1
   wire [0:0]processing_system7_0_axi_periph_M01_AXI_WVALID;
   wire [0:0]rst_processing_system7_0_100M_interconnect_aresetn;
   wire [0:0]rst_processing_system7_0_100M_peripheral_aresetn;
+  wire spiMemory_0_miso_pin;
 
   assign axi_gpio_0_GPIO_TRI_I = leds_4bits_tri_i[3:0];
   assign leds_4bits_tri_o[3:0] = axi_gpio_0_GPIO_TRI_O;
@@ -190,7 +194,8 @@ module design_1
   design_1_axi_quad_spi_0_0 axi_quad_spi_0
        (.ext_spi_clk(processing_system7_0_FCLK_CLK0),
         .io0_i(1'b0),
-        .io1_i(1'b0),
+        .io0_o(axi_quad_spi_0_io0_o),
+        .io1_i(spiMemory_0_miso_pin),
         .s_axi_aclk(processing_system7_0_FCLK_CLK0),
         .s_axi_araddr(processing_system7_0_axi_periph_M00_AXI_ARADDR[6:0]),
         .s_axi_aresetn(rst_processing_system7_0_100M_peripheral_aresetn),
@@ -211,7 +216,9 @@ module design_1
         .s_axi_wstrb(processing_system7_0_axi_periph_M00_AXI_WSTRB),
         .s_axi_wvalid(processing_system7_0_axi_periph_M00_AXI_WVALID),
         .sck_i(1'b0),
-        .ss_i(1'b0));
+        .sck_o(axi_quad_spi_0_sck_o),
+        .ss_i(1'b0),
+        .ss_o(axi_quad_spi_0_ss_o));
   design_1_processing_system7_0_0 processing_system7_0
        (.DDR_Addr(DDR_addr[14:0]),
         .DDR_BankAddr(DDR_ba[2:0]),
@@ -366,6 +373,12 @@ module design_1
         .mb_debug_sys_rst(1'b0),
         .peripheral_aresetn(rst_processing_system7_0_100M_peripheral_aresetn),
         .slowest_sync_clk(processing_system7_0_FCLK_CLK0));
+  design_1_spiMemory_0_0 spiMemory_0
+       (.clk(processing_system7_0_FCLK_CLK0),
+        .cs_pin(axi_quad_spi_0_ss_o),
+        .miso_pin(spiMemory_0_miso_pin),
+        .mosi_pin(axi_quad_spi_0_io0_o),
+        .sclk_pin(axi_quad_spi_0_sck_o));
 endmodule
 
 module design_1_processing_system7_0_axi_periph_0
