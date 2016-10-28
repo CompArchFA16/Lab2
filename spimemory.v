@@ -55,7 +55,7 @@ module spiMemory
     datamemory datamem(clk, parallelDataIn, addr, dm_we, parallelOut);
 
     // DFF
-    dFlipFlop dff(clk, serialOut, negativeedge2, dffout);
+    dFlipFlop dff(clk, serialOut, miso_buff, dffout);
 
     // miso buffer
     bufif1 misobuff(miso_pin, dffout, miso_buff);
