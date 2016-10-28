@@ -126,7 +126,7 @@ module testspi();
                 dataout[i] <= miso_pin;
                 #100;
             end
-
+        #2000
         $finish;
     end
 

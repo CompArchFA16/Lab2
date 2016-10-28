@@ -128,15 +128,15 @@ module spiMemory
     			  .writeEnable(dmWe),
     			  .dataIn(parallelDataOut[7:0]));
 
-//	dff_p #(1) dff(.trigger(clk),
-//				   .enable(falling),
-//				   .d(serialDataOut),
-//				   .q(bufferin));
-
+	dff_p #(1) dffm(.trigger(clk),
+				   .enable(falling),
+				   .d(serialDataOut),
+				   .q(bufferin));
+/*
     dff dff(.trigger(clk),
                     .enable(falling),               
                     .d(serialDataOut),
-                    .q(bufferin));
+                    .q(bufferin));*/
  
     tristate_buffer buff(.in(bufferin),
                        .enable(misoBufe),

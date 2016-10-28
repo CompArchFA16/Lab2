@@ -61,6 +61,7 @@ always @(posedge clk) begin
 
 			Got: begin
 				addr <= 1;
+				sr <= 0;
 				if (rw) begin
 					state <= Read;
 				end
@@ -79,6 +80,7 @@ always @(posedge clk) begin
 			end
 
 			Read2: begin
+				sr <= 0;
 				misobuff <= 1;
 				if (count >= 8) begin
 					state <= Done;
@@ -90,6 +92,7 @@ always @(posedge clk) begin
 			end
 
 			Write: begin
+				sr <= 0;
 				if (count >= 8) begin
 					state <= Write2;
 				end
@@ -99,6 +102,7 @@ always @(posedge clk) begin
 			end
 
 			Write2: begin
+				sr <= 0;
 				dm <= 1;
 				state <= Done;
 			end
