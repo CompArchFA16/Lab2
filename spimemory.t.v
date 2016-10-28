@@ -85,6 +85,7 @@ initial begin
 
 	mosi_pin <= 1; // "READ"
 	#300; // trigger GOT
+
 	mosi_pin <= 0;
 	dummy <= 8'b11111111;
 	#150; // rd1

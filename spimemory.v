@@ -56,5 +56,5 @@ module spiMemory
 
   // miso buffer
   misobuffer mb(dffOut, miso_buff, miso_pin);
-
+  //assign miso_pin = 1'b1;
 endmodule

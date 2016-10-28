@@ -122,3 +122,6 @@ tags
 ### waveform data
 *.vcd
 *.xdc
+
+IP/
+misc/
