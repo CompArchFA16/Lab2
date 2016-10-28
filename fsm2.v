@@ -14,7 +14,6 @@ module finiteStateMachine(
 
 );
 
-wire address;
 reg [3:0] counter = 0000;
 reg [7:0] state;
 reg restart;
