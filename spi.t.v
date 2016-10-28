@@ -24,7 +24,7 @@ module testspi();
 
     initial begin
 
-    $dumpfile("inputconditioner.vcd");
+    $dumpfile("spi.vcd");
     $dumpvars(0, dut);
         mosi_h <= 8'b_0010_1000;
         clk <= 0;
@@ -33,20 +33,23 @@ module testspi();
     end
 
     always begin
-        #10 clk = ~clk;
-            sclk_pin = ~sclk_pin;
+        #5   clk = ~clk;
+    end
+    always begin
+        #5    sclk_pin = ~sclk_pin;
     end
 
     initial begin
-
-        #3 cs_pin = 0;
-    for (i = 8; i > 0; i = i - 1) // Turns mosi_h into serial signal
+        #10 cs_pin = 1;
+        #30 cs_pin = 0;
+    for (i = 7; i > 0; i = i - 1) // Turns mosi_h into serial signal
         begin
-        #10
-           mosi_pin <= mosi_h[i-1];
+           mosi_pin <= mosi_h[i];
+           #100;
         end
-
-    #100
+            mosi_pin = 1; //8th bit decides read or write, 1 = read, 0 = write
+        #2000 cs_pin = 1;
+    #3000
         $finish;
     end
 

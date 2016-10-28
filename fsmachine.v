@@ -1,4 +1,4 @@
-module fsmachine
+ module fsmachine
 (	
 	input clk,
 	input sclk, //clk edge
@@ -10,17 +10,17 @@ module fsmachine
 	output reg sr //shift register write enable
 );
 
-reg state;
-reg count;
+reg [3:0] state;
+reg [5:0] count;
 
-parameter Get = 0;
-parameter Got = 1;
-parameter Read = 2;
-parameter Read1 = 3;
-parameter Read2 = 4;
-parameter Write = 5;
-parameter Write2 = 6;
-parameter Done = 7;
+localparam Get = 4'd0,
+		   Got = 4'd1,
+		   Read = 4'd2,
+		   Read1 = 4'd3,
+		   Read2 = 4'd4,
+		   Write = 4'd5,
+		   Write2 = 4'd6,
+		   Done = 4'd7;
 
 initial begin
 	state <= 0;
@@ -44,12 +44,20 @@ always @(posedge clk) begin
 		case(state)
 
 			Get: begin
-				if (count < 8 && sclk) begin
-					count <= count + 1;
+				if (sclk) begin
+				$display(count);
+					if (count < 8) begin
+						$display(count);
+						count = count + 1;
+						state <= Get;
+						$display(count);
+						end 
+					else begin
+						state <= Got;
+					end
+
 				end
-				else if (sclk) begin
-					state <= Got;
-				end
+
 			end
 
 			Got: begin
