@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2016.2 (64-bit)
+# SW Build 1577090 on Thu Jun  2 16:32:35 MDT 2016
+# 
+# Start of session at: Mon Oct 17 00:33:45 2016
+# Process ID: 16034
+# Current directory: /vagrant/mp2_fpga_wrapper/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/webtalk
+# Command line: wbtcv -mode batch -source sdk_webtalk.tcl
+# Log file: /vagrant/mp2_fpga_wrapper/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/webtalk/webtalk.log
+# Journal file: /vagrant/mp2_fpga_wrapper/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/webtalk/webtalk.jou
+#-----------------------------------------------------------
+source sdk_webtalk.tcl
