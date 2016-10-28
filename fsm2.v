@@ -66,15 +66,16 @@ always @(posedge clk) begin
             //Reading step 1: Wait for 8 bits of data (8 sclk cycles)
             Read1_State: begin
                 ADDR_WE <=0; //save address into latch and therefore data memory address input
+                SR_WE <=1;
                 state <= Read2_State;
+
             end
             Read2_State: begin
                 ADDR_WE <=0;
-                SR_WE <=1; //to do: look here (if need clock cycle to go from parallel in enable to serial out)
+                SR_WE <=0; //to do: look here (if need clock cycle to go from parallel in enable to serial out)
                 MISO_Buff <=1; //set miso pin out high
                 if ((counter ==0) & (restart==1) ) begin
                     restart<=0;
-                    SR_WE <=0;
                     state <= Done_State;
                 end
             end
