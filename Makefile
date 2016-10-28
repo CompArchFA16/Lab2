@@ -19,5 +19,8 @@ run-fsm: build-fsm
 build-fsm:
 	iverilog -Wall -o fsm.o fsm.t.v
 
+build-spimemory:
+	iverilog -Wall -o spimemory.o spimemory.v
+
 clean:
 	rm *.o *.out *.vcd
