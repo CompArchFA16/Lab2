@@ -20,31 +20,36 @@ module testspi();
     		           .mosi_pin(mosi_pin), 
     		           .leds(leds));
      reg [7:0] mosi_h; //8 bit mosi signal that is human readable
+     reg [3:0] i;
 
     initial begin
 
-        mosi_h <= 8'b_0010_1010;
+    $dumpfile("spi.vcd");
+    $dumpvars(0, dut);
+        mosi_h <= 8'b_0010_1000;
         clk <= 0;
         sclk_pin <= 0;
         cs_pin <= 0;
     end
 
     always begin
-        #10 clk = ~clk;
-            sclk_pin = ~sclk_pin;
+        #5   clk = ~clk;
+    end
+    always begin
+        #5    sclk_pin = ~sclk_pin;
     end
 
     initial begin
-        #30 cs_pin = 1;
-        #10 mosi_pin = mosi_h[7];
-        #10 mosi_pin = mosi_h[6];
-        #10 mosi_pin = mosi_h[5];
-        #10 mosi_pin = mosi_h[4];
-        #10 mosi_pin = mosi_h[3];
-        #10 mosi_pin = mosi_h[2];
-        #10 mosi_pin = mosi_h[1];
-        #10 mosi_pin = mosi_h[0];
-
+        #10 cs_pin = 1;
+        #30 cs_pin = 0;
+    for (i = 7; i > 0; i = i - 1) // Turns mosi_h into serial signal
+        begin
+           mosi_pin <= mosi_h[i];
+           #100;
+        end
+            mosi_pin = 1; //8th bit decides read or write, 1 = read, 0 = write
+        #2000 cs_pin = 1;
+    #3000
         $finish;
     end
 
