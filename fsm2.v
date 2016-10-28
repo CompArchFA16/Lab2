@@ -18,6 +18,7 @@ wire address;
 reg [3:0] counter = 0000;
 reg [7:0] state;
 reg restart;
+reg RW;
 localparam GetAddr_State = 8'b00000001;
 //localparam RW_State = 8'b00000010;
 localparam Read1_State = 8'b00000100;
@@ -49,9 +50,12 @@ always @(posedge clk) begin
                 DM_WE <=0;
                 SR_WE <=0;
                 //if we got the address
+                if (counter == 7) begin
+                 RW <= readWrite;
+                end
                 if ((counter ==0) & (restart==1)) begin
                 restart <=0;
-                    if (readWrite) begin
+                    if (RW) begin
                         state <= Read1_State;
                     end
                     else begin
@@ -68,7 +72,8 @@ always @(posedge clk) begin
                 ADDR_WE <=0;
                 SR_WE <=1; //to do: look here (if need clock cycle to go from parallel in enable to serial out)
                 MISO_Buff <=1; //set miso pin out high
-                if (counter == 7) begin
+                if ((counter ==0) & (restart==1) ) begin
+                    restart<=0;
                     SR_WE <=0;
                     state <= Done_State;
                 end
@@ -100,14 +105,14 @@ end
 
 //change counter on the sclk cycles
 always @(posedge perEdge) begin
-    if (counter ==7)begin
-        restart <=1;
-    end
     if (counter >= 7 || chipSelect) begin
         counter <= 0;
     end
     else begin
     counter <= counter + 1;
+    end
+    if (counter ==7)begin
+        restart <=1;
     end
 end
 
