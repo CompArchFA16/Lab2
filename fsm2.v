@@ -58,7 +58,7 @@ always @(posedge clk) begin
                         state <= Read1_State;
                     end
                     else begin
-                    state <=Write1_State;
+                        state <=Write1_State;
                     end
                 end
             end
@@ -93,12 +93,11 @@ always @(posedge clk) begin
             end
             Done_State: begin
                 DM_WE <=0;
+                MISO_Buff <= 0;
                 if (chipSelect) begin
-                state <= GetAddr_State;
+                    state <= GetAddr_State;
                 end
             end
-
-
         endcase
     end
 end
