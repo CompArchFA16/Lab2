@@ -31,6 +31,9 @@ module fsm();
     always begin
     #5 clk <= ~clk;
     end
+    always begin
+        #8 peripheralClkEdge <= ~peripheralClkEdge;
+    end
 
 //    always begin
 //    peripheralClkEdge = 1; #3;

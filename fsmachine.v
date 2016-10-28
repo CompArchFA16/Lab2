@@ -80,7 +80,7 @@ always @(posedge clk) begin
 
 			Read2: begin
 				misobuff <= 1;
-				if (cs >= 8) begin
+				if (count >= 8) begin
 					state <= Done;
 				end
 				else if (sclk) begin
@@ -90,7 +90,7 @@ always @(posedge clk) begin
 			end
 
 			Write: begin
-				if (cs >= 8) begin
+				if (count >= 8) begin
 					state <= Write2;
 				end
 				else if (sclk) begin
