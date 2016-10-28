@@ -1,5 +1,5 @@
 $date
-	Fri Oct 28 15:20:55 2016
+	Fri Oct 28 15:52:52 2016
 $end
 $version
 	Icarus Verilog
@@ -86,7 +86,7 @@ $var wire 1 % cs $end
 $var wire 1 Q rw $end
 $var wire 1 5 sclk $end
 $var reg 1 R addr $end
-$var reg 6 S count [5:0] $end
+$var reg 4 S count [3:0] $end
 $var reg 1 T dm $end
 $var reg 1 U misobuff $end
 $var reg 1 V sr $end
@@ -118,11 +118,11 @@ bx Z
 bx Y
 xX
 b0 W
-xV
-xU
-xT
+0V
+0U
+0T
 b0 S
-xR
+0R
 xQ
 bx P
 bx O
@@ -148,14 +148,14 @@ b0 @
 0;
 b0 :
 09
-x8
+08
 x7
 06
 05
 bx 4
 x3
-x2
-x1
+z2
+01
 bz 0
 0/
 0.
@@ -163,7 +163,7 @@ bz 0
 0,
 0+
 0*
-x)
+0)
 bx (
 0'
 0&
@@ -171,20 +171,11 @@ bx (
 0$
 x#
 bx "
-x!
+0!
 $end
 #5
-z2
 x=
 1C
-0V
-08
-0R
-0!
-0T
-0)
-0U
-01
 16
 1$
 #10

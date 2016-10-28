@@ -1,4 +1,4 @@
-module fsmachine
+ module fsmachine
 (	
 	input clk,
 	input sclk, //clk edge
@@ -11,56 +11,61 @@ module fsmachine
 );
 
 reg [3:0] state;
-reg [3:0] count;
+reg [5:0] count;
 
-parameter Get = 0;
-parameter Got = 1;
-parameter Read = 2;
-parameter Read1 = 3;
-parameter Read2 = 4;
-parameter Write = 5;
-parameter Write2 = 6;
-parameter Done = 7;
+localparam Get = 4'd0,
+		   Got = 4'd1,
+		   Read = 4'd2,
+		   Read1 = 4'd3,
+		   Read2 = 4'd4,
+		   Write = 4'd5,
+		   Write2 = 4'd6,
+		   Done = 4'd7;
 
 initial begin
 	state <= 0;
 	count <= 0;
-
 	misobuff <= 0;
 	dm <= 0;
 	addr <= 0;
 	sr <= 0;
+
 end
 
 always @(posedge clk) begin
-
+	
 
 	//reset counter and state when cs is de-asserted
 	if (cs) begin
 		state <= 0;
 		count <= 0;
-
 		misobuff <= 0;
 		dm <= 0;
 		addr <= 0;
 		sr <= 0;
+
 	end
 
 	else begin
 		case(state)
 
 			Get: begin
-				if (count < 8 && sclk) begin
-					count <= count + 1;
-					state <= Get;
+				if (sclk) begin
+				$display("sclk");
+					if (count < 8) begin
+						count = count + 1;
+						state <= Get;
+						end 
+					else begin
+						state <= Got;
+					end
 				end
-				else if (count >=8 && sclk) begin
-					state <= Got;
+				else begin
+					state <= Get;
 				end
 			end
 
 			Got: begin
-				addr <= 1;
 				if (rw) begin
 					state <= Read;
 				end
@@ -80,17 +85,16 @@ always @(posedge clk) begin
 
 			Read2: begin
 				misobuff <= 1;
-				if (count >= 8) begin
+				if (cs == 8) begin
 					state <= Done;
 				end
 				else if (sclk) begin
 					count <= count + 1;
-					state <= Read2;
 				end
 			end
 
 			Write: begin
-				if (count >= 8) begin
+				if (cs == 8) begin
 					state <= Write2;
 				end
 				else if (sclk) begin
@@ -99,15 +103,12 @@ always @(posedge clk) begin
 			end
 
 			Write2: begin
-				dm <= 1;
 				state <= Done;
+				dm <= 1;
 			end
 
 			Done: begin //Done
 				count <= 0;
-			end
-
-			default: begin
 			end
 
 		endcase
