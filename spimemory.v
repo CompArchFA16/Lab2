@@ -24,6 +24,20 @@ module dff_p #(parameter W=1)
     end
 endmodule
 
+module dff
+(
+    input trigger,
+    input enable,
+    input d,
+    output reg q
+);
+    always @(posedge trigger) begin
+        if(enable) begin
+            q <= d;
+        end
+    end
+endmodule
+
 // Two-input MUX with parameterized bit width (default: 1-bit)
 module mux_p #(parameter W = 4)
 (
@@ -85,14 +99,28 @@ module spiMemory
 						 .positiveedge(dummy3),
 						 .negativeedge(dummy5));
 
+    fsmachine fsm(.clk(clk),
+                  .sclk(rising),
+                  .cs(conditioned_cs),
+                  .rw(parallelDataOut[0]),
+                  .misobuff(misoBufe),
+                  .dm(dmWe),
+                  .addr(addrWe),
+                  .sr(srWe));
+
     // Instantiate with parameter width = 8
     shiftregister #(8) sr(.clk(clk),
     		           .peripheralClkEdge(rising),
-    		           .parallelLoad(falling),
+    		           .parallelLoad(srWe),
     		           .parallelDataIn(dataOut),
     		           .serialDataIn(conditioned_mosi),
     		           .parallelDataOut(parallelDataOut),
     		           .serialDataOut(serialDataOut));
+
+    dff_p #(8) addressLatch(.trigger(clk),
+                    .enable(addrWe),
+                    .d(parallelDataOut),
+                    .q(address));
 
     datamemory dm(.clk(clk),
     			  .dataOut(dataOut),
@@ -100,26 +128,17 @@ module spiMemory
     			  .writeEnable(dmWe),
     			  .dataIn(parallelDataOut[7:0]));
 
-	fsmachine fsm(.clk(clk),
-				  .sclk(rising),
-				  .cs(conditioned_cs),
-				  .rw(parallelDataOut[0]),
-				  .misobuff(misoBufe),
-				  .dm(dmWe),
-				  .addr(addrWe),
-				  .sr(srWe));
+//	dff_p #(1) dff(.trigger(clk),
+//				   .enable(falling),
+//				   .d(serialDataOut),
+//				   .q(bufferin));
 
-	dff_p #(1) dff(.trigger(clk),
-				   .enable(falling),
-				   .d(serialDataOut),
-				   .q(bufferin));
-
-  dff_p #(8) addressLatch(.trigger(clk),
-				   .enable(addrWe),
-				   .d(parallelDataOut),
-				   .q(address));
-
-  tristate_buffer buff(.in(bufferin),
+    dff dff(.trigger(clk),
+                    .enable(falling),               
+                    .d(serialDataOut),
+                    .q(bufferin));
+ 
+    tristate_buffer buff(.in(bufferin),
                        .enable(misoBufe),
                        .out(miso_pin));
 
