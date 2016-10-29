@@ -12,7 +12,8 @@ module fsm
     output reg dm_we,
     output reg addre_we,
     output reg sr_we,
-    input clkedge,
+    input posclkedge,
+    input negclkedge,
     input cs,
     input lsbsrop
 );
@@ -25,7 +26,7 @@ module fsm
     initial addre_we = 0;
     initial sr_we = 0;
 
-    always @(posedge clkedge) begin
+    always @(posedge posclkedge) begin
         // $display("state:%d  count:%d", state, count);
         case (state)
             `WAIT: begin
@@ -52,11 +53,6 @@ module fsm
                     state <= `WRITE;
                     dm_we <= 1;
                 end
-                else begin
-                    state <= `READ;
-                    sr_we <= 1;
-                    miso_bufe <=1;
-                end
             end
 
             `WRITE: begin
@@ -72,7 +68,7 @@ module fsm
 
             `READ: begin
                 sr_we <= 0;
-                if (count == 4'd6) begin
+                if (count == 4'd8) begin
                     count <= 0;
                     state <= `WAIT;
                     miso_bufe <= 0;
@@ -82,6 +78,19 @@ module fsm
             end
 
             default:  begin end
+        endcase
+    end
+
+    always @(posedge negclkedge) begin
+        case (state)
+            `GET_RW: begin
+                if (lsbsrop == 1) begin
+                    state <= `READ;
+                    sr_we <= 1;
+                    miso_bufe <=1;
+                end
+            end
+            default: begin end
         endcase
     end
 
