@@ -87,7 +87,7 @@ module testSpiMemory ();
 
       for (j = 7; j >= 0; j = j - 1) begin
         sclk_pin = 0;
-        mosi_pin = writeValue[i];
+        mosi_pin = writeValue[j];
         #50;
         sclk_pin = 1;
         #50;
@@ -110,9 +110,10 @@ module testSpiMemory ();
     dutPassed = 1;
 
     // Does write and read work?
-    address = 7'd0;
+    address = 7'd3;
     writeValue = 8'd10;
     spiWrite (address, writeValue);
+    #100;
     spiRead  (address, readValue);
 
     if (readValue !== 8'd10) begin
