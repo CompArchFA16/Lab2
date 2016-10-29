@@ -25,3 +25,6 @@ To test the SPI memory on the FPGA, we would write a for loop to write and read 
 
 ## Reflection / Analysis
 
+We relied too heavily on the supplied FSM and circuit diagram, which made our implementation for the FSM extremely tricky. After spending too much time trying to get the suggested version working, we decided to design our own. This version ran into issues because it relied on SCLK, instead of CLK, because the recommended schematic did not include CLK input for the FSM. This was rather frustrating for us because we spent more time than we should have trying to implement the FSM in the way that we thought was expected. 
+
+Lastly, getting the FPGA working was incredibly frustrating because it did not work for any good reasons. We suspect it had to do with the computer we were testing on.
