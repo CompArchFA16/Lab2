@@ -4,7 +4,7 @@
 
 `include "datamemory.v"
 `include "shiftregister.v"
-`include "fsm2.v"
+`include "fsm1.v"
 `include "addressLatch.v"
 //`include "inputconditioner.v"
 
