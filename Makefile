@@ -31,6 +31,11 @@ run-datamemory: build-datamemory
 build-datamemory:
 	iverilog -Wall -o datamemory.o datamemory.t.v
 
+run-addresslatch: build-addresslatch
+	./addresslatch.o
+
+build-addresslatch:
+	iverilog -Wall -o addresslatch.o addresslatch.t.v
 
 clean:
 	rm *.o *.out *.vcd
