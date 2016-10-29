@@ -35,8 +35,7 @@ module fsm
     SRWriteEnable <= 0;
   end
 
-
-  always @ (posedge sClkPosEdge) begin
+  always @ (posedge clk or posedge sClkPosEdge) begin
     sClkPosEdgeLatch <= sClkPosEdge;
   end
 
@@ -51,7 +50,43 @@ module fsm
       SRWriteEnable <= 0;
     end
     else begin
-      if (sClkPosEdgeLatch === 0) begin
+      if (sClkPosEdgeLatch === 1) begin
+        sClkPosEdgeLatch <= 1'b0;
+        case (currentState)
+          state_GET: begin
+            if (counter !== waitTime) begin
+              counter <= counter + 1;
+              currentState <= state_GET;
+            end
+            else begin
+              counter <= 0;
+              currentState <= state_GOT;
+            end
+          end
+          state_READ_3: begin
+            misoBufferEnable <= 1;
+            if (counter != waitTime) begin
+              counter <= counter + 1;
+              currentState <= state_READ_3;
+            end
+            else begin
+              counter <= 0;
+              currentState <= state_DONE;
+            end
+          end
+          state_WRITE_1: begin
+            if (counter !== waitTime) begin
+              counter <= counter + 1;
+              currentState <= state_WRITE_1;
+            end
+            else begin
+              counter <= 0;
+              currentState <= state_WRITE_2;
+            end
+          end
+        endcase
+      end
+      else begin
         case (currentState)
           state_GOT: begin
             addressWriteEnable <= 1;
@@ -74,42 +109,6 @@ module fsm
             currentState <= state_DONE;
           end
         endcase
-      end
-      else begin
-        sClkPosEdgeLatch <= 0;
-        if (currentState === state_GET) begin
-          if (counter !== waitTime) begin
-            counter <= counter + 1;
-            currentState <= state_GET;
-          end
-          else begin
-            counter <= 0;
-            currentState <= state_GOT;
-          end
-        end
-
-        if (currentState === state_READ_3) begin
-          misoBufferEnable <= 1;
-          if (counter != waitTime) begin
-            counter <= counter + 1;
-            currentState <= state_READ_3;
-          end
-          else begin
-            counter <= 0;
-            currentState <= state_DONE;
-          end
-        end
-
-        if (currentState === state_WRITE_1) begin
-          if (counter !== waitTime) begin
-            counter <= counter + 1;
-            currentState <= state_WRITE_1;
-          end
-          else begin
-            counter <= 0;
-            currentState <= state_WRITE_2;
-          end
-        end
       end
     end
   end
