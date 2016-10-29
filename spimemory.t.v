@@ -9,6 +9,8 @@ module testSpiMemory ();
   reg        cs_pin;
   reg        mosi_pin;
 
+  reg [7:0] miso_pin_stored;
+
   spiMemory dut (
     .miso_pin(miso_pin),
     .leds(leds),
@@ -27,10 +29,13 @@ module testSpiMemory ();
   always #100 sclk_pin = !sclk_pin;
 
   task spiRead;
-    input [6:0] address;
+    input  [6:0] address;
+    output [7:0] readValue;
     integer i;
+    integer j;
     begin
       cs_pin = 0;
+
       for (i = 6; i >= 0; i = i - 1) begin
         sclk_pin = 0;
         mosi_pin = address[i];
@@ -38,6 +43,21 @@ module testSpiMemory ();
         sclk_pin = 1;
         #50;
       end
+
+      sclk_pin = 0;
+      mosi_pin = 1;
+      #50;
+      sclk_pin = 1;
+      #50;
+
+      for (j = 7; j >= 0; j = j - 1) begin
+        sclk_pin = 0;
+        miso_pin_stored[j] = miso_pin;
+        #50;
+        sclk_pin = 1;
+        #50;
+      end
+
       sclk_pin = 0;
       cs_pin = 1;
     end
