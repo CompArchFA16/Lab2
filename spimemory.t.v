@@ -20,7 +20,28 @@ module testSpiMemory ();
 
   // Start the clock.
   initial clk = 0;
-  always #10 clk = !clk;
+  always #1 clk = !clk;
+
+  // Start our peripheral clock.
+  initial sclk_pin = 0;
+  always #100 sclk_pin = !sclk_pin;
+
+  task spiRead;
+    input [6:0] address;
+    integer i;
+    begin
+      cs_pin = 0;
+      for (i = 6; i >= 0; i = i - 1) begin
+        sclk_pin = 0;
+        mosi_pin = address[i];
+        #50;
+        sclk_pin = 1;
+        #50;
+      end
+      sclk_pin = 0;
+      cs_pin = 1;
+    end
+  endtask
 
   reg dutPassed;
 
