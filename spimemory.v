@@ -17,86 +17,90 @@ module spiMemory (
   input        mosi_pin  // SPI master out slave in
 );
 
-  // input conditioner wires
+  // INPUT =====================================================================
+
 	wire conditionedMosi;
 	wire conditionedCS;
-	wire positiveedge;
-	wire negativeedge;
+	wire sClkPosEdge;
+	wire sClkNegEdge;
 
-	// shift register wires
-	wire[7:0] parallelOut;
-	wire serialOut;
-
-	// data memory wires
-	wire[7:0] DMDataOut;
-	wire[7:0] DMDataIn;
-	wire DMWriteEnable;
-	wire[6:0] DMAddress;
-
-	// fsm wires
-	wire SRWriteEnable;
-	wire addressWriteEnable;
-	wire misoBufferEnable;
-
-	inputconditioner conditioner1 (
+	inputconditioner mosiConditioner (
     .conditioned(conditionedMosi),
 	  .clk(clk),
 	  .noisysignal(mosi_pin)
 	);
 
-  inputconditioner conditioner2 (
-    .positiveedge(positiveedge),
-	  .negativeedge(negativeedge),
+  inputconditioner sClkConditioner (
+    .positiveedge(sClkPosEdge),
+	  .negativeedge(sClkNegEdge),
 	  .clk(clk),
 	  .noisysignal(sclk_pin)
   );
 
-  inputconditioner conditioner3 (
+  inputconditioner csConditioner (
     .conditioned(conditionedCS),
 	  .clk(clk),
 	  .noisysignal(cs_pin)
   );
 
-  datamemory mem (
+  // REGISTER CONTENT ==========================================================
+
+  // Shift register wires
+  wire [7:0] shiftRegParallelOut;
+  wire       shiftRegSerialOut;
+
+  // Address latch outputs
+  wire [6:0] addressLatchOut;
+
+  // Data memory wires
+  wire [7:0] DMDataOut;
+
+  // FSM wires
+  wire misoBufferEnable;
+  wire DMWriteEnable;
+  wire addressWriteEnable;
+  wire SRWriteEnable;
+
+  shiftregister shiftRegister (
+    .parallelDataOut(shiftRegParallelOut),
+    .serialDataOut(shiftRegSerialOut),
+    .serialDataIn(conditionedMosi),
+    .peripheralClkEdge(sClkPosEdge),
+    .parallelDataIn(DMDataOut),
+    .clk(clk),
+    .parallelLoad(SRWriteEnable)
+  );
+
+  datamemory dataMemory (
     .dataOut(DMDataOut),
 	  .clk(clk),
-	  .address(DMAddress),
+	  .address(addressLatchOut),
     .writeEnable(DMWriteEnable),
-    .dataIn(DMDataIn)
+    .dataIn(shiftRegParallelOut)
   );
 
-  shiftregister register (
-    .parallelDataOut(parallelOut),
-    .serialDataOut(serialOut),
-    .serialDataIn(conditionedMosi),
-    .peripheralClkEdge(positiveedge),
-    .parallelDataIn(DMDataOut),
-	  .clk(clk),
-	  .parallelLoad(SRWriteEnable)
-  );
-
-  fsm fsm (
+  fsm FSM (
     .misoBufferEnable(misoBufferEnable),
   	.DMWriteEnable(DMWriteEnable),
     .addressWriteEnable(addressWriteEnable),
     .SRWriteEnable(SRWriteEnable),
     .clk(clk),
-    .sClkPosEdge(positiveedge),
-    .readWriteEnable(parallelOut[0]),
+    .sClkPosEdge(sClkPosEdge),
+    .readWriteEnable(shiftRegParallelOut[0]),
     .chipSelectConditioned(conditionedCS)
   );
 
   addressLatch latch (
-    .addressLatchOut(DMAddress),
+    .addressLatchOut(addressLatchOut),
     .clk(clk),
     .writeEnable(addressWriteEnable),
-    .addressLatchIn(parallelOut[7:1])
+    .addressLatchIn(shiftRegParallelOut[7:1])
   );
 
   misoSoup misoOut (
     .q(miso_pin),
-    .d(serialOut),
-    .writeEnable(negativeedge),
+    .d(shiftRegSerialOut),
+    .writeEnable(sClkNegEdge),
     .misoBufe(misoBufferEnable),
     .clk(clk)
   );
