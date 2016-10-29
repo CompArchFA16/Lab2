@@ -25,3 +25,4 @@ To test the SPI memory on the FPGA, we would write a for loop to write and read 
 
 ## Reflection / Analysis
 
+We overestimated the time for the begining parts of the project. The input conditioner and shift register were slightly faster than we thought initially. The SPI mememory and FSM were much slower than we thought. We continually ran into errors and have been struggling to get the last parts to play nicely together. We also need to change from the reccomended circuit diagram which took some time. We've also stuggled for a long time with the FPGA and loading our code onto it.
