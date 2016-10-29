@@ -98,7 +98,10 @@ module testSpiMemory ();
     end
   endtask
 
-  reg dutPassed;
+  reg       dutPassed;
+  reg [6:0] address;
+  reg [7:0] writeValue;
+  reg [7:0] readValue;
 
   initial begin
     $dumpfile("spimemory.vcd");
@@ -106,9 +109,17 @@ module testSpiMemory ();
 
     dutPassed = 1;
 
-    // Does read work?
+    // Does write and read work?
+    address = 7'd0;
+    writeValue = 8'd10;
+    spiWrite (address, writeValue);
+    spiRead  (address, readValue);
 
-    // Does write work?
+    if (readValue !== 8'd10) begin
+      $display("Writing and reading failed.");
+      $display("readValue: %d", readValue);
+      $display("writeValue: %d", writeValue);
+    end
 
     // Does reset work?
 
