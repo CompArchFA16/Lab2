@@ -25,6 +25,12 @@ run-spimemory: build-spimemory
 build-spimemory:
 	iverilog -Wall -o spimemory.o spimemory.t.v
 
+run-datamemory: build-datamemory
+	./datamemory.o
+
+build-datamemory:
+	iverilog -Wall -o datamemory.o datamemory.t.v
+
 run-addresslatch: build-addresslatch
 	./addresslatch.o
 
