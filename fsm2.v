@@ -35,6 +35,7 @@ end
 always @(posedge clk) begin
 
     if (chipSelect) begin //if this is high, do not pay attention
+        MISO_Buff<=0;
         state <= GetAddr_State;
         counter <= 0;
         restart <=0;
@@ -80,6 +81,7 @@ always @(posedge clk) begin
             end
             Write1_State: begin
                 ADDR_WE <=0;
+                DM_WE <=1;
                 state <= Write2_State;
             end
             Write2_State: begin
