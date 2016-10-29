@@ -45,7 +45,7 @@ module testSpiMemory ();
       end
 
       sclk_pin = 0;
-      mosi_pin = 1;
+      mosi_pin = 1; // Read mode.
       #50;
       sclk_pin = 1;
       #50;
@@ -53,6 +53,41 @@ module testSpiMemory ();
       for (j = 7; j >= 0; j = j - 1) begin
         sclk_pin = 0;
         miso_pin_stored[j] = miso_pin;
+        #50;
+        sclk_pin = 1;
+        #50;
+      end
+
+      sclk_pin = 0;
+      cs_pin = 1;
+    end
+  endtask
+
+  task spiWrite;
+    input  [6:0] address;
+    input [7:0] writeValue;
+    integer i;
+    integer j;
+    begin
+      cs_pin = 0;
+
+      for (i = 6; i >= 0; i = i - 1) begin
+        sclk_pin = 0;
+        mosi_pin = address[i];
+        #50;
+        sclk_pin = 1;
+        #50;
+      end
+
+      sclk_pin = 0;
+      mosi_pin = 0; // Write mode.
+      #50;
+      sclk_pin = 1;
+      #50;
+
+      for (j = 7; j >= 0; j = j - 1) begin
+        sclk_pin = 0;
+        mosi_pin = writeValue[i];
         #50;
         sclk_pin = 1;
         #50;
