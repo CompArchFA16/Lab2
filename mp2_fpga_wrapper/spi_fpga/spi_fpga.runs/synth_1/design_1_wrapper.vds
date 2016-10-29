@@ -2,8 +2,8 @@
 # Vivado v2016.2 (64-bit)
 # SW Build 1577090 on Thu Jun  2 16:32:35 MDT 2016
 # IP Build 1577682 on Fri Jun  3 12:00:54 MDT 2016
-# Start of session at: Fri Oct 28 01:46:40 2016
-# Process ID: 6793
+# Start of session at: Fri Oct 28 23:59:13 2016
+# Process ID: 4900
 # Current directory: /home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.runs/synth_1
 # Command line: vivado -log design_1_wrapper.vds -mode batch -messageDb vivado.pb -notrace -source design_1_wrapper.tcl
 # Log file: /home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.runs/synth_1/design_1_wrapper.vds
@@ -16,17 +16,16 @@ WARNING: [IP_Flow 19-3685] Ignored loading user repository '/home/vagrant/Lab2/m
 INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/vagrant/Lab2'.
 WARNING: [IP_Flow 19-3656] If you move the project, the path for repository '/home/vagrant/Lab2' may become invalid. A better location for the repostory would be in a path adjacent to the project. (Current project location is '/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.runs/synth_1'.)
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2016.2/data/ip'.
-add_files: Time (s): cpu = 00:00:07 ; elapsed = 00:00:11 . Memory (MB): peak = 999.656 ; gain = 41.414 ; free physical = 405 ; free virtual = 2036
 Command: synth_design -top design_1_wrapper -part xc7z010clg400-1
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7z010'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z010'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 6804 
+INFO: Helper process launched with PID 4908 
 CRITICAL WARNING: [Synth 8-2490] overwriting previous definition of module inputconditioner [/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src/inputconditioner.v:8]
 CRITICAL WARNING: [Synth 8-2490] overwriting previous definition of module shiftregister [/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.srcs/sources_1/bd/design_1/ipshared/user.org/spimemory_v1_0/src/shiftregister.v:9]
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:24 ; elapsed = 00:00:41 . Memory (MB): peak = 1089.422 ; gain = 205.738 ; free physical = 317 ; free virtual = 1952
+Starting RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 1089.426 ; gain = 205.738 ; free physical = 950 ; free virtual = 2060
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'design_1_wrapper' [/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.srcs/sources_1/bd/design_1/hdl/design_1_wrapper.v:12]
 INFO: [Synth 8-638] synthesizing module 'design_1' [/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.srcs/sources_1/bd/design_1/hdl/design_1.v:13]
@@ -2821,11 +2820,11 @@ ERROR: [Synth 8-285] failed synthesizing module 'design_1_spiMemory_0_0' [/home/
 ERROR: [Synth 8-285] failed synthesizing module 'design_1' [/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.srcs/sources_1/bd/design_1/hdl/design_1.v:13]
 ERROR: [Synth 8-285] failed synthesizing module 'design_1_wrapper' [/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.srcs/sources_1/bd/design_1/hdl/design_1_wrapper.v:12]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:01:38 ; elapsed = 00:02:35 . Memory (MB): peak = 1239.672 ; gain = 355.988 ; free physical = 156 ; free virtual = 1796
+Finished RTL Elaboration : Time (s): cpu = 00:00:29 ; elapsed = 00:00:37 . Memory (MB): peak = 1239.676 ; gain = 355.988 ; free physical = 798 ; free virtual = 1909
 ---------------------------------------------------------------------------------
 RTL Elaboration failed
 INFO: [Common 17-83] Releasing license: Synthesis
 405 Infos, 83 Warnings, 2 Critical Warnings and 7 Errors encountered.
 synth_design failed
 ERROR: [Common 17-69] Command failed: Synthesis failed - please see the console or run log file for details
-INFO: [Common 17-206] Exiting Vivado at Fri Oct 28 01:49:42 2016...
+INFO: [Common 17-206] Exiting Vivado at Fri Oct 28 23:59:58 2016...

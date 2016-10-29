@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Oct 28 00:50:53 2016" VIVADOVERSION="2016.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Oct 28 23:59:09 2016" VIVADOVERSION="2016.2">
 
   <SYSTEMINFO ARCH="zynq" BOARD="digilentinc.com:zybo:part0:1.0" DEVICE="7z010" NAME="design_1" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -576,18 +576,18 @@
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_rready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="io0_i" SIGIS="undef"/>
+        <PORT DIR="I" NAME="io0_i" SIGIS="undef" SIGNAME="spiMemory_0_miso_pin">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="spiMemory_0" PORT="miso_pin"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="O" NAME="io0_o" SIGIS="undef" SIGNAME="axi_quad_spi_0_io0_o">
           <CONNECTIONS>
             <CONNECTION INSTANCE="spiMemory_0" PORT="mosi_pin"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="io0_t" SIGIS="undef"/>
-        <PORT DIR="I" NAME="io1_i" SIGIS="undef" SIGNAME="spiMemory_0_miso_pin">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="spiMemory_0" PORT="miso_pin"/>
-          </CONNECTIONS>
-        </PORT>
+        <PORT DIR="I" NAME="io1_i" SIGIS="undef"/>
         <PORT DIR="O" NAME="io1_o" SIGIS="undef"/>
         <PORT DIR="O" NAME="io1_t" SIGIS="undef"/>
         <PORT DIR="I" NAME="sck_i" SIGIS="undef"/>
@@ -1121,7 +1121,7 @@
         <PARAMETER NAME="PCW_CORE1_IRQ_INTR" VALUE="0"/>
         <PARAMETER NAME="PCW_VALUE_SILVERSION" VALUE="3"/>
         <PARAMETER NAME="PCW_IMPORT_BOARD_PRESET" VALUE="None"/>
-        <PARAMETER NAME="PCW_PERIPHERAL_BOARD_PRESET" VALUE="None"/>
+        <PARAMETER NAME="PCW_PERIPHERAL_BOARD_PRESET" VALUE="part0"/>
         <PARAMETER NAME="PCW_PRESET_BANK0_VOLTAGE" VALUE="LVCMOS 3.3V"/>
         <PARAMETER NAME="PCW_PRESET_BANK1_VOLTAGE" VALUE="LVCMOS 1.8V"/>
         <PARAMETER NAME="PCW_UIPARAM_DDR_ENABLE" VALUE="1"/>
@@ -1821,11 +1821,11 @@
             <CONNECTION INSTANCE="axi_quad_spi_0" PORT="s_axi_aclk"/>
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP0_ACLK"/>
             <CONNECTION INSTANCE="rst_processing_system7_0_100M" PORT="slowest_sync_clk"/>
+            <CONNECTION INSTANCE="spiMemory_0" PORT="clk"/>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="ACLK"/>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="S00_ACLK"/>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_ACLK"/>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M01_ACLK"/>
-            <CONNECTION INSTANCE="spiMemory_0" PORT="clk"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="FCLK_RESET0_N" SIGIS="rst" SIGNAME="processing_system7_0_FCLK_RESET0_N">
@@ -2890,7 +2890,7 @@
         </PORT>
         <PORT DIR="O" NAME="miso_pin" SIGIS="undef" SIGNAME="spiMemory_0_miso_pin">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_quad_spi_0" PORT="io1_i"/>
+            <CONNECTION INSTANCE="axi_quad_spi_0" PORT="io0_i"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="mosi_pin" SIGIS="undef" SIGNAME="axi_quad_spi_0_io0_o">

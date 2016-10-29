@@ -79,8 +79,8 @@ int main()
     //TODO: Create better tests below
     /*The current test writes the value 10 to address 0 by writing over SPI
     then checks to see what it gets from address 0 by reading over SPI.*/
-    int addr = 0;
-    int value = 10;
+    u8 addr = 0;
+    u8 value = 10;
 	spi_write(&SpiInstance, addr, value); //spi_write needs to be filled in
 	u8 res = spi_read(&SpiInstance, addr); //spi_read has been provided
 
@@ -105,7 +105,7 @@ void spi_write(XSpi *SpiInstancePtr, u8 addr, u8 value){
 	u8 RcvBuf[2];
 	u8 SendBuf[2];
 	SendBuf[0] = addr_byte;
-	SendBuf[1] = value;	//2nd byte is 0, because we're reading data
+	SendBuf[1] = value;
 	XSpi_Transfer(SpiInstancePtr, SendBuf, RcvBuf, 2); //The 2 is the # of expected bytes returned
 }
 
@@ -117,7 +117,7 @@ u8 spi_read(XSpi *SpiInstancePtr, u8 addr){
 	u8 RcvBuf[2];
 	u8 SendBuf[2];
 	SendBuf[0] = addr_byte;
-	SendBuf[1] = 0;	//2nd byte is 0, because we're reading data
+	SendBuf[1] = 1;	//2nd byte is 0, because we're reading data
 	XSpi_Transfer(SpiInstancePtr, SendBuf, RcvBuf, 2); //The 2 is the # of expected bytes returned
 	return RcvBuf[1]; //1st byte of RcvBuf is garbage (from when the addr was shifted in), 2nd byte is data
 }

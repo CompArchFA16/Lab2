@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-//Date        : Fri Oct 28 00:49:55 2016
+//Date        : Fri Oct 28 23:59:08 2016
 //Host        : vagrant-ubuntu-trusty-64 running 64-bit Ubuntu 14.04.5 LTS
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -193,9 +193,9 @@ module design_1
         .s_axi_wvalid(processing_system7_0_axi_periph_M01_AXI_WVALID));
   design_1_axi_quad_spi_0_0 axi_quad_spi_0
        (.ext_spi_clk(processing_system7_0_FCLK_CLK0),
-        .io0_i(1'b0),
+        .io0_i(spiMemory_0_miso_pin),
         .io0_o(axi_quad_spi_0_io0_o),
-        .io1_i(spiMemory_0_miso_pin),
+        .io1_i(1'b0),
         .s_axi_aclk(processing_system7_0_FCLK_CLK0),
         .s_axi_araddr(processing_system7_0_axi_periph_M00_AXI_ARADDR[6:0]),
         .s_axi_aresetn(rst_processing_system7_0_100M_peripheral_aresetn),

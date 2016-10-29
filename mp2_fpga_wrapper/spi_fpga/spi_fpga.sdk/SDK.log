@@ -526,3 +526,149 @@ java.lang.RuntimeException: Error in Resetting Target
 01:44:51 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zybo 210279652019A" && level==0} -index 1' command is executed.
 01:44:55 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_1/design_1_wrapper.bit"
 01:45:13 INFO  : Processor reset is completed for ps7_cortexa9_0
+23:51:20 INFO  : Launching XSDB server: xsdb -n -interactive /home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/temp_xsdb_launch_script.tcl
+23:51:23 INFO  : XSDB server has started successfully.
+23:51:24 INFO  : Processing command line option -hwspec /home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper.hdf.
+23:51:24 INFO  : Checking for hwspec changes in the project design_1_wrapper_hw_platform_3.
+00:00:57 INFO  : SDK has detected change in the last modified timestamps for source hardware specification file Source:1477699256000,  Project:1477614540000
+00:00:57 INFO  : Project design_1_wrapper_hw_platform_3's source hardware specification located at /home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper.hdf is now different from the local copy.
+		 The local copy will be replaced with the source specification and your workspace will be updated.
+00:01:03 INFO  : Copied contents of /home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper.hdf into /design_1_wrapper_hw_platform_3/system.hdf.
+00:01:09 INFO  : Synchronizing projects in the workspace with the hardware platform specification changes.
+00:01:09 INFO  : Clearing existing target manager status.
+00:01:12 INFO  : Workspace synchronized with the new hardware specification file. Cleaning dependent projects...
+00:01:12 WARN  : Linker script will not be updated automatically. Users need to update it manually.
+00:01:39 ERROR : Unexpected error while parsing XMD response ￿: com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: invalid number or unquoted string near 
+00:02:02 INFO  : Launching XSDB server: xsdb -n -interactive /home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/temp_xsdb_launch_script.tcl
+00:02:04 INFO  : XSDB server has started successfully.
+00:02:04 INFO  : Processing command line option -hwspec /home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper.hdf.
+00:02:05 INFO  : Checking for hwspec changes in the project design_1_wrapper_hw_platform_3.
+00:02:57 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+00:02:58 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zybo 210279652019A" && level==0} -index 1' command is executed.
+00:03:00 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_1/design_1_wrapper.bit"
+00:03:18 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zybo 210279652019A" && level==0} -index 1' command is executed.
+00:03:18 INFO  : 'fpga -state' command is executed.
+00:03:18 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+00:03:19 INFO  : Jtag cable 'Digilent Zybo 210279652019A' is selected.
+00:03:19 INFO  : 'jtag frequency' command is executed.
+00:03:19 INFO  : Sourcing of '/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/ps7_init.tcl' is done.
+00:03:19 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Digilent Zybo 210279652019A"} -index 0' command is executed.
+00:03:19 INFO  : Hardware design information is loaded from '/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/system.hdf'.
+00:03:19 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Digilent Zybo 210279652019A"} -index 0' command is executed.
+00:03:19 INFO  : 'stop' command is executed.
+00:03:27 INFO  : 'ps7_init' command is executed.
+00:03:27 INFO  : 'ps7_post_config' command is executed.
+00:03:27 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+00:03:27 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+00:03:27 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+00:03:28 INFO  : The application '/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/corespi/Debug/corespi.elf' is downloaded to processor 'ps7_cortexa9_0'.
+00:03:28 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Digilent Zybo 210279652019A"} -index 0
+loadhw /home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Digilent Zybo 210279652019A"} -index 0
+stop
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Digilent Zybo 210279652019A"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Digilent Zybo 210279652019A"} -index 0
+dow /home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/corespi/Debug/corespi.elf
+----------------End of Script----------------
+
+00:03:28 INFO  : Memory regions updated for context APU
+00:03:29 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+00:03:29 INFO  : 'con' command is executed.
+00:03:29 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Digilent Zybo 210279652019A"} -index 0
+con
+----------------End of Script----------------
+
+00:03:29 INFO  : Launch script is exported to file '/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/.sdk/launch_scripts/xilinx_c-c++_application_(system_debugger)/system_debugger_on_local_corespi.elf.tcl'
+00:03:41 INFO  : Disconnected from the channel tcfchan#1.
+00:03:49 INFO  : Processor reset is completed for ps7_cortexa9_0
+00:04:08 ERROR : Unexpected error while parsing XMD response ￿: com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: invalid number or unquoted string near 
+00:04:51 INFO  : Launching XSDB server: xsdb -n -interactive /home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/temp_xsdb_launch_script.tcl
+00:04:53 INFO  : XSDB server has started successfully.
+00:04:53 INFO  : Processing command line option -hwspec /home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper.hdf.
+00:05:01 INFO  : Checking for hwspec changes in the project design_1_wrapper_hw_platform_3.
+00:05:06 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+00:05:06 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zybo 210279652019A" && level==0} -index 1' command is executed.
+00:05:08 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_1/design_1_wrapper.bit"
+00:05:25 INFO  : Processor reset is completed for ps7_cortexa9_0
+00:06:42 INFO  : ps7_cortexa9_0 Processor is in use. Please stop existing Run or Debug sessions before launching.
+00:06:46 INFO  : System reset is completed.
+00:06:49 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:06:51 INFO  : ps7_init is completed.
+00:06:52 INFO  : ps7_post_config is completed.
+00:11:26 INFO  : System reset is completed.
+00:11:30 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:11:32 INFO  : ps7_init is completed.
+00:11:32 INFO  : ps7_post_config is completed.
+00:14:01 INFO  : System reset is completed.
+00:14:05 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:14:07 INFO  : ps7_init is completed.
+00:14:07 INFO  : ps7_post_config is completed.
+00:15:53 INFO  : ps7_cortexa9_0 Processor is in use. Please stop existing Run or Debug sessions before launching.
+00:15:57 INFO  : System reset is completed.
+00:16:01 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:16:03 INFO  : ps7_init is completed.
+00:16:03 INFO  : ps7_post_config is completed.
+00:25:41 INFO  : System reset is completed.
+00:25:45 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:25:47 INFO  : ps7_init is completed.
+00:25:47 INFO  : ps7_post_config is completed.
+00:27:44 INFO  : System reset is completed.
+00:27:47 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:27:49 INFO  : ps7_init is completed.
+00:27:50 INFO  : ps7_post_config is completed.
+00:29:26 INFO  : System reset is completed.
+00:29:30 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:29:32 INFO  : ps7_init is completed.
+00:29:32 INFO  : ps7_post_config is completed.
+00:30:09 INFO  : System reset is completed.
+00:30:13 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:30:15 INFO  : ps7_init is completed.
+00:30:15 INFO  : ps7_post_config is completed.
+00:31:22 INFO  : System reset is completed.
+00:31:26 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:31:28 INFO  : ps7_init is completed.
+00:31:28 INFO  : ps7_post_config is completed.
+00:31:56 INFO  : System reset is completed.
+00:32:00 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:32:02 INFO  : ps7_init is completed.
+00:32:02 INFO  : ps7_post_config is completed.
+00:32:37 INFO  : System reset is completed.
+00:32:41 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:32:43 INFO  : ps7_init is completed.
+00:32:43 INFO  : ps7_post_config is completed.
+00:33:23 INFO  : System reset is completed.
+00:33:27 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:33:30 INFO  : ps7_init is completed.
+00:33:30 INFO  : ps7_post_config is completed.
+00:34:46 INFO  : System reset is completed.
+00:34:49 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:34:52 INFO  : ps7_init is completed.
+00:34:52 INFO  : ps7_post_config is completed.
+00:36:03 INFO  : System reset is completed.
+00:36:07 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:36:09 INFO  : ps7_init is completed.
+00:36:09 INFO  : ps7_post_config is completed.
+00:36:36 INFO  : System reset is completed.
+00:36:39 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:36:42 INFO  : ps7_init is completed.
+00:36:42 INFO  : ps7_post_config is completed.
+00:37:49 INFO  : System reset is completed.
+00:37:53 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:37:55 INFO  : ps7_init is completed.
+00:37:55 INFO  : ps7_post_config is completed.
+00:41:13 INFO  : System reset is completed.
+00:41:17 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:41:19 INFO  : ps7_init is completed.
+00:41:19 INFO  : ps7_post_config is completed.
+00:43:33 INFO  : System reset is completed.
+00:43:37 INFO  : FPGA configured successfully with bitstream "/home/vagrant/Lab2/mp2_fpga_wrapper/spi_fpga/spi_fpga.sdk/design_1_wrapper_hw_platform_0/design_1_wrapper.bit"
+00:43:39 INFO  : ps7_init is completed.
+00:43:40 INFO  : ps7_post_config is completed.
+00:48:30 ERROR : Unexpected error while parsing XMD response ￿: com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: invalid number or unquoted string near 

@@ -1,6 +1,6 @@
-01:45:08 **** Incremental Build of configuration Debug for project corespi ****
+00:45:15 **** Incremental Build of configuration Debug for project corespi ****
 make all 
 make: Nothing to be done for `all'.
 
-01:45:08 Build Finished (took 226ms)
+00:45:15 Build Finished (took 76ms)
 

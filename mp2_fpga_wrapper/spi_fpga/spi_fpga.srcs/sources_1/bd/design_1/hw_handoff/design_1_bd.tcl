@@ -622,6 +622,7 @@ CONFIG.PCW_PACKAGE_NAME {clg400} \
 CONFIG.PCW_PCAP_PERIPHERAL_CLKSRC {IO PLL} \
 CONFIG.PCW_PCAP_PERIPHERAL_DIVISOR0 {5} \
 CONFIG.PCW_PCAP_PERIPHERAL_FREQMHZ {200} \
+CONFIG.PCW_PERIPHERAL_BOARD_PRESET {part0} \
 CONFIG.PCW_PJTAG_PERIPHERAL_ENABLE {0} \
 CONFIG.PCW_PJTAG_PJTAG_IO {<Select>} \
 CONFIG.PCW_PLL_BYPASSMODE_ENABLE {0} \
@@ -1170,6 +1171,7 @@ CONFIG.PCW_PACKAGE_NAME.VALUE_SRC {DEFAULT} \
 CONFIG.PCW_PCAP_PERIPHERAL_CLKSRC.VALUE_SRC {DEFAULT} \
 CONFIG.PCW_PCAP_PERIPHERAL_DIVISOR0.VALUE_SRC {DEFAULT} \
 CONFIG.PCW_PCAP_PERIPHERAL_FREQMHZ.VALUE_SRC {DEFAULT} \
+CONFIG.PCW_PERIPHERAL_BOARD_PRESET.VALUE_SRC {DEFAULT} \
 CONFIG.PCW_PJTAG_PERIPHERAL_ENABLE.VALUE_SRC {DEFAULT} \
 CONFIG.PCW_PJTAG_PJTAG_IO.VALUE_SRC {DEFAULT} \
 CONFIG.PCW_PLL_BYPASSMODE_ENABLE.VALUE_SRC {DEFAULT} \
@@ -1382,7 +1384,7 @@ CONFIG.NUM_MI {2} \
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_processing_system7_0_100M/ext_reset_in]
   connect_bd_net -net rst_processing_system7_0_100M_interconnect_aresetn [get_bd_pins processing_system7_0_axi_periph/ARESETN] [get_bd_pins rst_processing_system7_0_100M/interconnect_aresetn]
   connect_bd_net -net rst_processing_system7_0_100M_peripheral_aresetn [get_bd_pins axi_gpio_0/s_axi_aresetn] [get_bd_pins axi_quad_spi_0/s_axi_aresetn] [get_bd_pins processing_system7_0_axi_periph/M00_ARESETN] [get_bd_pins processing_system7_0_axi_periph/M01_ARESETN] [get_bd_pins processing_system7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_processing_system7_0_100M/peripheral_aresetn]
-  connect_bd_net -net spiMemory_0_miso_pin [get_bd_pins axi_quad_spi_0/io1_i] [get_bd_pins spiMemory_0/miso_pin]
+  connect_bd_net -net spiMemory_0_miso_pin [get_bd_pins axi_quad_spi_0/io0_i] [get_bd_pins spiMemory_0/miso_pin]
 
   # Create address segments
   create_bd_addr_seg -range 0x00010000 -offset 0x41200000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs axi_gpio_0/S_AXI/Reg] SEG_axi_gpio_0_Reg
@@ -1396,21 +1398,26 @@ preplace port DDR -pg 1 -y 310 -defaultsOSRD
 preplace port leds_4bits -pg 1 -y 230 -defaultsOSRD
 preplace port FIXED_IO -pg 1 -y 330 -defaultsOSRD
 preplace inst rst_processing_system7_0_100M -pg 1 -lvl 1 -y 140 -defaultsOSRD
-preplace inst axi_gpio_0 -pg 1 -lvl 3 -y 230 -defaultsOSRD
+preplace inst axi_gpio_0 -pg 1 -lvl 3 -y 390 -defaultsOSRD
+preplace inst spiMemory_0 -pg 1 -lvl 4 -y 10 -defaultsOSRD
 preplace inst processing_system7_0_axi_periph -pg 1 -lvl 2 -y 160 -defaultsOSRD
 preplace inst processing_system7_0 -pg 1 -lvl 1 -y 390 -defaultsOSRD
-preplace inst axi_quad_spi_0 -pg 1 -lvl 3 -y 80 -defaultsOSRD
-preplace netloc processing_system7_0_DDR 1 1 4 N 310 NJ 310 NJ 310 NJ
+preplace inst axi_quad_spi_0 -pg 1 -lvl 3 -y 150 -defaultsOSRD
+preplace netloc processing_system7_0_DDR 1 1 4 N 310 NJ 460 NJ 310 NJ
 preplace netloc processing_system7_0_axi_periph_M00_AXI 1 2 1 750
-preplace netloc processing_system7_0_M_AXI_GP0 1 1 1 460
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 2 10 50 420
-preplace netloc rst_processing_system7_0_100M_peripheral_aresetn 1 1 2 440 20 740
-preplace netloc processing_system7_0_FIXED_IO 1 1 4 N 330 NJ 330 NJ 330 NJ
+preplace netloc axi_quad_spi_0_ss_o 1 3 1 1060
+preplace netloc processing_system7_0_M_AXI_GP0 1 1 1 450
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 2 10 50 410
+preplace netloc spiMemory_0_miso_pin 1 3 2 1030 -70 1270
+preplace netloc axi_quad_spi_0_io0_o 1 3 1 1050
+preplace netloc rst_processing_system7_0_100M_peripheral_aresetn 1 1 2 430 20 770
+preplace netloc axi_quad_spi_0_sck_o 1 3 1 1040
+preplace netloc processing_system7_0_FIXED_IO 1 1 4 N 330 NJ 470 NJ 330 NJ
 preplace netloc axi_gpio_0_GPIO 1 3 2 NJ 230 N
-preplace netloc rst_processing_system7_0_100M_interconnect_aresetn 1 1 1 430
-preplace netloc processing_system7_0_FCLK_CLK0 1 0 3 20 540 450 10 760
-preplace netloc processing_system7_0_axi_periph_M01_AXI 1 2 1 750
-levelinfo -pg 1 -10 220 600 890 1120 1170 -top 0 -bot 550
+preplace netloc rst_processing_system7_0_100M_interconnect_aresetn 1 1 1 420
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 4 0 40 440 0 790 -30 NJ
+preplace netloc processing_system7_0_axi_periph_M01_AXI 1 2 1 780
+levelinfo -pg 1 -20 210 600 910 1180 1290 -top -80 -bot 540
 ",
 }
 
