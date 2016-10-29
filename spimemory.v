@@ -8,14 +8,13 @@
 `include "fsm.v"
 `include "misoSoup.v"
 
-module spiMemory
-(
-  output          miso_pin,   // SPI master in slave out
-  output [3:0]    leds,        // LEDs for debugging
-  input           clk,        // FPGA clock
-  input           sclk_pin,   // SPI clock
-  input           cs_pin,     // SPI chip select
-  input           mosi_pin   // SPI master out slave in
+module spiMemory (
+  output       miso_pin, // SPI master in slave out
+  output [3:0] leds,     // LEDs for debugging
+  input        clk,      // FPGA clock
+  input        sclk_pin, // SPI clock
+  input        cs_pin,   // SPI chip select
+  input        mosi_pin  // SPI master out slave in
 );
 
   // input conditioner wires
@@ -39,26 +38,26 @@ module spiMemory
 	wire addressWriteEnable;
 	wire misoBufferEnable;
 
-	inputconditioner conditioner1(
+	inputconditioner conditioner1 (
     .conditioned(conditionedMosi),
 	  .clk(clk),
 	  .noisysignal(mosi_pin)
 	);
 
-  inputconditioner conditioner2(
+  inputconditioner conditioner2 (
     .positiveedge(positiveedge),
 	  .negativeedge(negativeedge),
 	  .clk(clk),
 	  .noisysignal(sclk_pin)
   );
 
-  inputconditioner conditioner3(
+  inputconditioner conditioner3 (
     .conditioned(conditionedCS),
 	  .clk(clk),
 	  .noisysignal(cs_pin)
   );
 
-  datamemory mem(
+  datamemory mem (
     .dataOut(DMDataOut),
 	  .clk(clk),
 	  .address(DMAddress),
@@ -66,7 +65,7 @@ module spiMemory
     .dataIn(DMDataIn)
   );
 
-  shiftregister register(
+  shiftregister register (
     .parallelDataOut(parallelOut),
     .serialDataOut(serialOut),
     .serialDataIn(conditionedMosi),
@@ -76,7 +75,7 @@ module spiMemory
 	  .parallelLoad(SRWriteEnable)
   );
 
-  fsm fsm(
+  fsm fsm (
     .misoBufferEnable(misoBufferEnable),
   	.DMWriteEnable(DMWriteEnable),
     .addressWriteEnable(addressWriteEnable),
@@ -87,14 +86,14 @@ module spiMemory
     .chipSelectConditioned(conditionedCS)
   );
 
-  addressLatch latch(
+  addressLatch latch (
     .addressLatchOut(DMAddress),
     .clk(clk),
     .writeEnable(addressWriteEnable),
     .addressLatchIn(parallelOut[7:1])
   );
 
-  misoSoup misoOut(
+  misoSoup misoOut (
     .q(miso_pin),
     .d(serialOut),
     .writeEnable(negativeedge),
