@@ -91,6 +91,32 @@ int main()
 	    return 0;
 	}
 
+	/* For loop through all possible values 
+		We're writing all possible values to all the addresses
+		And for each pair, we check that the value we read is
+		the same as the value we wrote. 
+		If the values are different, then we return 0 and break.
+		Our module has passed these test.
+	*/
+	int i;
+	for(i = 0; i < 128; i = i + 1)
+	{
+	    int addr = i;
+	    int value = i;
+		spi_write(&SpiInstance, addr, value); //spi_write needs to be filled in
+		u8 res = spi_read(&SpiInstance, addr); //spi_read has been provided
+
+
+		if (res != value) {
+		    LED_data |= 0x1<<2;
+		    XGpio_DiscreteWrite(&GpioInstance, LED_CHANNEL, LED_data);
+		    //You need to insert a breakpoint here to check the variables if your tester breaks.
+		    return 0;
+		}
+	}
+
+
+
     //Everything below is cleanup code, you don't need to modify this
     XGpio_DiscreteWrite(&GpioInstance, LED_CHANNEL, LED_data);
     LED_data |= 0x1<<3;
@@ -108,7 +134,7 @@ void spi_write(XSpi *SpiInstancePtr, u8 addr, u8 value){
 	SendBuf[1] = value;
 	RcvBuf[0] = 0;
 	RcvBuf[1] = 0;
-	XSpi_Transfer(SpiInstancePtr, SendBuf, RcvBuf, 0);
+	XSpi_Transfer(SpiInstancePtr, SendBuf, RcvBuf, 2);
 	return;
 }
 

@@ -52,17 +52,17 @@ module spimodule();
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
         #1000
-        sclk = 0; cs_pin = 0; mosi_pin = 0;
+        sclk = 0; cs_pin = 0; mosi_pin = 1;
         #1000
-        sclk = 1; cs_pin = 0; mosi_pin = 0;
-        #1000
-        sclk = 0; cs_pin = 0; mosi_pin = 0;
-        #1000
-        sclk = 1; cs_pin = 0; mosi_pin = 0;
+        sclk = 1; cs_pin = 0; mosi_pin = 1;
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
+        #1000
+        sclk = 0; cs_pin = 0; mosi_pin = 1;
+        #1000
+        sclk = 1; cs_pin = 0; mosi_pin = 1;
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
         #1000
@@ -79,10 +79,10 @@ module spimodule();
         //////// write
         $display("write");
         #1000
-        sclk = 0; cs_pin = 0; mosi_pin = 0;
+        sclk = 0; cs_pin = 0; mosi_pin = 1;
         $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
-        sclk = 1; cs_pin = 0; mosi_pin = 0;
+        sclk = 1; cs_pin = 0; mosi_pin = 1;
         $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
@@ -121,10 +121,10 @@ module spimodule();
         sclk = 1; cs_pin = 0; mosi_pin = 1;
         $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
-        sclk = 0; cs_pin = 0; mosi_pin = 0;
+        sclk = 0; cs_pin = 0; mosi_pin = 1;
         $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
-        sclk = 1; cs_pin = 0; mosi_pin = 0;
+        sclk = 1; cs_pin = 0; mosi_pin = 1;
         $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         //#1000
         //sclk = 0; cs_pin = 0; mosi_pin = 0;
@@ -178,17 +178,17 @@ module spimodule();
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
         #1000
-        sclk = 0; cs_pin = 0; mosi_pin = 0;
+        sclk = 0; cs_pin = 0; mosi_pin = 1;
         #1000
-        sclk = 1; cs_pin = 0; mosi_pin = 0;
-        #1000
-        sclk = 0; cs_pin = 0; mosi_pin = 0;
-        #1000
-        sclk = 1; cs_pin = 0; mosi_pin = 0;
+        sclk = 1; cs_pin = 0; mosi_pin = 1;
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
         #1000
         sclk = 1; cs_pin = 0; mosi_pin = 0;
+        #1000
+        sclk = 0; cs_pin = 0; mosi_pin = 1;
+        #1000
+        sclk = 1; cs_pin = 0; mosi_pin = 1;
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
         #1000
@@ -206,10 +206,10 @@ module spimodule();
         //////// read
         $display("read");
         #1000
-        sclk = 0; cs_pin = 0; mosi_pin = 0;
+        sclk = 0; cs_pin = 0; mosi_pin = 1;
         $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
-        sclk = 1; cs_pin = 0; mosi_pin = 0;
+        sclk = 1; cs_pin = 0; mosi_pin = 1;
         $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
@@ -248,10 +248,10 @@ module spimodule();
         sclk = 1; cs_pin = 0; mosi_pin = 1;
         $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
-        sclk = 0; cs_pin = 0; mosi_pin = 0;
+        sclk = 0; cs_pin = 0; mosi_pin = 1;
         $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
-        sclk = 1; cs_pin = 0; mosi_pin = 0;
+        sclk = 1; cs_pin = 0; mosi_pin = 1;
         $display("%b   %b   %b    %b    | %b %b", clk, sclk, cs_pin, mosi_pin, miso_pin, leds);
         #1000
         sclk = 0; cs_pin = 0; mosi_pin = 0;
