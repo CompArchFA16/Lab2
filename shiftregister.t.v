@@ -24,33 +24,89 @@ module testshiftregister();
     
     // Generate clock (50MHz)
     initial clk=0;
-    always #10 clk=!clk;    // 50MHz Clock
+    initial peripheralClkEdge=0;
+    initial parallelDataIn=8'b10110010;
+    //always #10 clk=!clk;    // 50MHz Clock
       
     initial begin
         $dumpfile("shiftregister.vcd");
         $dumpvars();
 
-        parallelDataIn =8'b1000100;
-        parallelLoad = 1; #500
-        parallelDataIn = 5'd5;
-        parallelLoad = 0;
+        $display("parOut   | serOut || Expected");
+        clk=1;#10 clk=0;#10 // Have to set the clock
+
+        // Testing parallelLoad
+        parallelLoad=1; peripheralClkEdge=1; #10
+        clk=1;#10 clk=0;#10
+        clk=1;#10 clk=0;#10
+        parallelLoad=0;
+        $display("%b | %b      || 10110010 | 1", parallelDataOut, serialDataOut);
+
+        // Testing shift register
+        peripheralClkEdge=1;
+        serialDataIn=1;
+        clk=1;#10 clk=0;#10
+        peripheralClkEdge=0;
+        clk=1;#10 clk=0;#10
+        $display("%b | %b      || 01100101 | 0", parallelDataOut, serialDataOut);
+
+        peripheralClkEdge=1;
+        serialDataIn=1;
+        clk=1;#10 clk=0;#10
+        peripheralClkEdge=0;
+        clk=1;#10 clk=0;#10
+        $display("%b | %b      || 11001011 | 1", parallelDataOut, serialDataOut);
+
+        peripheralClkEdge=1;
+        serialDataIn=0;
+        clk=1;#10 clk=0;#10
+        peripheralClkEdge=0;
+        clk=1;#10 clk=0;#10
+        $display("%b | %b      || 10010110 | 1", parallelDataOut, serialDataOut);
+
+        peripheralClkEdge=1;
+        serialDataIn=1;
+        clk=1;#10 clk=0;#10
+        peripheralClkEdge=0;
+        clk=1;#10 clk=0;#10
+        $display("%b | %b      || 00101101 | 0", parallelDataOut, serialDataOut);
+
+        peripheralClkEdge=1;
+        serialDataIn=0;
+        clk=1;#10 clk=0;#10
+        peripheralClkEdge=0;
+        clk=1;#10 clk=0;#10
+        $display("%b | %b      || 01011010 | 0", parallelDataOut, serialDataOut);
+
+        peripheralClkEdge=1;
+        serialDataIn=1;
+        clk=1;#10 clk=0;#10
+        peripheralClkEdge=0;
+        clk=1;#10 clk=0;#10
+        $display("%b | %b      || 10110101 | 1", parallelDataOut, serialDataOut);
+
+        peripheralClkEdge=1;
+        serialDataIn=1;
+        clk=1;#10 clk=0;#10
+        peripheralClkEdge=0;
+        clk=1;#10 clk=0;#10
+        $display("%b | %b      || 01101011 | 0", parallelDataOut, serialDataOut);
+
+        peripheralClkEdge=1;
+        serialDataIn=1;
+        clk=1;#10 clk=0;#10
+        peripheralClkEdge=0;
+        clk=1;#10 clk=0;#10
+        $display("%b | %b      || 11010111 | 1", parallelDataOut, serialDataOut);
 
 
-        serialDataIn = 1; #500
-        peripheralClkEdge=0;#500
-        peripheralClkEdge=1;#10
-        serialDataIn = 0; #500
-        peripheralClkEdge=0;#500
-        peripheralClkEdge=1;#10
-        serialDataIn = 1; #500
-        peripheralClkEdge=0;#500
-        peripheralClkEdge=1;#10
-        serialDataIn = 0; #500
-        peripheralClkEdge=0;#500
-        peripheralClkEdge=1;#10
-        serialDataIn = 1; #500
-        peripheralClkEdge=0;#500
-        peripheralClkEdge=1;#10
+        // Testing parallel Load again
+        parallelLoad=1; peripheralClkEdge=1; #10
+        parallelDataIn=8'b11110011;
+        clk=1;#10 clk=0;#10
+        clk=1;#10 clk=0;#10
+        parallelLoad=0;
+        $display("%b | %b      || 11110011 | 1", parallelDataOut, serialDataOut);
 
         $dumpflush;
         $finish;

@@ -1,0 +1,33 @@
+[*]
+[*] GTKWave Analyzer v3.3.76 (w)1999-2016 BSI
+[*] Fri Oct 28 23:52:07 2016
+[*]
+[dumpfile] "/home/byron/Documents/School/thirdYear/CompArch/CA16_tools/Lab2/spimemory.vcd"
+[dumpfile_mtime] "Fri Oct 28 23:51:46 2016"
+[dumpfile_size] 29329
+[savefile] "/home/byron/Documents/School/thirdYear/CompArch/CA16_tools/Lab2/spimemory_test.gtkw"
+[timestart] 1540
+[size] 1598 874
+[pos] -1 -1
+*-13.798773 27900 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testSpimemory.
+[sst_width] 240
+[signals_width] 158
+[sst_expanded] 1
+[sst_vpaned_height] 246
+@28
+testSpimemory.clk
+@200
+-
+@28
+testSpimemory.cs
+testSpimemory.sclk_pin
+testSpimemory.mosi_pin
+testSpimemory.miso_pin
+@200
+-
+@28
+testSpimemory.spi0.parallelOut[7:0]
+testSpimemory.spi0.serialOut
+[pattern_trace] 1
+[pattern_trace] 0

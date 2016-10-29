@@ -37,12 +37,13 @@ module fsm
             end
 
             `ADDR_READ: begin
-                count = count + 1;
-                if (count == 4'd7) begin
+                if (count == 4'd6) begin
                     state <= `GET_RW;
                     addre_we <= 0;
                     count <= 0;
                 end
+                else
+                    count = count + 1;
 
             end
 
@@ -59,23 +60,25 @@ module fsm
             end
 
             `WRITE: begin
-                count = count + 1;
-                if (count == 4'd7) begin
+                if (count == 4'd6) begin
                     count <= 0;
                     dm_we <= 1;
                     state <= `WAIT;
                 end
+                else
+                    count <= count + 1;
 
             end
 
             `READ: begin
-                count = count + 1;
                 sr_we <= 0;
-                if (count == 4'd7) begin
+                if (count == 4'd6) begin
                     count <= 0;
                     state <= `WAIT;
                     miso_bufe <= 0;
                 end
+                else
+                    count <= count + 1;
             end
 
             default:  begin end

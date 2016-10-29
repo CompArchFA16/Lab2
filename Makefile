@@ -17,3 +17,4 @@ fsm: fsm.t.v fsm.v
 
 spimemory: spimemory.t.v spimemory.v
 	$(CC) $< && ./a.out
+	gtkwave spimemory_test.gtkw
