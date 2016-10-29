@@ -33,7 +33,9 @@ initial begin
 end
 
 always @(posedge clk) begin
+//always @(posedge sclk) begin
 
+	sr <= 0;
 
 	//reset counter and state when cs is de-asserted
 	if (cs) begin
@@ -80,7 +82,6 @@ always @(posedge clk) begin
 			end
 
 			Read2: begin
-				sr <= 0;
 				misobuff <= 1;
 				if (count >= 8) begin
 					state <= Done;
@@ -92,7 +93,6 @@ always @(posedge clk) begin
 			end
 
 			Write: begin
-				sr <= 0;
 				if (count >= 8) begin
 					state <= Write2;
 				end
@@ -102,7 +102,6 @@ always @(posedge clk) begin
 			end
 
 			Write2: begin
-				sr <= 0;
 				dm <= 1;
 				state <= Done;
 			end
@@ -113,7 +112,6 @@ always @(posedge clk) begin
 
 			default: begin
 			end
-
 		endcase
 	end
 
