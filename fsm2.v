@@ -81,7 +81,7 @@ always @(posedge clk) begin
             end
             Write1_State: begin
                 ADDR_WE <=0;
-                DM_WE <=1;
+                //DM_WE<=1; 
                 state <= Write2_State;
             end
             Write2_State: begin
