@@ -20,6 +20,8 @@ We believe this sufficiently tests the shift register without exhaustively going
 
 The testing strategy we used for our SPI memory was to `write` to an address via SPI, and then to read from that address via SPI. We visually verified correct functionality using GTKWAVE, and using `make spimemory` will compile everything and pull up gtkwave with the required waveforms available.
 
+To test the SPI memory on the FPGA, we would write a for loop to write and read a different value to every byte of the datamemory, to ensure that all bytes are working. However, we could not get the memory properly working on the FPGA, so we could not actually perform this testing.
+
 
 ## Reflection / Analysis
 
