@@ -30,11 +30,11 @@ module testspi();
 
     initial begin
 
-        data <= 8'b_0000_0000;
-        addr1r <= 8'b_1_111_1111;
-        addr1w <= 8'b_0_111_1111;
+        data <= 8'b_0_111_1111q1101110; //data written in address
+        addr1r <= 8'b_1_111_1111; //read address
+        addr1w <= 8'b_0_111_1111; //write address
         addr2 <= 8'b_0_011_1100;
-        dataout <=0;
+        dataout <=0; //data attained from address
         clk <= 0;
         sclk_pin <= 0;
         cs_pin <= 0;
@@ -66,8 +66,8 @@ module testspi();
                mosi_pin <= addr1w[7-i]; 
                #100;
             end
-        
 
+        //write data
         for (i = 0; i < 8; i = i + 1) // Turns data into serial signal
             begin
               mosi_pin <= data[7-i];
@@ -101,8 +101,9 @@ module testspi();
 
 
         //get data from address 1
+        mosi_pin = 0;
         cs_pin = 1;
-        #1000
+        #20
 
         cs_pin = 0;
 
@@ -114,7 +115,7 @@ module testspi();
             end
 
 
-        #100
+        //read data
         for (i = 0; i < 8; i = i + 1) // Turns data into serial signal
             begin
                 $display("%b", miso_pin);
