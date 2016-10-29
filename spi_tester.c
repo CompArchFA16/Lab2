@@ -101,6 +101,12 @@ int main()
 
 void spi_write(XSpi *SpiInstancePtr, u8 addr, u8 value){
 	// TODO: Your code here! Read the xspi.h file for more information on XSpi_Transfer()
+	u8 addr_byte = (addr << 1); //Shifted, because we have 7 bits of addr, 1 bit of R/W
+	u8 RcvBuf[2];
+	u8 SendBuf[2];
+	SendBuf[0] = addr_byte;
+	SendBuf[1] = value;
+	XSpi_Transfer(SpiInstancePtr, SendBuf, RcvBuf, 2); //The 2 is the # of expected bytes returned
 }
 
 u8 spi_read(XSpi *SpiInstancePtr, u8 addr){
