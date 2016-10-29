@@ -25,6 +25,8 @@ To test the SPI memory on the FPGA, we would write a for loop to write and read 
 
 ## Reflection / Analysis
 
+We overestimated the time for the begining parts of the project. The input conditioner and shift register were slightly faster than we thought initially. The SPI mememory and FSM were much slower than we thought. We continually ran into errors and have been struggling to get the last parts to play nicely together. We also need to change from the reccomended circuit diagram which took some time. We've also stuggled for a long time with the FPGA and loading our code onto it.
+
 We relied too heavily on the supplied FSM and circuit diagram, which made our implementation for the FSM extremely tricky. After spending too much time trying to get the suggested version working, we decided to design our own. This version ran into issues because it relied on SCLK, instead of CLK, because the recommended schematic did not include CLK input for the FSM. This was rather frustrating for us because we spent more time than we should have trying to implement the FSM in the way that we thought was expected. 
 
 Lastly, getting the FPGA working was incredibly frustrating because it did not work for any good reasons. We suspect it had to do with the computer we were testing on.
