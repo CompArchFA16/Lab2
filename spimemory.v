@@ -19,6 +19,7 @@ module spiMemory (
 
   // INPUT =====================================================================
 
+  // Conditioner outputs
 	wire conditionedMosi;
 	wire conditionedCS;
 	wire sClkPosEdge;
@@ -45,17 +46,17 @@ module spiMemory (
 
   // REGISTER CONTENT ==========================================================
 
-  // Shift register wires
+  // Shift register outputs
   wire [7:0] shiftRegParallelOut;
   wire       shiftRegSerialOut;
 
   // Address latch outputs
   wire [6:0] addressLatchOut;
 
-  // Data memory wires
-  wire [7:0] DMDataOut;
+  // Data memory outputs
+  wire [7:0] dataMemDataOut;
 
-  // FSM wires
+  // FSM outputs
   wire misoBufferEnable;
   wire DMWriteEnable;
   wire addressWriteEnable;
@@ -66,13 +67,13 @@ module spiMemory (
     .serialDataOut(shiftRegSerialOut),
     .serialDataIn(conditionedMosi),
     .peripheralClkEdge(sClkPosEdge),
-    .parallelDataIn(DMDataOut),
+    .parallelDataIn(dataMemDataOut),
     .clk(clk),
     .parallelLoad(SRWriteEnable)
   );
 
   datamemory dataMemory (
-    .dataOut(DMDataOut),
+    .dataOut(dataMemDataOut),
 	  .clk(clk),
 	  .address(addressLatchOut),
     .writeEnable(DMWriteEnable),
@@ -90,7 +91,7 @@ module spiMemory (
     .chipSelectConditioned(conditionedCS)
   );
 
-  addressLatch latch (
+  addressLatch addressLatch (
     .addressLatchOut(addressLatchOut),
     .clk(clk),
     .writeEnable(addressWriteEnable),
