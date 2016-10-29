@@ -86,7 +86,7 @@ module spiMemory
     dff7bit dff1(parallelOut[6:0], addre_we, clk, address);
 
     // FSM
-    fsm fsm0( miso_bufe, dm_we, addre_we, sr_we, sclk_rising, cs_conditioned, parallelOut[0]);
+    fsm fsm0( miso_bufe, dm_we, addre_we, sr_we, sclk_rising, sclk_falling, cs_conditioned, parallelOut[0]);
 
 endmodule
    
