@@ -1,0 +1,55 @@
+Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
+| Date         : Sun Oct 30 03:01:31 2016
+| Host         : vagrant-ubuntu-trusty-64 running 64-bit Ubuntu 14.04.5 LTS
+| Command      : report_control_sets -verbose -file midpoint_control_sets_placed.rpt
+| Design       : midpoint
+| Device       : xc7z010
+-------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Flip-Flop Distribution
+3. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Number of unique control sets                            |     2 |
+| Unused register locations in slices containing registers |     7 |
++----------------------------------------------------------+-------+
+
+
+2. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              17 |            9 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |               0 |            0 |
+| Yes          | No                    | No                     |               0 |            0 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |               8 |            3 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+3. Detailed Control Set Information
+-----------------------------------
+
++----------------+-----------------------------------------------+--------------------------------+------------------+----------------+
+|  Clock Signal  |                 Enable Signal                 |        Set/Reset Signal        | Slice Load Count | Bel Load Count |
++----------------+-----------------------------------------------+--------------------------------+------------------+----------------+
+|  clk_IBUF_BUFG | midpoint/conditioner0/shiftregistermem_reg[6] | midpoint/conditioner0/negedge0 |                3 |              8 |
+|  clk_IBUF_BUFG |                                               |                                |                9 |             17 |
++----------------+-----------------------------------------------+--------------------------------+------------------+----------------+
+
+

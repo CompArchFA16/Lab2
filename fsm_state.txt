@@ -1,0 +1,9 @@
+# filter file for fsm_pk.v gtk wave
+01 GET
+02 GOT
+04 READ1
+08 READ2
+10 READ3
+20 WRITE1
+40 WRITE2
+80 DONE

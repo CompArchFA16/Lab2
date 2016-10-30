@@ -1,0 +1,39 @@
+
+Jay Woo, Paul Krusell, TJ Kim
+Lab 2 - Work Plan
+
+October 15th (actual = 1 hour 30 min)
+- Meet and discuss Lab (1 Hour)
+- Assign Tasks for Conditioner (30 min)
+
+October 16th (actual = 2 hour)
+- Reconvene and discuss work done on Conditioner (30 min)
+- Design Conditioner Circuit together (1 hour)
+- Understand what Shift register is and write verilog (1 hour)
+
+October 17th (actual = )
+- Design Work plan (30 minutes)
+- Develop Shift Register Test Cases (1 hour)
+
+October 18th (actual = )
+- Wrapper script for FPGA for midpoint check in (30 min)
+- Compile on FPGA (1 hour)
+- Mid Point video and report (1 hour)
+
+October 19th (actual = )
+- Go to SLAC, ask about what SPI is (30 min)
+- If Mid point check in is not complete, finish here (? time)
+
+October 21st (actual =)
+- SPI Memory Testing Begins
+- Write verilog for SPI Memory (2 hours)
+
+October 22nd (actual = )
+- Develop Test cases for SPI memory w/ explanations (2 hours)
+
+October 25th (actual = )
+- Report Writing (3 hours)
+
+October 26th-27th (actual=)
+- Extra back up time for any glitches, last minute edits and potential catastrophes… (? hours)
+
