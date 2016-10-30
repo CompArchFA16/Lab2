@@ -6,6 +6,7 @@
 `include "datamemory.v"
 `include "fsm.v"
 `include "flipFlopModules.v"
+`include "shiftregister.v"
 
 module spiMemory
 (
@@ -76,3 +77,4 @@ dFF dff(clk, serialOut, negativeEdge1, diffOutput);
 and andgate(miso_pin, misoBufe, dffOutput);
 
 endmodule
+
