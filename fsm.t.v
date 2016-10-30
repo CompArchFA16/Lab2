@@ -92,8 +92,10 @@ module testFSM();
       displayFailedResults();
     end
 
+    // TODO: Test misoBufferEnable before it hits 0.
+
     waitFor8SClkCycles();
-    if (misoBufferEnable !== 1
+    if (misoBufferEnable !== 0
       || DMWriteEnable !== 0
       || addressWriteEnable !== 0
       || SRWriteEnable !== 0) begin
