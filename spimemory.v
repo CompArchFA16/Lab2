@@ -41,7 +41,6 @@ wire srWe;
 
 // Wires for Shift Register
 wire [7:0] parallelOut;
-wire [7:0] parallelIn;
 wire serialOut;
 
 // Wires for DFF
@@ -49,6 +48,10 @@ wire dffOutput;
 
 // Wires for Address Latch
 wire [6:0] addr;
+
+// Wires for data memory
+wire [7:0] dOut;
+
 
 
 ///// Create SPI Structure /////
@@ -62,13 +65,13 @@ inputconditioner sclkIC(clk, sclk_pin, conditioned1, positiveEdge1, negativeEdge
 inputconditioner csIC(clk, cs_pin, conditioned2, positiveEdge2, negativeEdge2);
 
 // Define other modules
-fsm finiteStateMachine(srWe, dmWe, addrWe, misoBufe, conditioned2, positiveEdge1, parallelOut[0]);
-shiftregister sr(clk, positiveEdge1, srWe, parallelIn, conditioned, parallelOut, serialOut);
+fsm finiteStateMachine(srWe, dmWe, addrWe, misoBufe, positiveEdge1, conditioned2, parallelOut[0]);
+shiftregister sr(clk, positiveEdge1, srWe, dOut, conditioned, parallelOut, serialOut);
 addressLatch al(clk, parallelOut [7:1], addrWe, addr);
-datamemory dm(clk, parallelIn, addr, dmWe, parallelOut);
-dFlipFlop dff(clk, serialOut, misoBufe, dffOutput);
+datamemory dm(clk, dOut, addr, dmWe, parallelOut);
+dFlipFlop dff(clk, serialOut, negativeEdge1, diffOutput);
 
-// Use built in module for delay buffer
-bufif1 miso(miso_pin, dffOutput, misoBufe);
+// Final output
+and andgate(miso_pin, misoBufe, dffOutput);
 
 endmodule
