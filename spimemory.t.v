@@ -1,7 +1,7 @@
 `include "spimemory.v"
 
 module testSpiMemory();
-   
+
    reg clk;
    reg sclk_pin;
    reg cs_pin;
@@ -15,20 +15,20 @@ module testSpiMemory();
    always #10 clk=!clk; // 50MHz Clock
 
    initial begin
-      
+
       $dumpfile("spimemory.vcd");
       $dumpvars();
 
       cs_pin=1; #1000
-      cs_pin=0;
+      cs_pin=0; #1000
 
       // Write to address 0101010
 
-      // A6      
-      sclk_pin = 0; #1000 
+      // A6
+      sclk_pin = 0; #1000
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
-      
+
       // A5
       sclk_pin = 0; #1000
       mosi_pin = 1; #1000
@@ -106,18 +106,24 @@ module testSpiMemory();
       mosi_pin = 1; #1000
       sclk_pin = 1; #1000
 
-      cs_pin=1; #10000
+      // Two extra clock ticks
+      sclk_pin = 0; #1000
+      #1000
+      sclk_pin = 1; #1000
+
+      sclk_pin = 0; #1000
+      cs_pin=1; #1000
+      sclk_pin = 1; #1000
+      #5000;
+      cs_pin=0;
 
       // Read from address 0101010
 
-      cs_pin=1; #1000
-      cs_pin=0;
-
-      // A6      
-      sclk_pin = 0; #1000 
+      // A6
+      sclk_pin = 0; #1000
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
-      
+
       // A5
       sclk_pin = 0; #1000
       mosi_pin = 1; #1000
@@ -156,7 +162,7 @@ module testSpiMemory();
       // D7
       sclk_pin = 0; #1000
       mosi_pin = 0; #1000
-      sclk_pin = 1; #1000      
+      sclk_pin = 1; #1000
 
       // D6
       sclk_pin = 0; #1000

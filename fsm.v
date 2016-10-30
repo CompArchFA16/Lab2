@@ -28,7 +28,7 @@ input      read_write_bit
         begin
           sr_we = 0; dm_we = 0; addr_le = 0; miso_enable = 0;
           counter = counter + 1;
-          if (counter == 8) begin
+          if (counter == 7) begin
             state = `Q_GOT;
             counter = 0;
           end
