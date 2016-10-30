@@ -186,7 +186,7 @@ module testSpiMemory();
       sclk_pin = 0; #1000
       sclk_pin = 1; #1000
 
-      cs_pin=1; #10000;
+      cs_pin=1; #10000
 
    $finish;
    end // initial begin
