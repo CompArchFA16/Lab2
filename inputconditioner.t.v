@@ -47,20 +47,13 @@ module testConditioner();
     expected_output  <= 50'bxxxxxxxx000000000000000000000000000000000000000000;
     expected_posedge <= 50'bxxxxxxxx000000000000000000000000000000000000000000;
     expected_negedge <= 50'bxxxxxxxxxx0000000000000000000000000000000000000000;
-    integer noise = `{
-         9, 12, 11,  9, 10, 10, 12, 10, 10, 11,
-         8, 11, 12,  8, 13, 11, 10, 10, 10, 11,
-         8, 12, 13, 12,  7, 10,  9, 11, 10,  9,
-        10,  8, 13,  9,  9,  9,  8, 10,  7, 10,
-         9, 10,  8, 10, 10,  9, 11,  8, 11, 12
-    };
 
     for (i = 0; i < 50; i = i + 1) begin
         pin <= signal[49-i];
         conditioned_output[49-i] <= conditioned;
         conditioned_posedge[49-i] <= rising;
         conditioned_negedge[49-i] <= falling;
-        #(noise[i]);
+        #10;
     end
 
     $display("Original Signal:     %b", signal);

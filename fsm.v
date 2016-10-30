@@ -10,13 +10,14 @@
 
 module fsm
 (
+input      clk,
+input      cs,
+input      sclk,
+input      read_write_bit,
 output reg sr_we,
 output reg dm_we,
 output reg addr_le,
-output reg miso_enable,
-input      cs,
-input      sclk,
-input      read_write_bit
+output reg miso_enable
 );
   reg counter = 0;
   reg state = `Q_GET;
@@ -36,11 +37,10 @@ input      read_write_bit
       `Q_GOT:
         begin
           sr_we = 0; dm_we = 0; addr_le = 1; miso_enable = 0;
-          if (read_write_bit) begin
+          if (read_write_bit)
             state = `Q_READ1;
           else
             state = `Q_WRITE1;
-          end
         end
       `Q_READ1:
         begin
@@ -85,5 +85,5 @@ input      read_write_bit
       counter = 0;
       state = `Q_GET;
     end
-
+  end
 endmodule
