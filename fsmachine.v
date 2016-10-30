@@ -34,18 +34,18 @@ end
 
 always @(posedge clk) begin
 //always @(posedge sclk) begin
-
-	sr <= 0;
+	count <= count + 1;
+		misobuff <= 0;
+		dm <= 0;
+		addr <= 0;
+		sr <= 0;
 
 	//reset counter and state when cs is de-asserted
 	if (cs) begin
 		state <= 0;
 		count <= 0;
 
-		misobuff <= 0;
-		dm <= 0;
-		addr <= 0;
-		sr <= 0;
+
 	end
 
 	else begin
@@ -53,7 +53,6 @@ always @(posedge clk) begin
 
 			Get: begin
 				if (count < 8 && sclk) begin
-					count <= count + 1;
 					state <= Get;
 				end
 				else if (count >=8 && sclk) begin
@@ -64,6 +63,7 @@ always @(posedge clk) begin
 			Got: begin
 				addr <= 1;
 				sr <= 0;
+				count <= 0;
 				if (rw) begin
 					state <= Read;
 				end
