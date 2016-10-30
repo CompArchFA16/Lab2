@@ -67,7 +67,7 @@ inputconditioner sclkIC(clk, sclk_pin, conditioned1, positiveEdge1, negativeEdge
 inputconditioner csIC(clk, cs_pin, conditioned2, positiveEdge2, negativeEdge2);
 
 // Define other modules
-fsm finiteStateMachine(srWe, dmWe, addrWe, misoBufe, positiveEdge1, conditioned2, parallelOut[0]);
+fsm finiteStateMachine(srWe, dmWe, addrWe, misoBufe, conditioned2, positiveEdge1, parallelOut[0]);
 shiftregister sr(clk, positiveEdge1, srWe, dOut, conditioned, parallelOut, serialOut);
 addressLatch al(clk, parallelOut [7:1], addrWe, addr);
 datamemory dm(clk, dOut, addr, dmWe, parallelOut);
