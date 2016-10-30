@@ -4,6 +4,7 @@
 //   Shift register can operate in two modes:
 //      - serial in, parallel out
 //      - parallel in, serial out
+//	If both peripheralClkEdge & parallelLoad, nothing happens
 //------------------------------------------------------------------------
 
 module shiftregister
@@ -20,6 +21,16 @@ output              serialDataOut       // Positive edge synchronized
 
     reg [width-1:0]      shiftregistermem;
     always @(posedge clk) begin
-        // Your Code Here
+        if (peripheralClkEdge&(!parallelLoad)) begin
+        	shiftregistermem <= shiftregistermem << 1;
+            shiftregistermem[0] <= serialDataIn;
+        end
+        else if (parallelLoad&(!peripheralClkEdge)) begin
+        	shiftregistermem <= parallelDataIn;
+        end
     end
+
+    assign serialDataOut = shiftregistermem[width-1];
+    assign parallelDataOut = shiftregistermem;
+
 endmodule
