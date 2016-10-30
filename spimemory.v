@@ -7,7 +7,8 @@
 `include "fsm.v"
 
 // D Flip Flop
-module dFF (
+module dFF 
+(
 	input clk,
 	input d,
 	input ce,
@@ -23,7 +24,8 @@ module dFF (
 endmodule
 
 // The address latch is a D Flip Flop with a 7 bit input
-module addressLatch (
+module addressLatch 
+(
 	input clk,
 	input [6:0] d,
 	input ce,
@@ -46,7 +48,7 @@ module spiMemory
     output          miso_pin,   // SPI master in slave out
     input           mosi_pin,   // SPI master out slave in
     output [3:0]    leds        // LEDs for debugging
-)
+);
 
 ///// WIRES /////
 
