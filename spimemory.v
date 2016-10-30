@@ -6,6 +6,38 @@
 `include "datamemory.v"
 `include "fsm.v"
 
+// D Flip Flop
+module dFF (
+	input clk,
+	input d,
+	input ce,
+	output reg q
+);
+
+	always @(posedge clk) begin
+        if(ce) begin
+            q <= d;
+        end
+	end
+
+endmodule
+
+// The address latch is a D Flip Flop with a 7 bit input
+module addressLatch (
+	input clk,
+	input [6:0] d,
+	input ce,
+	output reg [6:0] q
+);
+
+	always @(posedge clk) begin
+        if(ce) begin
+            q <= d;
+        end
+	end
+
+endmodule
+
 module spiMemory
 (
     input           clk,        // FPGA clock
@@ -69,7 +101,7 @@ fsm finiteStateMachine(srWe, dmWe, addrWe, misoBufe, positiveEdge1, conditioned2
 shiftregister sr(clk, positiveEdge1, srWe, dOut, conditioned, parallelOut, serialOut);
 addressLatch al(clk, parallelOut [7:1], addrWe, addr);
 datamemory dm(clk, dOut, addr, dmWe, parallelOut);
-dFlipFlop dff(clk, serialOut, negativeEdge1, diffOutput);
+dFF dff(clk, serialOut, negativeEdge1, diffOutput);
 
 // Final output
 and andgate(miso_pin, misoBufe, dffOutput);
