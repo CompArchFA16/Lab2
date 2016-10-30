@@ -1,4 +1,4 @@
-**Overall: Please use MAKEFILE to understand which files to grade. 
+** #####Overall: Please use MAKEFILE to understand which files to grade. ****
 
 # CompArch Lab 2: SPI Memory
 
