@@ -1,3 +1,5 @@
+**Overall: Please use MAKEFILE to understand which files to grade. 
+
 # CompArch Lab 2: SPI Memory
 
 **Work Plan due:** Monday, October 17
