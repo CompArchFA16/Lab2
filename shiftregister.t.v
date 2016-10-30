@@ -35,17 +35,17 @@ module testshiftregister();
         // Test peripheralClkEdge case
         $display("peripheralClkEdge parallelLoad | parallelDataIn serialDataIn | parallelDataOut serialDataOut");
         peripheralClkEdge = 1; parallelLoad = 1; parallelDataIn = 8'b10101010; serialDataIn = 1; #50
-        $display(" %b  %b  |  %b  %b  |  %b  %b ", peripheralClkEdge, parallelLoad, parallelDataIn, serialDataIn, parallelDataOut, serialDataOut);
+        $display("        %b              %b       |    %b          %b      |    %b           %b ", peripheralClkEdge, parallelLoad, parallelDataIn, serialDataIn, parallelDataOut, serialDataOut);
 
         // Test parallelLoad case
         $display("peripheralClkEdge parallelLoad | parallelDataIn serialDataIn | parallelDataOut serialDataOut"); #50
         peripheralClkEdge = 1; parallelLoad = 0; parallelDataIn = 8'b10101010; serialDataIn = 1;
-        $display(" %b  %b  |  %b  %b  |  %b  %b ", peripheralClkEdge, parallelLoad, parallelDataIn, serialDataIn, parallelDataOut, serialDataOut);
+        $display("        %b              %b       |    %b          %b      |    %b           %b ", peripheralClkEdge, parallelLoad, parallelDataIn, serialDataIn, parallelDataOut, serialDataOut);
 
         // Test with both inputs high
         $display("peripheralClkEdge parallelLoad | parallelDataIn serialDataIn | parallelDataOut serialDataOut"); #50
         peripheralClkEdge = 0; parallelLoad = 1; parallelDataIn = 8'b10101010; serialDataIn = 1;
-        $display(" %b  %b  |  %b  %b  |  %b  %b ", peripheralClkEdge, parallelLoad, parallelDataIn, serialDataIn, parallelDataOut, serialDataOut);
+        $display("        %b              %b       |    %b          %b      |    %b           %b ", peripheralClkEdge, parallelLoad, parallelDataIn, serialDataIn, parallelDataOut, serialDataOut);
 
         $finish;
 
