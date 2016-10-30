@@ -5,6 +5,7 @@
 `include "inputconditioner.v"
 `include "datamemory.v"
 `include "fsm.v"
+`include "flipFlopModules.v"
 
 module spiMemory
 (
@@ -14,7 +15,7 @@ module spiMemory
     output          miso_pin,   // SPI master in slave out
     input           mosi_pin,   // SPI master out slave in
     output [3:0]    leds        // LEDs for debugging
-)
+);
 
 ///// WIRES /////
 
@@ -69,7 +70,7 @@ fsm finiteStateMachine(srWe, dmWe, addrWe, misoBufe, positiveEdge1, conditioned2
 shiftregister sr(clk, positiveEdge1, srWe, dOut, conditioned, parallelOut, serialOut);
 addressLatch al(clk, parallelOut [7:1], addrWe, addr);
 datamemory dm(clk, dOut, addr, dmWe, parallelOut);
-dFlipFlop dff(clk, serialOut, negativeEdge1, diffOutput);
+dFF dff(clk, serialOut, negativeEdge1, diffOutput);
 
 // Final output
 and andgate(miso_pin, misoBufe, dffOutput);
