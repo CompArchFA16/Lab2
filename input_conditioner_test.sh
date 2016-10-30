@@ -1,4 +1,4 @@
 #!/bin/bash
-iverilog -o input_conditioner_test inputconditioner.t.v
-./input_conditioner_test
+iverilog -o ic_test inputconditioner.t.v
+./ic_test
 gtkwave inputconditioner.vcd
