@@ -18,8 +18,8 @@ input      cs,
 input      sclk,
 input      read_write_bit
 );
-  reg counter = 0;
-  reg state = `Q_GET;
+  reg [3:0] counter = 0;
+  reg [3:0] state = `Q_GET;
 
   always @(posedge sclk) begin
 

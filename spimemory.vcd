@@ -1,5 +1,5 @@
 $date
-	Sun Oct 30 00:57:03 2016
+	Sun Oct 30 01:15:28 2016
 $end
 $version
 	Icarus Verilog
@@ -75,11 +75,11 @@ $var wire 1 : cs $end
 $var wire 1 Q read_write_bit $end
 $var wire 1 , sclk $end
 $var reg 1 R addr_le $end
-$var reg 1 S counter $end
+$var reg 4 S counter [3:0] $end
 $var reg 1 T dm_we $end
 $var reg 1 U miso_enable $end
 $var reg 1 V sr_we $end
-$var reg 1 W state $end
+$var reg 4 W state [3:0] $end
 $upscope $end
 $scope module sr $end
 $var wire 1 ) clk $end
@@ -125,11 +125,11 @@ bx [
 xZ
 bx Y
 bx X
-0W
+b0 W
 xV
 xU
 xT
-0S
+b0 S
 xR
 xQ
 0P
@@ -216,7 +216,7 @@ b11 L
 0)
 #70
 0"
-1S
+b1 S
 0U
 03
 0R
@@ -15786,7 +15786,7 @@ b11 L
 0#
 0)
 #49110
-0S
+b10 S
 1N
 1;
 1K
@@ -32116,7 +32116,7 @@ b11 L
 0#
 0)
 #101110
-1S
+b11 S
 1N
 1;
 1K
