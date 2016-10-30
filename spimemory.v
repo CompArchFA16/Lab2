@@ -12,12 +12,12 @@
 // Parameters in Verilog: http://www.asic-world.com/verilog/para_modules1.html
 module dff_p #(parameter W=1)
 (
-    input trigger,
+    input clk,
     input enable,
     input      [W-1:0] d,
     output reg [W-1:0] q
 );
-    always @(posedge trigger) begin
+    always @(posedge clk) begin
         if(enable) begin
             q <= d;
         end
@@ -26,12 +26,12 @@ endmodule
 
 module dff
 (
-    input trigger,
+    input clk,
     input enable,
     input d,
     output reg q
 );
-    always @(posedge trigger) begin
+    always @(posedge clk) begin
         if(enable) begin
             q <= d;
         end
@@ -56,7 +56,7 @@ module tristate_buffer(in, enable, out);
   input enable;
   output out;
 
-  assign out = (enable)? in : 1'bz;
+  assign out = enable&in;
 endmodule
 
 module spiMemory
@@ -74,7 +74,7 @@ module spiMemory
 	wire SerialDataOut;
     wire [7:0] dataOut;
     wire conditioned_mosi, conditioned_cs, rising, falling;
-    wire dummy0, dummy1, dummy2, dummy3, dummy4, dummy5;
+    wire ic0posedge, ic0negedge, ic1conditioned, ic2posedge, ic2negedge;
 
     wire misoBufe, dmWe, addrWe,  srWe;
 
@@ -84,20 +84,20 @@ module spiMemory
     inputconditioner ic0(.clk(clk),
     			 		 .noisysignal(mosi_pin),
 						 .conditioned(conditioned_mosi),
-						 .positiveedge(dummy0),
-						 .negativeedge(dummy1));
+						 .positiveedge(ic0posedge),
+						 .negativeedge(ic0negedge));
 
     inputconditioner ic1(.clk(clk),
     			 		 .noisysignal(sclk_pin),
-						 .conditioned(dummy2),
+						 .conditioned(ic1conditioned),
 						 .positiveedge(rising),
 						 .negativeedge(falling));
 
 	inputconditioner ic2(.clk(clk),
     			 		 .noisysignal(cs_pin),
 						 .conditioned(conditioned_cs),
-						 .positiveedge(dummy3),
-						 .negativeedge(dummy5));
+						 .positiveedge(ic2posedge),
+						 .negativeedge(ic2negedge));
 
     fsmachine fsm(.clk(clk),
                   .sclk(rising),
@@ -117,7 +117,7 @@ module spiMemory
     		           .parallelDataOut(parallelDataOut),
     		           .serialDataOut(serialDataOut));
 
-    dff_p #(8) addressLatch(.trigger(clk),
+    dff_p #(8) addressLatch(.clk(clk),
                     .enable(addrWe),
                     .d(parallelDataOut),
                     .q(address));
@@ -128,12 +128,12 @@ module spiMemory
     			  .writeEnable(dmWe),
     			  .dataIn(parallelDataOut[7:0]));
 
-	dff_p #(1) dffm(.trigger(clk),
+	dff_p #(1) dffm(.clk(clk),
 				   .enable(falling),
 				   .d(serialDataOut),
 				   .q(bufferin));
 /*
-    dff dff(.trigger(clk),
+    dff dff(.clk(clk),
                     .enable(falling),               
                     .d(serialDataOut),
                     .q(bufferin));*/
