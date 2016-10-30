@@ -61,10 +61,11 @@ module testspi();
         //Test Case 1: Testing Writing and Reading
 
         //Write data1 into address1
-        cs_pin = 1;
+
+        cs_pin <= 1;
         #1000
 
-        cs_pin = 0;
+        cs_pin <= 0;
 
         //address1
         for (i = 0; i < 8; i = i + 1)
