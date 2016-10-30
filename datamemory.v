@@ -4,6 +4,7 @@
 //   dataOut always has the value mem[address]
 //   If writeEnable is true, writes dataIn to mem[address]
 //------------------------------------------------------------------------
+`timescale 1 ns / 1 ps
 
 module datamemory
 #(
@@ -17,7 +18,7 @@ module datamemory
     input [addresswidth-1:0]    address,
     input                       writeEnable,
     input [width-1:0]           dataIn
-)
+);
 
 
     reg [width-1:0] memory [depth-1:0];

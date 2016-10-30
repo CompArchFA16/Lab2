@@ -1,0 +1,37 @@
+Lab 2!
+Work Plan- Lisa Hachmann, Tom Heale, Anisha Nakagawa
+
+Midpoint Check In Deliverables- due Thursday 
+	Input Conditioning
+		module and test bench - 2.5 (written together)
+		script for test bench and waveform generation - done after class on monday, 0.5-1 hr
+		circuit diagram- 30 min
+		waittime- 30 min
+
+	Shift Register
+		shiftregister module and test bench - 2.5 (written together)
+		test bench strategy write up - see below report, 30 minutes
+
+	Midpoint deliverables
+		midpoint module and test sequence - 2 hr. 
+		video of FPGA (shift register and input conditioner) and test sequence - 3 hr. 
+
+Midpoint sum: 12-13 hrs
+
+2nd Half / Final Submission
+	Reading 2nd half - 30 minutes
+	FPGA testing - 2-3 hr.
+		Analysis of testing strategy
+	SPI module and test bench - 3 hr (written together)
+		Strategy - 30 minutes
+	Report - 2 hours
+		Delays
+		Design changes
+		Strategies
+		Reflection/Analysis
+
+	General Confusion: 5 hours?
+
+2nd half sum: 8-9 hours + optional General Confusion, sum = 13-14 hours
+
+Total: (12-13) + (8-9) = (20-22) with optional General Confusion
