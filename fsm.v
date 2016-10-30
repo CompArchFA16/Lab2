@@ -10,19 +10,18 @@
 
 module fsm
 (
-input      clk,
-input      cs,
-input      sclk,
-input      read_write_bit,
 output reg sr_we,
 output reg dm_we,
 output reg addr_le,
-output reg miso_enable
+output reg miso_enable,
+input      cs,
+input      sclk,
+input      read_write_bit
 );
   reg counter = 0;
   reg state = `Q_GET;
 
-  always @(posedge clk) begin
+  always @(posedge sclk) begin
 
     case (state)
       `Q_GET:
