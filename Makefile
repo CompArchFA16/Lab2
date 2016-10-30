@@ -19,8 +19,23 @@ run-fsm: build-fsm
 build-fsm:
 	iverilog -Wall -o fsm.o fsm.t.v
 
+run-spimemory: build-spimemory
+	./spimemory.o
+
 build-spimemory:
-	iverilog -Wall -o spimemory.o spimemory.v
+	iverilog -Wall -o spimemory.o spimemory.t.v
+
+run-datamemory: build-datamemory
+	./datamemory.o
+
+build-datamemory:
+	iverilog -Wall -o datamemory.o datamemory.t.v
+
+run-addresslatch: build-addresslatch
+	./addresslatch.o
+
+build-addresslatch:
+	iverilog -Wall -o addresslatch.o addresslatch.t.v
 
 clean:
 	rm *.o *.out *.vcd

@@ -8,86 +8,101 @@
 `include "fsm.v"
 `include "misoSoup.v"
 
-module spiMemory
-(
-    input           clk,        // FPGA clock
-    input           sclk_pin,   // SPI clock
-    input           cs_pin,     // SPI chip select
-    output          miso_pin,   // SPI master in slave out
-    input           mosi_pin,   // SPI master out slave in
-    output [3:0]    leds        // LEDs for debugging
+module spiMemory (
+  output       miso_pin, // SPI master in slave out
+  output [3:0] leds,     // LEDs for debugging
+  input        clk,      // FPGA clock
+  input        sclk_pin, // SPI clock
+  input        cs_pin,   // SPI chip select
+  input        mosi_pin  // SPI master out slave in
 );
-	// input conditioner wires
+
+  // INPUT =====================================================================
+
+  // Conditioner outputs
 	wire conditionedMosi;
 	wire conditionedCS;
-	wire positiveedge;
-	wire negativeedge;
+	wire sClkPosEdge;
+	wire sClkNegEdge;
 
-	// shift register wires
-	wire[7:0] parallelOut;
-	wire serialOut;
-
-	// data memory wires
-	wire[7:0] DMDataOut;
-	wire[7:0] DMDataIn;
-	wire DMWriteEnable;
-	wire[6:0] DMAddress;
-
-	// fsm wires
-	wire SRWriteEnable;
-	wire addressWriteEnable;
-	wire misoBufferEnable;
-
-	inputconditioner conditioner1(.conditioned(conditionedMosi),
-								  .clk(clk),
-								  .noisysignal(mosi_pin)
+	inputconditioner mosiConditioner (
+    .conditioned(conditionedMosi),
+	  .clk(clk),
+	  .noisysignal(mosi_pin)
 	);
 
-    inputconditioner conditioner2(.positiveedge(positiveedge),
-    							  .negativeedge(negativeedge),
-    							  .clk(clk),
-    							  .noisysignal(sclk_pin)
+  inputconditioner sClkConditioner (
+    .positiveedge(sClkPosEdge),
+	  .negativeedge(sClkNegEdge),
+	  .clk(clk),
+	  .noisysignal(sclk_pin)
+  );
 
-    );
-    inputconditioner conditioner3(.conditioned(conditionedCS),
-    							  .clk(clk),
-    							  .noisysignal(cs_pin)
-    );
+  inputconditioner csConditioner (
+    .conditioned(conditionedCS),
+	  .clk(clk),
+	  .noisysignal(cs_pin)
+  );
 
-    datamemory mem(.dataOut(DMDataOut),
-    			   .clk(clk),
-    			   .address(DMAddress),
-    			   .writeEnable(DMWriteEnable),
-    			   .dataIn(DMDataIn)
-    );
+  // REGISTER CONTENT ==========================================================
 
-    shiftregister register(.parallelDataOut(parallelOut),
-    					   .serialDataOut(serialOut),
-    					   .serialDataIn(conditionedMosi),
-    					   .peripheralClkEdge(positiveedge),
-    					   .parallelDataIn(DMDataOut),
-    					   .clk(clk),
-    					   .parallelLoad(SRWriteEnable)
-    );
+  // Shift register outputs
+  wire [7:0] shiftRegParallelOut;
+  wire       shiftRegSerialOut;
 
-    fsm fsm(.misoBufferEnable(misoBufferEnable),
-    		.DMWriteEnable(DMWriteEnable),
-    		.addressWriteEnable(addressWriteEnable),
-    		.SRWriteEnable(SRWriteEnable),
-        .clk(clk),
-    		.sClkPosEdge(positiveedge),
-    		.readWriteEnable(parallelOut[0]),
-    		.chipSelectConditioned(conditionedCS)
-    );
+  // Address latch outputs
+  wire [6:0] addressLatchOut;
 
-    addressLatch latch(.addressLatchOut(DMAddress),
-                       .clk(clk),
-                       .writeEnable(addressWriteEnable),
-                       .addressLatchIn(parallelOut[7:1]) );
+  // Data memory outputs
+  wire [7:0] dataMemDataOut;
 
-    misoSoup misoOut(.q(miso_pin),
-            .d(serialOut),
-            .writeEnable(negativeedge),
-            .misoBufe(misoBufferEnable),
-            .clk(clk));
+  // FSM outputs
+  wire misoBufferEnable;
+  wire DMWriteEnable;
+  wire addressWriteEnable;
+  wire SRWriteEnable;
+
+  shiftregister shiftRegister (
+    .parallelDataOut(shiftRegParallelOut),
+    .serialDataOut(shiftRegSerialOut),
+    .serialDataIn(conditionedMosi),
+    .peripheralClkEdge(sClkPosEdge),
+    .parallelDataIn(dataMemDataOut),
+    .clk(clk),
+    .parallelLoad(SRWriteEnable)
+  );
+
+  datamemory dataMemory (
+    .dataOut(dataMemDataOut),
+	  .clk(clk),
+	  .address(addressLatchOut),
+    .writeEnable(DMWriteEnable),
+    .dataIn(shiftRegParallelOut)
+  );
+
+  fsm FSM (
+    .misoBufferEnable(misoBufferEnable),
+  	.DMWriteEnable(DMWriteEnable),
+    .addressWriteEnable(addressWriteEnable),
+    .SRWriteEnable(SRWriteEnable),
+    .clk(clk),
+    .sClkPosEdge(sClkPosEdge),
+    .readWriteEnable(shiftRegParallelOut[0]),
+    .chipSelectConditioned(conditionedCS)
+  );
+
+  addressLatch addressLatch (
+    .addressLatchOut(addressLatchOut),
+    .clk(clk),
+    .writeEnable(addressWriteEnable),
+    .addressLatchIn(shiftRegParallelOut[7:1])
+  );
+
+  misoSoup misoOut (
+    .q(miso_pin),
+    .d(shiftRegSerialOut),
+    .writeEnable(sClkNegEdge),
+    .misoBufe(misoBufferEnable),
+    .clk(clk)
+  );
 endmodule

@@ -25,15 +25,15 @@ module testFSM();
     .chipSelectConditioned(chipSelectConditioned)
   );
 
-  initial clk=0;
+  initial clk=1;
   always #1 clk=!clk;
 
   initial sClkPosEdge = 0;
   always begin
-    #299;
     sClkPosEdge <= 1;
-    #1;
+    #2;
     sClkPosEdge <= 0;
+    #298;
   end
 
   reg dutPassed;
@@ -41,16 +41,22 @@ module testFSM();
   task resetTest;
   begin
     $display("RESET STARTED AT %d.", $time);
-    #800;
+    #145;
     chipSelectConditioned = 1;
-    #800;
+    #150;
     $display("RESET ENDED AT %d.", $time);
+  end
+  endtask
+
+  task waitFor7SClkCycles;
+  begin
+    #2105;
   end
   endtask
 
   task waitFor8SClkCycles;
   begin
-    #6400;
+    #2400;
   end
   endtask
 
@@ -69,19 +75,32 @@ module testFSM();
     $dumpvars;
 
     dutPassed = 1;
+    #5;
 
     // Test if read request flags can be set properly.
     resetTest();
     chipSelectConditioned = 0;
     readWriteEnable = 1;
 
-    waitFor8SClkCycles();
-    if (misoBufferEnable !== 1
+    waitFor7SClkCycles();
+    if (misoBufferEnable !== 0
       || DMWriteEnable !== 0
       || addressWriteEnable !== 1
-      || SRWriteEnable !== 1) begin
+      || SRWriteEnable !== 0) begin
       dutPassed = 0;
-      $display("Reading failed.");
+      $display("Reading (address part) failed at %d.", $time);
+      displayFailedResults();
+    end
+
+    // TODO: Test misoBufferEnable before it hits 0.
+
+    waitFor8SClkCycles();
+    if (misoBufferEnable !== 0
+      || DMWriteEnable !== 0
+      || addressWriteEnable !== 0
+      || SRWriteEnable !== 0) begin
+      dutPassed = 0;
+      $display("Reading (data part) failed at %d.", $time);
       displayFailedResults();
     end
 
@@ -89,14 +108,25 @@ module testFSM();
     resetTest();
     chipSelectConditioned = 0;
     readWriteEnable = 0;
-
-    waitFor8SClkCycles();
+    waitFor7SClkCycles();
     if (misoBufferEnable !== 0
-      || DMWriteEnable !== 1
+      || DMWriteEnable !== 0
       || addressWriteEnable !== 1
       || SRWriteEnable !== 0) begin
       dutPassed = 0;
       $display("Writing failed at %d.", $time);
+      $display("Address part has failed.");
+      displayFailedResults();
+    end
+
+    waitFor8SClkCycles();
+    if (misoBufferEnable !== 0
+      || DMWriteEnable !== 1
+      || addressWriteEnable !== 0
+      || SRWriteEnable !== 0) begin
+      dutPassed = 0;
+      $display("Writing failed at %d.", $time);
+      $display("Data part has failed.");
       displayFailedResults();
     end
 
@@ -116,6 +146,7 @@ module testFSM();
       displayFailedResults();
     end
 
+    #1000;
     $display("Have all tests passed? %b", dutPassed);
     $finish();
   end
