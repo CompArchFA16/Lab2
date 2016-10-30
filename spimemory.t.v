@@ -15,6 +15,7 @@ module testSpiMemory();
    always #10 clk=!clk; // 50MHz Clock
 
    initial begin
+      
       $dumpfile("spimemory.vcd");
       $dumpvars();
 
@@ -187,6 +188,7 @@ module testSpiMemory();
 
       cs_pin=1; #10000;
 
+   $finish;
    end // initial begin
 
 endmodule
