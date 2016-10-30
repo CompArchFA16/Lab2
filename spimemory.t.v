@@ -1,6 +1,9 @@
 `include "spimemory.v"
 
-module testSpiMemory ();
+module testSpiMemory (
+  output [7:0] readValue,
+  output [7:0] writeValue
+);
 
   wire       miso_pin;
   wire [3:0] leds;
@@ -8,8 +11,6 @@ module testSpiMemory ();
   reg        sclk_pin;
   reg        cs_pin;
   reg        mosi_pin;
-
-  reg [7:0] miso_pin_stored;
 
   spiMemory dut (
     .miso_pin(miso_pin),
@@ -52,8 +53,8 @@ module testSpiMemory ();
 
       for (j = 7; j >= 0; j = j - 1) begin
         sclk_pin = 0;
-        miso_pin_stored[j] = miso_pin;
         #50;
+        readValue[j] = miso_pin;
         sclk_pin = 1;
         #50;
       end
@@ -64,7 +65,7 @@ module testSpiMemory ();
   endtask
 
   task spiWrite;
-    input  [6:0] address;
+    input [6:0] address;
     input [7:0] writeValue;
     integer i;
     integer j;
@@ -108,6 +109,8 @@ module testSpiMemory ();
     $dumpvars;
 
     dutPassed = 1;
+    readValue = 0;
+    writeValue = 0;
 
     // Does write and read work?
     address = 7'd3;
@@ -117,6 +120,7 @@ module testSpiMemory ();
     spiRead  (address, readValue);
 
     if (readValue !== 8'd10) begin
+      dutPassed = 0;
       $display("Writing and reading failed.");
       $display("readValue: %d", readValue);
       $display("writeValue: %d", writeValue);

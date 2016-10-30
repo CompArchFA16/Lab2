@@ -99,6 +99,10 @@ module fsm
             SRWriteEnable <= 1;
             currentState <= state_READ_3;
           end
+          state_READ_3: begin
+            SRWriteEnable <= 0;
+            misoBufferEnable <= 1;
+          end
           state_WRITE_2: begin
             DMWriteEnable <= 1;
             currentState <= state_DONE;
