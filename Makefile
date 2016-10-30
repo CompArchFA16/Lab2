@@ -10,6 +10,12 @@ run-shiftregister: build-shiftregister
 build-shiftregister:
 	iverilog -Wall -o shiftregister.o shiftregister.t.v
 
+run-misoSoup: build-misoSoup
+	./misoSoup.o
+
+build-misoSoup:
+	iverilog -Wall -o misoSoup.o misoSoup.t.v
+
 build-midpoint:
 	iverilog -Wall -o midpoint.o midpoint.v
 
