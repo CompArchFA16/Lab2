@@ -20,24 +20,15 @@ module fsm
   parameter state_WRITE_2   = 6;
   parameter state_DONE      = 7;
 
-  parameter waitTime = 8;
+  parameter waitTime = 7;
   reg [3:0] counter = 0;
   reg [2:0] currentState = state_GET;
 
-  reg sClkPosEdgeLatch;
-
   initial begin
-    sClkPosEdgeLatch = 0;
-
     misoBufferEnable <= 0;
     DMWriteEnable <= 0;
     addressWriteEnable <= 0;
     SRWriteEnable <= 0;
-  end
-
-
-  always @ (posedge sClkPosEdge) begin
-    sClkPosEdgeLatch <= sClkPosEdge;
   end
 
   // Peripheral clock dependent.
@@ -51,7 +42,45 @@ module fsm
       SRWriteEnable <= 0;
     end
     else begin
-      if (sClkPosEdgeLatch === 0) begin
+      if (sClkPosEdge === 1) begin
+        case (currentState)
+          state_GET: begin
+            if (counter !== waitTime) begin
+              counter <= counter + 1;
+              currentState <= state_GET;
+            end
+            else begin
+              counter <= 0;
+              currentState <= state_GOT;
+            end
+          end
+          state_READ_3: begin
+            SRWriteEnable <= 0;
+            if (counter != waitTime) begin
+              misoBufferEnable <= 1;
+              counter <= counter + 1;
+              currentState <= state_READ_3;
+            end
+            else begin
+              misoBufferEnable <= 0;
+              counter <= 0;
+              currentState <= state_DONE;
+            end
+          end
+          state_WRITE_1: begin
+            addressWriteEnable <= 0;
+            if (counter !== waitTime) begin
+              counter <= counter + 1;
+              currentState <= state_WRITE_1;
+            end
+            else begin
+              counter <= 0;
+              currentState <= state_WRITE_2;
+            end
+          end
+        endcase
+      end
+      else begin
         case (currentState)
           state_GOT: begin
             addressWriteEnable <= 1;
@@ -63,53 +92,25 @@ module fsm
             end
           end
           state_READ_1: begin
+            addressWriteEnable <= 0;
             currentState <= state_READ_2;
           end
           state_READ_2: begin
             SRWriteEnable <= 1;
             currentState <= state_READ_3;
           end
+          state_READ_3: begin
+            SRWriteEnable <= 0;
+            misoBufferEnable <= 1;
+          end
           state_WRITE_2: begin
             DMWriteEnable <= 1;
             currentState <= state_DONE;
           end
+          state_DONE: begin
+            DMWriteEnable <= 0;
+          end
         endcase
-      end
-      else begin
-        sClkPosEdgeLatch <= 0;
-        if (currentState === state_GET) begin
-          if (counter !== waitTime) begin
-            counter <= counter + 1;
-            currentState <= state_GET;
-          end
-          else begin
-            counter <= 0;
-            currentState <= state_GOT;
-          end
-        end
-
-        if (currentState === state_READ_3) begin
-          misoBufferEnable <= 1;
-          if (counter != waitTime) begin
-            counter <= counter + 1;
-            currentState <= state_READ_3;
-          end
-          else begin
-            counter <= 0;
-            currentState <= state_DONE;
-          end
-        end
-
-        if (currentState === state_WRITE_1) begin
-          if (counter !== waitTime) begin
-            counter <= counter + 1;
-            currentState <= state_WRITE_1;
-          end
-          else begin
-            counter <= 0;
-            currentState <= state_WRITE_2;
-          end
-        end
       end
     end
   end
