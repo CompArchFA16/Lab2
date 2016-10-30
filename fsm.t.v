@@ -25,15 +25,15 @@ module testFSM();
     .chipSelectConditioned(chipSelectConditioned)
   );
 
-  initial clk=0;
+  initial clk=1;
   always #1 clk=!clk;
 
   initial sClkPosEdge = 0;
   always begin
-    #299;
     sClkPosEdge <= 1;
-    #1;
+    #2;
     sClkPosEdge <= 0;
+    #298;
   end
 
   reg dutPassed;
@@ -41,16 +41,22 @@ module testFSM();
   task resetTest;
   begin
     $display("RESET STARTED AT %d.", $time);
-    #800;
+    #150;
     chipSelectConditioned = 1;
-    #800;
+    #150;
     $display("RESET ENDED AT %d.", $time);
+  end
+  endtask
+
+  task waitFor7SClkCycles;
+  begin
+    #2100;
   end
   endtask
 
   task waitFor8SClkCycles;
   begin
-    #6400;
+    #2400;
   end
   endtask
 
@@ -70,52 +76,65 @@ module testFSM();
 
     dutPassed = 1;
 
-    // Test if read request flags can be set properly.
-    resetTest();
-    chipSelectConditioned = 0;
-    readWriteEnable = 1;
-
-    waitFor8SClkCycles();
-    if (misoBufferEnable !== 1
-      || DMWriteEnable !== 0
-      || addressWriteEnable !== 1
-      || SRWriteEnable !== 1) begin
-      dutPassed = 0;
-      $display("Reading failed.");
-      displayFailedResults();
-    end
+    // // Test if read request flags can be set properly.
+    // resetTest();
+    // chipSelectConditioned = 0;
+    // readWriteEnable = 1;
+    //
+    // waitFor8SClkCycles();
+    // if (misoBufferEnable !== 1
+    //   || DMWriteEnable !== 0
+    //   || addressWriteEnable !== 1
+    //   || SRWriteEnable !== 1) begin
+    //   dutPassed = 0;
+    //   $display("Reading failed.");
+    //   displayFailedResults();
+    // end
 
     // Test if write request flags can be set properly.
     resetTest();
     chipSelectConditioned = 0;
     readWriteEnable = 0;
-
-    waitFor8SClkCycles();
+    #5;
+    waitFor7SClkCycles();
     if (misoBufferEnable !== 0
-      || DMWriteEnable !== 1
+      || DMWriteEnable !== 0
       || addressWriteEnable !== 1
       || SRWriteEnable !== 0) begin
       dutPassed = 0;
       $display("Writing failed at %d.", $time);
+      $display("Address part has failed.");
       displayFailedResults();
     end
 
-    // Test if any resets in `chipSelectConditioned = 1` nulls the whole operation.
-    resetTest();
-    chipSelectConditioned = 0;
-    readWriteEnable = 0;
-
     waitFor8SClkCycles();
-    chipSelectConditioned = 1; #10;
     if (misoBufferEnable !== 0
-      || DMWriteEnable !== 0
+      || DMWriteEnable !== 1
       || addressWriteEnable !== 0
       || SRWriteEnable !== 0) begin
       dutPassed = 0;
-      $display("Resetting failed at %d.", $time);
+      $display("Writing failed at %d.", $time);
+      $display("Data part has failed.");
       displayFailedResults();
     end
 
+    // // Test if any resets in `chipSelectConditioned = 1` nulls the whole operation.
+    // resetTest();
+    // chipSelectConditioned = 0;
+    // readWriteEnable = 0;
+    //
+    // waitFor8SClkCycles();
+    // chipSelectConditioned = 1; #10;
+    // if (misoBufferEnable !== 0
+    //   || DMWriteEnable !== 0
+    //   || addressWriteEnable !== 0
+    //   || SRWriteEnable !== 0) begin
+    //   dutPassed = 0;
+    //   $display("Resetting failed at %d.", $time);
+    //   displayFailedResults();
+    // end
+
+    #1000;
     $display("Have all tests passed? %b", dutPassed);
     $finish();
   end
