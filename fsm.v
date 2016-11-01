@@ -26,58 +26,55 @@ input      read_write_bit
     case (state)
       `Q_GET:
         begin
-          sr_we = 0; dm_we = 0; addr_le = 0; miso_enable = 0;
           counter = counter + 1;
-          if (counter == 7) begin
+          if (counter > 7) begin
             state = `Q_GOT;
             counter = 0;
           end
         end
       `Q_GOT:
         begin
-          sr_we = 0; dm_we = 0; addr_le = 1; miso_enable = 0;
           if (read_write_bit)
-            state = `Q_READ1;
+            state = `Q_READ2;
           else
             state = `Q_WRITE1;
+            counter = counter + 1;
         end
-      `Q_READ1:
-        begin
-          sr_we = 0; dm_we = 0; addr_le = 0; miso_enable = 0;
-          state = `Q_READ2;
-        end
+      `Q_READ1: state = `Q_READ2;
       `Q_READ2:
         begin
-          sr_we = 1; dm_we = 0; addr_le = 0; miso_enable = 0;
-          state = `Q_READ2;
+          state = `Q_READ3;
+          counter = counter + 1;
         end
       `Q_READ3:
         begin
-          sr_we = 0; dm_we = 0; addr_le = 0; miso_enable = 1;
           counter = counter + 1;
-          if (counter == 8) begin
+          if (counter > 8) begin
             state = `Q_DONE;
             counter = 0;
           end
         end
       `Q_WRITE1:
         begin
-          sr_we = 0; dm_we = 0; addr_le = 0; miso_enable = 0;
           counter = counter + 1;
-          if (counter == 8) begin
+          if (counter > 7) begin
             state = `Q_WRITE2;
             counter = 0;
           end
         end
-      `Q_WRITE2:
-        begin
-          sr_we = 0; dm_we = 1; addr_le = 0; miso_enable = 0;
-          state = `Q_DONE;
-        end
-      `Q_DONE:
-        begin
-          sr_we = 0; dm_we = 0; addr_le = 0; miso_enable = 0;
-        end
+      `Q_WRITE2: state = `Q_DONE;
+      `Q_DONE: state = `Q_DONE;
+    endcase
+
+    case (state)
+      `Q_GET:    begin sr_we = 0; dm_we = 0; addr_le = 0; miso_enable = 0; end
+      `Q_GOT:    begin sr_we = 0; dm_we = 0; addr_le = 1; miso_enable = 0; end
+      `Q_READ1:  begin sr_we = 0; dm_we = 0; addr_le = 0; miso_enable = 0; end
+      `Q_READ2:  begin sr_we = 1; dm_we = 0; addr_le = 0; miso_enable = 1; end
+      `Q_READ3:  begin sr_we = 0; dm_we = 0; addr_le = 0; miso_enable = 1; end
+      `Q_WRITE1: begin sr_we = 0; dm_we = 0; addr_le = 0; miso_enable = 0; end
+      `Q_WRITE2: begin sr_we = 0; dm_we = 1; addr_le = 0; miso_enable = 0; end
+      `Q_DONE:   begin sr_we = 0; dm_we = 0; addr_le = 0; miso_enable = 0; end
     endcase
 
     if (cs) begin

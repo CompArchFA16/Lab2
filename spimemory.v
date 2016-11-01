@@ -74,7 +74,7 @@ datamemory dm(clk, dOut, addr, dmWe, parallelOut);
 dFF dff(clk, serialOut, negativeEdge1, diffOutput);
 
 // Final output
-and andgate(miso_pin, misoBufe, dffOutput);
+and andgate(miso_pin, misoBufe, diffOutput);
 
 endmodule
 

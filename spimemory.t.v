@@ -25,142 +25,149 @@ module testSpiMemory();
       // Write to address 0101010
 
       // A6
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
 
       // A5
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 1; #1000
       sclk_pin = 1; #1000
 
       // A4
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
 
       // A3
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 1; #1000
       sclk_pin = 1; #1000
 
       // A2
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
 
       // A1
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 1; #1000
       sclk_pin = 1; #1000
 
       // A0
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
 
       // R/W
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
 
       // Write 00000111
 
       // W7
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
 
       // W6
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
 
       // W5
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
 
       // W4
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
 
       // W3
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
 
       // W2
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 1; #1000
       sclk_pin = 1; #1000
 
       // W1
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 1; #1000
       sclk_pin = 1; #1000
 
       // W0
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 1; #1000
       sclk_pin = 1; #1000
 
       // Two extra clock ticks
       sclk_pin = 0; #1000
-      #1000
+      sclk_pin = 1; #1000
+
+      sclk_pin = 0;
+      cs_pin=1; #1000
       sclk_pin = 1; #1000
 
       sclk_pin = 0; #1000
-      cs_pin=1; #1000
       sclk_pin = 1; #1000
-      #5000;
-      cs_pin=0;
+
+      sclk_pin = 0; #1000
+      sclk_pin = 1; #1000
+
+      sclk_pin = 0; #1000
+      sclk_pin = 1; #1000
 
       // Read from address 0101010
 
       // A6
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
+      cs_pin = 0;
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
 
       // A5
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 1; #1000
       sclk_pin = 1; #1000
 
       // A4
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
 
       // A3
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 1; #1000
       sclk_pin = 1; #1000
 
       // A2
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
 
       // A1
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 1; #1000
       sclk_pin = 1; #1000
 
       // A0
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
 
       // R/W
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 1; #1000
       sclk_pin = 1; #1000
 
       // D7
-      sclk_pin = 0; #1000
+      sclk_pin = 0;
       mosi_pin = 0; #1000
       sclk_pin = 1; #1000
 
@@ -192,7 +199,10 @@ module testSpiMemory();
       sclk_pin = 0; #1000
       sclk_pin = 1; #1000
 
-      cs_pin=1; #10000
+      sclk_pin = 0;
+      cs_pin=1; #1000
+      sclk_pin = 1; #1000
+
 
    $finish;
    end // initial begin
