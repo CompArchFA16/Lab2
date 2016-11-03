@@ -1,0 +1,22 @@
+------------------------
+CompArch Lab 2 Work Plan
+------------------------
+
+(5) Input Conditioning
+   (1) Complete module
+   (1) Complete test bench
+   (1) Complete test script
+   (1) Circuit diagram for structural circuit of input conditioner
+   (1) Timing analysis of glitch suppression
+(5) Shift Register
+   (2.5) Complete module
+   (1.5) Complete test bench
+   (1) Describe test bench strategy
+(2) FPGA Implementation
+
+--------Midpoint--------
+
+(1) Create SPI Memory
+(1) FPGA Implementation
+(1) SPI Memory Testing
+(3) Report
